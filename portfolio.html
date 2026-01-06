@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Portfolio | TaiStat Consultancy</title>
+  <meta name="description" content="Explore TaiStat's portfolio featuring YodaAI and TaiStat AgroLink - innovative AI and blockchain solutions transforming agile teams and agriculture.">
+  <meta name="keywords" content="TaiStat Portfolio, YodaAI, TaiStat AgroLink, AI Solutions, Agile Retrospectives, Blockchain Agriculture">
+
+  <!-- Favicons -->
+   <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
+  
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+
+</head>
+<style>
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+    }
+    .social-links a img {
+      display: block;
+      width: 30px;
+      height: auto;
+    }
+
+/* Portfolio Hero Section */
+.portfolio-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 8rem 0 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+  opacity: 0.3;
+}
+
+.portfolio-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.portfolio-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.portfolio-hero p {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  opacity: 0.95;
+  margin-bottom: 2rem;
+}
+
+/* Project Showcase Section */
+.project-showcase {
+  padding: 6rem 0;
+  background: #001f3f;
+}
+
+.project-card {
+  background: #1a1a1a;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 auto 4rem auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  max-width: 900px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.project-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 4rem;
+  position: relative;
+}
+
+.project-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.project-content {
+  padding: 3rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-category {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.project-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.project-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.project-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.project-features li {
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  color: #e0e0e0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.project-features li:last-child {
+  border-bottom: none;
+}
+
+.project-features li i {
+  color: #667eea;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-project {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary-project {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.btn-primary-project:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  color: #fff;
+}
+
+.btn-outline-project {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.btn-outline-project:hover {
+  background: #667eea;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* How It Works Section */
+.how-it-works {
+  padding: 4rem 0;
+  background: #1b1a1a;
+  color: #eee;
+}
+
+.how-it-works-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.work-step {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.work-step:hover {
+  transform: translateY(-5px);
+  border-color: aquamarine;
+}
+
+.work-step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.work-step h4 {
+  color: aquamarine;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.work-step p {
+  color: #ccc;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .project-card {
+    min-height: auto;
+    max-width: 100%;
+  }
+  
+  .project-image {
+    height: 180px;
+  }
+  
+  .project-content {
+    padding: 2rem;
+  }
+  
+  .project-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-hero {
+    padding: 6rem 0 4rem;
+  }
+  
+  .project-showcase {
+    padding: 4rem 0;
+  }
+  
+  .project-card {
+    max-width: 100%;
+  }
+  
+  .project-image {
+    height: 150px;
+  }
+  
+  .project-title {
+    font-size: 1.75rem;
+  }
+  
+  .how-it-works-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+
+
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="assets/img/tailogo.png" alt="" style="border-radius: 50%; ">
+       
+      </a>
+
+    <nav id="navmenu" class="navmenu">
+  <ul>
+    <li><a href="index.html" class="active">Home<br></a></li>
+     <li><a href="AI.html">AI</a></li> <!-- Added "Data" menu item -->
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <!-- <li><a href="courses.html">Courses</a></li> --> <!-- Commented out "Courses" -->
+    <li><a href="aboutus.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+</nav>
+
+
+       <a class="btn-getstarted flex-md-shrink-0" href="contact.html">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+<!-- Portfolio Hero Section -->
+<section class="portfolio-hero" data-aos="fade-up">
+  <div class="portfolio-hero-content">
+    <h1>Our Portfolio</h1>
+    <p>Innovative solutions that transform teams and industries. Explore our cutting-edge projects that combine AI, blockchain, and data-driven insights to solve real-world challenges.</p>
+  </div>
+</section>
+
+<!-- Project Showcase Section -->
+<section class="project-showcase" id="yodaai">
+  <div class="container" data-aos="fade-up">
+    <!-- Section Title -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 style="color: #fff; font-size: 3rem; font-weight: 700; margin-bottom: 1rem;">Our Projects</h2>
+        <p style="color: #ccc; font-size: 1.2rem; opacity: 0.9; line-height: 1.7; margin: 0;">
+          Explore our innovative solutions that transform how teams collaborate and how industries operate.
+        </p>
+      </div>
+    </div>
+    <!-- End Section Title -->
+    
+    <div class="row gy-4 gx-4 justify-content-center">
+      
+    <!-- TaiStat AgroLink Project - Left -->
+    <div class="col-lg-6 col-md-12">
+    <div class="project-card" id="agrolink" data-aos="zoom-in" data-aos-delay="200">
+      <div class="project-content" style="padding-top: 3rem;">
+        <span class="project-category" style="background: linear-gradient(135deg, #43ff3d 0%, #05d1c8 100%);">Blockchain & Agriculture</span>
+        <h2 class="project-title">TaiStat AgroLink</h2>
+        <p class="project-description">
+          A Kenya-first blockchain marketplace connecting verified farmers with trusted buyers through transparent pricing, fair markets, and guaranteed sales. Where verified farmers meet trusted buyers with end-to-end visibility.
+        </p>
+        
+        <h4 style="color: aquamarine; font-size: 1.3rem; margin-bottom: 1rem;">Key Features:</h4>
+        <ul class="project-features">
+          <li><i class="bi bi-check-circle-fill" style="color: #43ff3d;"></i> Blockchain-powered traceability for all crops</li>
+          <li><i class="bi bi-check-circle-fill" style="color: #43ff3d;"></i> Real-time connection between farmers and buyers</li>
+          <li><i class="bi bi-check-circle-fill" style="color: #43ff3d;"></i> Verified farmer onboarding with KYC compliance</li>
+          <li><i class="bi bi-check-circle-fill" style="color: #43ff3d;"></i> Smart pricing intelligence and tender system</li>
+          <li><i class="bi bi-check-circle-fill" style="color: #43ff3d;"></i> Coin-based monetization and bidding</li>
+          <li><i class="bi bi-check-circle-fill" style="color: #43ff3d;"></i> Serves 34 Kenyan counties</li>
+        </ul>
+        
+        <div class="project-links">
+          <a href="https://taistat-agrolink.vercel.app/" target="_blank" class="btn-project btn-primary-project" style="background: linear-gradient(135deg, #43ff3d 0%, #05d1c8 100%);">
+            <i class="bi bi-box-arrow-up-right"></i> Visit Website
+          </a>
+          <a href="https://taistat-agrolink.vercel.app/" target="_blank" class="btn-project btn-outline-project" style="border-color: #43ff3d; color: #43ff3d;">
+            <i class="bi bi-info-circle"></i> Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- YodaAI Project - Right -->
+    <div class="col-lg-6 col-md-12">
+    <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+      <div class="project-content" style="padding-top: 3rem;">
+        <span class="project-category">AI & Agile Tools</span>
+        <h2 class="project-title">YodaAI</h2>
+        <p class="project-description">
+          YodaAI is an intelligent, AI-powered retrospective assistant designed to help agile teams run engaging and structured sprint reviews using the 4Ls framework (Liked, Learned, Lacked, and Longed For). It transforms traditional retrospectives into dynamic, conversation-driven sessions guided by AI.
+        </p>
+        
+        <h4 style="color: aquamarine; font-size: 1.3rem; margin-bottom: 1rem;">Key Features:</h4>
+        <ul class="project-features">
+          <li><i class="bi bi-check-circle-fill"></i> AI-guided 4Ls framework facilitation</li>
+          <li><i class="bi bi-check-circle-fill"></i> Automatic theme identification and grouping</li>
+          <li><i class="bi bi-check-circle-fill"></i> Team voting system for priority themes</li>
+          <li><i class="bi bi-check-circle-fill"></i> Disciplined Agile-based recommendations</li>
+          <li><i class="bi bi-check-circle-fill"></i> Comprehensive PDF report generation</li>
+          <li><i class="bi bi-check-circle-fill"></i> Action items tracking and follow-up</li>
+        </ul>
+        
+        <div class="project-links">
+          <a href="https://yoda-ai-theta.vercel.app/ui/yodaai-app.html" target="_blank" class="btn-project btn-primary-project">
+            <i class="bi bi-box-arrow-up-right"></i> Visit Website
+          </a>
+          <a href="https://yoda-ai-theta.vercel.app/ui/yodaai-app.html" target="_blank" class="btn-project btn-outline-project">
+            <i class="bi bi-info-circle"></i> Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Impact Section -->
+<section class="impact-section" style="background: #012970; color: #fff; padding: 5rem 0;">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-8">
+        <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: #fff;">Making Real Impact</h2>
+        <p style="font-size: 1.2rem; color: #fff; opacity: 0.9; line-height: 1.7;">
+          Our portfolio showcases innovative solutions that transform how teams collaborate and how industries operate. From AI-powered agile tools to blockchain-enabled agriculture platforms, we're building the future of technology.
+        </p>
+      </div>
+    </div>
+    
+    <div class="row gy-4 mt-4">
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+        <div style="text-align: center; padding: 2rem;">
+          <div style="font-size: 3.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-people-fill" style="color: aquamarine;"></i>
+          </div>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Agile Teams</h4>
+          <p style="color: #fff; opacity: 0.9; line-height: 1.7;">
+            Empowering agile teams with AI-driven retrospective tools that improve collaboration and productivity
+          </p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+        <div style="text-align: center; padding: 2rem;">
+          <div style="font-size: 3.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-tree-fill" style="color: #43ff3d;"></i>
+          </div>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Kenyan Farmers</h4>
+          <p style="color: #fff; opacity: 0.9; line-height: 1.7;">
+            Connecting farmers with buyers through transparent blockchain traceability and fair markets
+          </p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <div style="text-align: center; padding: 2rem;">
+          <div style="font-size: 3.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-lightbulb-fill" style="color: #667eea;"></i>
+          </div>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Innovation</h4>
+          <p style="color: #fff; opacity: 0.9; line-height: 1.7;">
+            Combining AI, blockchain, and data analytics to create transformative solutions for modern challenges
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" style="background: #001f3f; color: #fff; padding: 5rem 0;">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title text-center mb-5">
+      <h2 style="color: #fff; font-size: 3rem; font-weight: 700; margin-bottom: 1rem;">What Our Clients Say</h2>
+    </div>
+    
+    <div class="testimonial-carousel">
+      <div class="carousel-track">
+        <div class="testimonial-item">
+          <img src="assets/img/naveen-removebg-preview-removebg-preview.png" alt="Naveen Khambum">
+          <h4 style="color: #fff; margin: 0.5rem 0;">Naveen Khambum</h4>
+          <blockquote style="color: #fff; font-style: italic; line-height: 1.6; margin: 1rem 0 0 0;">
+            "TaiStat supported our team with advanced machine learning solutions for our pharmaceutical research. From data preprocessing to model development, our collaboration enhanced predictive accuracy and streamlined research workflows."
+          </blockquote>
+        </div>
+        <div class="testimonial-item">
+          <img src="assets/img/vincent.jpeg" alt="Vincent Otis">
+          <h4 style="color: #fff; margin: 0.5rem 0;">Vincent Otis</h4>
+          <blockquote style="color: #fff; font-style: italic; line-height: 1.6; margin: 1rem 0 0 0;">
+            "TaiStat has enabled our organization to automate customer service operations by developing a smart WhatsApp chatbot. This has drastically reduced response times, improved customer satisfaction, and allowed the business to operate 24/7 without additional staffing costs."
+          </blockquote>
+        </div>
+        <div class="testimonial-item">
+          <img src="assets/img/person 2.jpg" alt="Betty Muriuki">
+          <h4 style="color: #fff; margin: 0.5rem 0;">Betty Muriuki</h4>
+          <blockquote style="color: #fff; font-style: italic; line-height: 1.6; margin: 1rem 0 0 0;">
+            "TaiStat has designed and developed a fully functional, responsive website. From structure to content, our team ensured it aligned with our brand and business goals, helping us attract more clients and grow our online presence."
+          </blockquote>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="prev" style="background: none; border: none; font-size: 2rem; color: #fff; cursor: pointer; padding: 0.5rem 1rem;">&#10094;</button>
+        <div class="dots"></div>
+        <button class="next" style="background: none; border: none; font-size: 2rem; color: #fff; cursor: pointer; padding: 0.5rem 1rem;">&#10095;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #testimonials {
+    background: #001f3f;
+    color: #fff;
+    padding: 5rem 0;
+  }
+  
+  #testimonials .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .testimonial-carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .testimonial-item {
+    flex: 0 0 100%;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  .testimonial-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid aquamarine;
+  }
+  
+  .testimonial-item h4 {
+    margin: 0.5rem 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  
+  .testimonial-item blockquote {
+    font-style: italic;
+    line-height: 1.8;
+    margin: 1.5rem 0 0 0;
+    color: #fff;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .carousel-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 1rem;
+  }
+  
+  .carousel-nav button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .carousel-nav button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: aquamarine;
+    transform: scale(1.1);
+  }
+  
+  .dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .dots button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .dots button.active {
+    background: aquamarine;
+    width: 30px;
+    border-radius: 6px;
+  }
+  
+  @media (min-width: 768px) {
+    .testimonial-item {
+      flex: 0 0 50%;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .testimonial-item {
+      flex: 0 0 33.333%;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const track = document.querySelector('#testimonials .carousel-track');
+    if (!track) return;
+    const items = Array.from(track.children);
+    const prevBtn = document.querySelector('#testimonials .prev');
+    const nextBtn = document.querySelector('#testimonials .next');
+    const dotsContainer = document.querySelector('#testimonials .dots');
+    let currentPage = 0, visibleCount, pages, autoSlide;
+
+    function setup() {
+      const w = window.innerWidth;
+      visibleCount = w <= 600 ? 1 : (w <= 900 ? 2 : 3);
+      pages = Math.ceil(items.length / visibleCount);
+      currentPage = 0;
+      track.style.transform = 'translateX(0)';
+      buildDots();
+    }
+
+    function buildDots() {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < pages; i++) {
+        const btn = document.createElement('button');
+        if (i === 0) btn.classList.add('active');
+        btn.addEventListener('click', () => goToPage(i));
+        dotsContainer.appendChild(btn);
+      }
+    }
+
+    function updateDots() {
+      if (!dotsContainer) return;
+      Array.from(dotsContainer.children).forEach((d, i) => {
+        d.classList.toggle('active', i === currentPage);
+      });
+    }
+
+    function goToPage(n) {
+      currentPage = (n + pages) % pages;
+      const itemWidth = items[0].offsetWidth;
+      const shift = itemWidth * visibleCount * currentPage;
+      track.style.transform = `translateX(-${shift}px)`;
+      updateDots();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+    window.addEventListener('resize', setup);
+
+    function startAuto() {
+      autoSlide = setInterval(() => goToPage(currentPage + 1), 5000);
+    }
+    function stopAuto() {
+      clearInterval(autoSlide);
+    }
+
+    const carousel = document.querySelector('#testimonials .testimonial-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopAuto);
+      carousel.addEventListener('mouseleave', startAuto);
+    }
+
+    setup();
+    startAuto();
+  })();
+</script>
+
+</main>
+
+<footer style="background-color: rgb(10, 9, 9); color: beige;" id="footer" class="footer">
+
+<div class="footer-newsletter">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-6">
+        <h4 style="color: aquamarine;">Join Our Newsletter</h4>
+        <p>Subscribe to our newsletter and stay updated on the latest in Data Science, Machine Learning, and Business Intelligence solutions!</p>
+        <!-- Replace your old form with this: -->
+        <form id="newsletter-form">
+          <div class="newsletter-form">
+            <input type="email" name="email" placeholder="Your email" required>
+            <input type="submit" value="Subscribe">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const form = document.getElementById('newsletter-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.elements['email'].value.trim();
+      if (!email) return alert('Please enter a valid email.');
+
+      // Google Form "formResponse" endpoint:
+      const url = 'https://docs.google.com/forms/d/e/1FAIpQLSfBxKteHJY_BR5PG8D1RiNH8zNohQ4MseFXf75Qcipiu8iLkA/formResponse';
+
+      // Map your input to the correct entry ID:
+      const data = new URLSearchParams();
+      data.append('entry.975547394', email);
+
+      // Send as POST, no-cors so it won’t redirect
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString()
+      })
+      .then(() => {
+        alert('Your subscription request has been sent. Thank you!');
+        form.reset();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Oops—something went wrong. Please try again later.');
+      });
+    });
+  })();
+</script>
+
+
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="index.html" class="d-flex align-items-center">
+          <span style="color: aquamarine;" class="sitename">TaiStat Consultancy</span>
+        </a>
+        <div class="footer-contact pt-3">
+          <p>Remote Firm</p>
+          <p>Serving Clients Worldwide</p>
+          <p class="mt-3"><strong>Phone:</strong> <span>+254 111-224-952</span></p>
+          <p><strong>Email:</strong> <span>taistatfirm@gmail.com</span></p>
+        </div>
+      </div>
+
+    <div class="col-lg-4 col-md-6">
+  <h4 style="color: aquamarine;">Services</h4>
+  <ul style="color: white;">
+    <li><a href="services.html#service-data-analysis-consultancy" style="color: white;">Data Analysis &amp; Consultancy</a></li>
+    <li><a href="services.html#service-ai-taskers" style="color: white;">Get Participants &amp; AI Taskers</a></li>
+    <li><a href="services.html#service-ai-in-schools" style="color: white;">AI in Schools</a></li>
+    <li><a href="services.html#service-hotels-businesses" style="color: white;">Hotels &amp; Businesses Analytics</a></li>
+    <li><a href="services.html#service-agriculture" style="color: white;">Agriculture Solutions</a></li>
+    <li><a href="services.html#service-climate-change" style="color: white;">Climate Change Initiatives</a></li>
+    <li><a href="services.html#service-data-analytics" style="color: white;">Data Analytics</a></li>
+    <li><a href="services.html#service-machine-learning" style="color: white;">Machine Learning Models</a></li>
+    <li><a href="services.html#service-business-intelligence" style="color: white;">Business Intelligence</a></li>
+    <li><a href="services.html#service-software-solutions" style="color: white;">Custom Software Solutions</a></li>
+    <li><a href="services.html#service-training-workshops" style="color: white;">Training &amp; Workshops</a></li>
+    <li><a href="services.html#service-consulting-services" style="color: white;">Consulting Services</a></li>
+  </ul>
+</div>
+
+<div class="col-lg-4 col-md-6">
+  <h4 style="color: aquamarine;">Industries</h4>
+  <ul>
+    <li>Artificial Intelligence</li>
+    <li>Agriculture</li>
+    <li>Healthcare</li>
+    <li>Hospitality</li>
+    <li>Retail</li>
+    <li>Finance</li>
+    <li>Education</li>
+  </ul>
+</div>
+
+
+
+      <div class="col-lg-4 col-md-12">
+        <h4 style="color: aquamarine;">Follow Us</h4>
+        <p>Join our community and explore the transformative power of data-driven insights.</p>
+    <div class="social-links">
+    <!-- X icon from local storage -->
+    <a
+      href="https://x.com/TaistatFirm"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="X"
+    >
+      <img src="assets/img/twiter.png" alt="X logo">
+    </a>
+
+    <!-- LinkedIn icon from local storage -->
+    <a
+      href="https://www.linkedin.com/company/taistat-consultancy-firm/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+    >
+      <img src="assets/img/linkedin.png" alt="LinkedIn logo">
+    </a>
+
+    <!-- Facebook icon from local storage -->
+    <a
+      href="https://www.facebook.com/TaiStatFirm"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook"
+    >
+      <img src="assets/img/facebook.jpeg" alt="Facebook logo">
+    </a>
+  </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>&copy; <span>Copyright</span> <strong class="px-1 sitename" style="color: aquamarine;">TaiStat Firm</strong> <span>All Rights Reserved</span></p>
+    
+  </div>
+
+</footer>
+<div id="whatsapp-container" class="whatsapp-container">
+  <a href="https://wa.me/254111224952" target="_blank" class="whatsapp-float">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='64' height='64'%3E%3Cpath fill='%23fff' d='M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.5 2.1 8L0 32l8.2-2.1c2.5 1.3 5.2 2 7.8 2 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 27.9c-2.4 0-4.7-.6-6.8-1.7l-.5-.3-4.9 1.2 1.3-4.7-.3-.5c-1.3-2.1-1.9-4.3-1.9-6.6C2.9 8.1 8.1 2.9 16 2.9s13.1 5.2 13.1 13.1-5.2 13.1-13.1 13.1zm7.1-9.9c-.4-.2-2.4-1.2-2.8-1.3-.4-.1-.7-.2-1 .2s-.9 1.3-1.1 1.6c-.2.3-.4.3-.8.1s-1.6-.6-3.1-1.9c-1.1-1-1.9-2.2-2.2-2.6s0-.6.2-.8c.2-.2.4-.4.6-.6.2-.2.3-.4.5-.6.2-.2.3-.4.5-.6s.3-.4.4-.6c.1-.2.1-.4 0-.6-.1-.2-.9-2.1-1.2-2.8-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6 0-.9.4-.3.4-1.2 1.1-1.2 2.7s1.3 3.2 1.5 3.5c.2.3 2.6 4.3 6.3 6 .9.4 1.6.6 2.1.8.9.3 1.7.3 2.3.2.7-.1 2.4-1 2.8-2 .4-1.1.4-2 .3-2.2-.1-.2-.4-.2-.8-.4z'/%3E%3C/svg%3E" alt="WhatsApp">
+  </a>
+  <button class="close-btn" onclick="closeWhatsApp()">X</button>
+</div>
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+ <script>
+        function closeWhatsApp() {
+            document.getElementById('whatsapp-container').style.display = 'none';
+        }
+    </script>
+<!-- Vendor JS Files -->
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Main JS File -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

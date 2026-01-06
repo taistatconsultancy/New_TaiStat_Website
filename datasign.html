@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Taistat Auth</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"/>
+ <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0 }
+    body {
+      font-family: "Ancizar Serif", serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Round Logo */
+    .logo {
+      display: block;
+      margin: 0 auto 1.5rem auto;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #2b3aef;
+    }
+    .logo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+    .input-group label {
+      display:block;
+      margin-bottom: 0.25rem;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .input-group input:focus {
+      border-color: #2b3aef;
+    }
+
+    .status {
+      color: #e74c3c; /* red by default */
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      min-height: 1.2rem;
+    }
+    .status.success {
+      color: #27ae60; /* green for success */
+    }
+
+    .forgot {
+      text-align: right;
+      margin-bottom: 1.5rem;
+    }
+    .forgot a {
+      font-size: 0.9rem;
+      color: #2b3aef;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .forgot a:hover { text-decoration: underline; }
+
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #2b3aef;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+    .btn:disabled {
+      background: #8ea1f9;
+      cursor: not-allowed;
+    }
+
+    .switch-link {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .switch-link a {
+      color: #2b3aef;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .switch-link a:hover { text-decoration: underline; }
+
+    /* hidden by default */
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm" class="form-section active">
+      <div class="logo">
+        <!-- replace with your logo -->
+        <img src="assets/img/tailogo.png" alt="Taistat"/>
+      </div>
+      <h2>Log in</h2>
+      <div class="status" id="loginStatus"></div>
+      <div class="input-group">
+        <label for="loginEmail">Email address</label>
+        <input id="loginEmail" type="email" placeholder="you@company.com" required/>
+      </div>
+      <div class="input-group">
+        <label for="loginPass">Password</label>
+        <input id="loginPass" type="password" placeholder="••••••••" required/>
+      </div>
+      <div class="forgot">
+        <a href="#" id="toReset">Forgot password?</a>
+      </div>
+      <button class="btn" id="loginBtn">Continue</button>
+      <div class="switch-link">
+        Don’t have an account?
+        <a href="#" id="toRegister">Sign up</a>
+      </div>
+    </div>
+
+    <!-- RESET PASSWORD FORM -->
+    <div id="resetForm" class="form-section">
+      <div class="logo">
+        <img src="assets/img/tailogo.png" alt="Taistat"/>
+      </div>
+      <h2>Reset Password</h2>
+      <div class="status" id="resetStatus"></div>
+      <div class="input-group">
+        <label for="resetEmail">Your email</label>
+        <input id="resetEmail" type="email" placeholder="you@company.com" required/>
+      </div>
+      <button class="btn" id="sendReset">Send reset link</button>
+      <div class="switch-link">
+        <a href="#" id="backToLogin1">Back to Log in</a>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerForm" class="form-section">
+      <div class="logo">
+        <img src="assets/img/tailogo.png" alt="Taistat"/>
+      </div>
+      <h2>Sign up</h2>
+      <div class="status" id="registerStatus"></div>
+      <div class="input-group">
+        <label for="regFirst">First Name</label>
+        <input id="regFirst" type="text" placeholder="John" required/>
+      </div>
+      <div class="input-group">
+        <label for="regLast">Last Name</label>
+        <input id="regLast" type="text" placeholder="Doe" required/>
+      </div>
+      <div class="input-group">
+        <label for="regEmail">Email address</label>
+        <input id="regEmail" type="email" placeholder="you@company.com" required/>
+      </div>
+      <div class="input-group">
+        <label for="regPass">Password</label>
+        <input id="regPass" type="password" placeholder="••••••••" required/>
+      </div>
+      <div class="input-group">
+        <label for="regConfirm">Confirm Password</label>
+        <input id="regConfirm" type="password" placeholder="••••••••" required/>
+      </div>
+      <button class="btn" id="registerBtn">Create account</button>
+      <div class="switch-link">
+        Already have an account?
+        <a href="#" id="backToLogin2">Log in</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6xgrttBIm9vw07xRltKsqHZNpS1jJ8xw",
+      authDomain: "taistat-f0e1d.firebaseapp.com",
+      projectId: "taistat-f0e1d",
+      storageBucket: "taistat-f0e1d.firebasestorage.app",
+      messagingSenderId: "196742294604",
+      appId: "1:196742294604:web:715fe57bf6471221b898e9"
+    };
+      
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Helper: clear all status messages
+    function clearStatuses() {
+      ["loginStatus", "registerStatus", "resetStatus"].forEach(id => {
+        const el = document.getElementById(id);
+        el.textContent = "";
+        el.classList.remove("success");
+      });
+    }
+
+    // Helper: show a status message on a specific form
+    function showStatus(formType, message, isSuccess = false) {
+      const statusEl = document.getElementById(`${formType}Status`);
+      statusEl.textContent = message;
+      if (isSuccess) statusEl.classList.add("success");
+      else statusEl.classList.remove("success");
+    }
+
+    // Map Firebase Auth error codes to user-friendly text
+    function getFirebaseErrorMessage(code) {
+      const messages = {
+        // Registration errors
+        "auth/email-already-in-use":  "That email address is already in use. Please try logging in or choose another.",
+        "auth/invalid-email":         "The email address is not valid. Please check for typos and try again.",
+        "auth/weak-password":         "Password is too weak. It must be at least 6 characters.",
+
+        // Login errors
+        "auth/user-not-found":        "No account found with that email. Please register first.",
+        "auth/wrong-password":        "Incorrect password. Please try again.",
+        "auth/invalid-credential":    "The credentials provided are invalid. Please double-check.",
+        "auth/too-many-requests":     "Too many failed login attempts. Try again later.",
+
+        // Reset‐password errors
+        "auth/user-disabled":         "This account has been disabled. Contact support if you need help.",
+        "auth/missing-email":         "Please enter an email address.",
+        // Reuse user-not-found for reset if needed
+        "auth/unknown":               "An unknown error occurred. Please try again."
+      };
+
+      // If resetting, “auth/user-not-found” could be shown differently:
+      if (code === "auth/user-not-found" && currentOperation === "reset") {
+        return "No account found with that email, so we can’t send a reset link.";
+      }
+      return messages[code] || null;
+    }
+
+    // Track which operation is currently running (login, register, reset)
+    let currentOperation = "";
+
+    // FORM REFERENCES
+    const loginForm    = document.getElementById('loginForm');
+    const resetForm    = document.getElementById('resetForm');
+    const registerForm = document.getElementById('registerForm');
+
+    // Show/Hide helper
+    function show(section) {
+      clearStatuses();
+      [loginForm, resetForm, registerForm].forEach(s => s.classList.remove('active'));
+      section.classList.add('active');
+    }
+
+    // Navigation links
+    document.getElementById('toReset').onclick = e => { e.preventDefault(); show(resetForm); };
+    document.getElementById('backToLogin1').onclick = e => { e.preventDefault(); show(loginForm); };
+    document.getElementById('toRegister').onclick = e => { e.preventDefault(); show(registerForm); };
+    document.getElementById('backToLogin2').onclick = e => { e.preventDefault(); show(loginForm); };
+
+    // ----------------------------
+    // 1. LOGIN WITH EMAIL & PASSWORD
+    // ----------------------------
+    document.getElementById('loginBtn').onclick = async () => {
+      clearStatuses();
+      currentOperation = "login";
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value;
+
+      if (!email || !pass) {
+        return showStatus("login", "Please fill in both email and password.");
+      }
+
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        const user = userCredential.user;
+
+        // Fetch the user’s profile document from Firestore
+        const userDocRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userDocRef);
+
+        let firstName = "";
+        if (userSnap.exists()) {
+          firstName = userSnap.data().firstName || "";
+        }
+
+        // Store the firstName in localStorage so dashboard can read it
+        localStorage.setItem("firstName", firstName);
+
+        // Show a quick success message
+        showStatus("login", `Welcome back, ${firstName}! Redirecting…`, true);
+
+        // Redirect to the dashboard after a short delay
+        setTimeout(() => {
+          window.location.href = "datadashboard.html";
+        }, 1000);
+
+      } catch (err) {
+        const friendly = getFirebaseErrorMessage(err.code);
+        showStatus("login", friendly || err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    };
+
+    // ----------------------------
+    // 2. REGISTER NEW USER
+    // ----------------------------
+    document.getElementById('registerBtn').onclick = async () => {
+      clearStatuses();
+      currentOperation = "register";
+
+      const first   = document.getElementById('regFirst').value.trim();
+      const last    = document.getElementById('regLast').value.trim();
+      const email   = document.getElementById('regEmail').value.trim();
+      const pass    = document.getElementById('regPass').value;
+      const confirm = document.getElementById('regConfirm').value;
+
+      if (!first || !last || !email || !pass || !confirm) {
+        return showStatus("register", "Please complete all fields.");
+      }
+      if (pass !== confirm) {
+        return showStatus("register", "Passwords do not match.");
+      }
+      if (pass.length < 6) {
+        return showStatus("register", "Password must be at least 6 characters.");
+      }
+
+      const btn = document.getElementById('registerBtn');
+      btn.disabled = true;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+        const user = userCredential.user;
+
+        // Save user profile to Firestore under "users/{uid}"
+        await setDoc(doc(db, "users", user.uid), {
+          firstName: first,
+          lastName: last,
+          email: user.email,
+          createdAt: serverTimestamp()
+        });
+
+        showStatus("register", "Account created successfully! You can now log in.", true);
+        console.log("Registered user:", user);
+
+        // After a short delay, switch back to login form
+        setTimeout(() => { show(loginForm); }, 1500);
+
+      } catch (err) {
+        const friendly = getFirebaseErrorMessage(err.code);
+        showStatus("register", friendly || err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    };
+
+    // ----------------------------
+    // 3. RESET PASSWORD
+    // ----------------------------
+    document.getElementById('sendReset').onclick = async () => {
+      clearStatuses();
+      currentOperation = "reset";
+
+      const email = document.getElementById('resetEmail').value.trim();
+
+      if (!email) {
+        return showStatus("reset", "Please enter your email address.");
+      }
+
+      const btn = document.getElementById('sendReset');
+      btn.disabled = true;
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showStatus("reset", "Password reset email sent! Check your inbox.", true);
+      } catch (err) {
+        const friendly = getFirebaseErrorMessage(err.code);
+        showStatus("reset", friendly || err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    };
+
+    // ----------------------------
+    // 4. MONITOR AUTH STATE (Optional)
+    // ----------------------------
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is signed in:", user);
+        // e.g. window.location.href = "/dashboard.html";
+      } else {
+        console.log("No user is signed in.");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>taistat data</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    @keyframes delayedFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 0.6; }
+    }
+    .delayed-fade-in {
+      animation: delayedFadeIn 1s ease-in 1s forwards;
+      opacity: 0;
+    }
+
+ /* =====================================================
+       Trusted & Run Research Section (Full Code)
+       ===================================================== */
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f7fafc;
+      color: #1a202c;
+    }
+
+    /* Section wrapper */
+    .trusted-run {
+      background-color: #fff;
+      padding: 8rem 1.5rem;
+    }
+
+    /* Centered container */
+    .trusted-run .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Trusted Logos Header */
+    .trusted-logos {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .trusted-logos p {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Marquee wrapper */
+    .logo-marquee {
+      overflow: hidden;
+      width: 100%;
+    }
+    .logo-track {
+      display: flex;
+      gap: 1.5rem;
+      /* duplicate set width must be ≥ 200% of container */
+      width: max-content;
+    }
+    .logo-track img {
+      width: 80px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Desktop: show in one row, no animation */
+    @media (min-width: 768px) {
+      .logo-track {
+        animation: none;
+      }
+    }
+
+    /* Mobile: continuous scroll */
+    @media (max-width: 767px) {
+      .logo-track {
+        animation: marquee 20s linear infinite;
+      }
+      @keyframes marquee {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+    }
+
+    /* -------- Run Research -------- */
+    .run-research {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 4rem;
+      margin-top: 4rem;
+    }
+    .run-text {
+      flex: 1 1 100%;
+      text-align: center;
+    }
+    .run-text h2 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .run-text p {
+      font-size: 1.25rem;
+      color: #4a5568;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .run-text .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      transition: background-color 0.2s ease;
+    }
+    .btn-primary {
+      background-color: #5a67d8;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: #4c51bf;
+    }
+
+    .run-image {
+      flex: 1 1 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .run-image img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      object-fit: cover;
+    }
+
+    /* Larger breakpoints */
+    @media (min-width: 640px) {
+      .logo-track {
+        gap: 2rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .logo-track {
+        gap: 3rem;
+      }
+      .run-text {
+        text-align: left;
+      }
+      .run-research {
+        flex-direction: row;
+      }
+      .run-text h2 {
+        font-size: 3rem;
+      }
+      .run-text p {
+        font-size: 1.375rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .trusted-run {
+        padding: 10rem 1.5rem;
+      }
+      .run-text h2 {
+        font-size: 3.5rem;
+      }
+      .run-text p {
+        font-size: 1.5rem;
+      }
+      .run-image img {
+        max-width: 800px;
+      }
+    }
+
+/* =====================================================
+   Build & Integrate Section (Expanded & Styled)
+   ===================================================== */
+
+.build-integrate {
+  background-color: #f9fafb;
+  padding: 6rem 1.5rem;
+}
+
+.build-integrate .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+/* Blocks */
+.build-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.build-block.reverse {
+  flex-direction: column-reverse;
+}
+
+.build-text {
+  flex: 1;
+  max-width: 600px;
+  text-align: center;
+}
+
+.build-text h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1a202c;
+}
+
+.build-text p {
+  font-size: 1.25rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.build-text .btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  background-color: #5a67d8;
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.build-text .btn:hover {
+  background-color: #4c51bf;
+}
+
+.build-image {
+  flex: 1;
+  max-width: 650px;
+}
+
+.build-image img {
+  width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Layouts */
+@media (min-width: 768px) {
+  .build-block {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .build-block.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .build-text {
+    text-align: left;
+  }
+}
+/* -----------------------------
+   Section & Container
+   ----------------------------- */
+   /* 1) Make the section a positioning context */
+.customers-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2) Style the video to cover the full section */
+.customers-section .bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  min-width: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none; /* so it never blocks clicks */
+}
+
+/* 3) Push existing content above the video */
+.customers-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.customers-section {
+  background: linear-gradient(180deg, #3944ff 0%, #05d1c8 100%);
+  color: #fff;
+  padding: 6rem 1rem;      /* ↑ taller section */
+}
+
+.customers-section .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;               /* more breathing room */
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* -----------------------------
+   Text Block
+   ----------------------------- */
+.text-block h2 {
+  font-size: 3rem;         /* ↑ bigger heading */
+  margin-bottom: 1rem;
+}
+.text-block p {
+  font-size: 1.25rem;      /* ↑ larger text */
+  margin-bottom: 2rem;
+}
+.text-block .btn {
+  padding: 1rem 2rem;      /* ↑ bigger button */
+  font-size: 1rem;
+}
+
+/* -----------------------------
+   Cards (desktop)
+   ----------------------------- */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card {
+  background: #fff;
+  color: #1a202c;
+  padding: 2rem;           /* ↑ more padding */
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;       /* ↑ bigger titles */
+}
+.card p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 1.125rem;     /* ↑ larger body text */
+}
+.card a {
+  color: #3944ff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* -----------------------------
+   Mobile: horizontal scroll
+   ----------------------------- */
+@media (max-width: 767px) {
+  .customers-section .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+  .card {
+    flex: 0 0 80%;         /* show ~80% width per card */
+    min-width: 80%;
+  }
+
+  /* optional: add some scroll snap */
+  .cards {
+    scroll-snap-type: x mandatory;
+  }
+  .card {
+    scroll-snap-align: start;
+  }
+}
+
+/* ========== CTA ========== */
+.taistat-cta {
+  background: #3944ff;
+  color: #fff;
+  text-align: center;
+  padding: 5rem 1rem;
+}
+.taistat-cta .inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.taistat-cta h2 {
+  font-size: 2.75rem;
+  margin-bottom: 1rem;
+}
+.taistat-cta p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+.taistat-cta .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-block;
+  border-radius: 9999px;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  text-decoration: none;
+}
+.btn-primary {
+  background: #fff;
+  color: #3944ff;
+}
+.btn-outline {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ========================================
+   SITE FOOTER
+   - Multi-column footer with larger cards & nav
+   ======================================== */
+.site-footer {
+  background: #F5F8FF;
+  color: #222;
+  padding: 6rem 2rem 3rem;       /* was 4rem 1rem 2rem */
+}
+.footer-inner {
+  max-width: 1600px;             /* was 1400px */
+  margin: 0 auto;
+  display: flex;
+  gap: 3rem;                     /* was 2rem */
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.footer-brand {
+  flex: 1 1 350px;               /* was 1 1 300px */
+}
+.brand-card {
+  background: #fff;
+  padding: 2.5rem;               /* was 1.5rem */
+  border-radius: 16px;           /* was 12px */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  text-align: left;
+  margin-bottom: 2.5rem;         /* was 2rem */
+}
+.footer-logo {
+  width: 48px;                   /* was 32px */
+  height: 48px;
+  margin-bottom: 1rem;           /* was 0.5rem */
+}
+.brand-card p {
+  font-size: 1.125rem;           /* was 1rem */
+  color: #444;
+  line-height: 1.6;
+}
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 1rem;                     /* was 0.5rem */
+  font-size: 1.125rem;           /* was 1rem */
+  margin-top: 1rem;
+}
+.socials img {
+  width: 40px;                   /* was 32px */
+  height: 40px;
+}
+
+/* Footer navigation columns */
+.footer-nav {
+  flex: 3 1 650px;               /* was 3 1 600px */
+  display: flex;
+  gap: 3rem;                     /* was 2rem */
+  flex-wrap: wrap;
+}
+.footer-nav > div {
+  flex: 1 1 160px;               /* was 1 1 140px */
+}
+.footer-nav h4 {
+  font-size: 1.375rem;           /* was 1.125rem */
+  margin-bottom: 1rem;           /* was 0.75rem */
+}
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-nav li {
+  margin-bottom: 0.75rem;        /* was 0.5rem */
+}
+.footer-nav a {
+  color: #222;
+  font-size: 1rem;               /* was 0.95rem */
+  opacity: 0.9;
+  transition: opacity .2s;
+}
+.footer-nav a:hover {
+  opacity: 1;
+}
+
+/* Bottom bar */
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;             /* was 1.5rem */
+  opacity: 0.7;
+  font-size: 1rem;               /* was 0.9rem */
+}
+
+/* ========================================
+   RESPONSIVE FOOTER ADJUSTMENTS
+   ======================================== */
+@media (max-width: 1024px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-nav {
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .cta-banner h2 {
+    font-size: 2.25rem;           /* was 2rem */
+  }
+  .cta-banner p {
+    font-size: 1.125rem;          /* was 1rem */
+  }
+  .btn-solid,
+  .btn-outline {
+    width: 100%;
+    max-width: 300px;             /* was 260px */
+    text-align: center;
+  }
+  .footer-inner {
+    text-align: center;
+  }
+  .footer-nav > div {
+    flex: 1 1 100%;
+    margin-bottom: 2rem;          /* was 1.5rem */
+  }
+  .socials {
+    justify-content: center;
+  }
+}
+
+/* ========================================
+   INTEGRATION SERVICES SECTION
+   ======================================== */
+.integration-services-section {
+  background: #fff;
+  padding: 4rem 1rem;
+}
+.integration-services-title h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2rem;
+}
+
+/* Grid: 3 cards per row, falls to 2 → 1 */
+.integration-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 992px) {
+  .integration-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .integration-services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card styling */
+.integration-card {
+  background: #F5F8FF;
+  border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Fixed-size image at top of each card */
+.integration-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+/* Heading inside card */
+.integration-card-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Body text inside card */
+.integration-card-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0 1rem 1.5rem;
+  flex-grow: 1;
+}
+/* Data Quality Call‑Out */
+.data-quality-callout {
+  max-width: 700px;               /* control line length */
+  margin: 3rem auto;              /* vertical spacing + center block */
+  padding: 1.5rem 2rem;           /* inner breathing room */
+  background: #FAFAFF;            /* very light background */
+  border-left: 4px solid #4A1DE1; /* accent bar on the left */
+  border-radius: 8px;             /* gentle rounding */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  text-align: center;             /* center text */
+}
+
+.data-quality-callout h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.data-quality-callout p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4B5563;
+  margin: 0;
+}
+
+
+
+  </style>
+
+</head>
+<body class="text-white">
+
+  <!-- Global Site Header -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/tailogo.png" alt="" style="border-radius: 50%; ">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="AI.html">AI</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted flex-md-shrink-0" href="courses.html">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Floating Navigation Bar -->
+  <nav class="fixed top-28 right-4 bg-white text-black shadow-lg rounded-full px-4 py-2 z-50 flex items-center gap-3 w-auto">
+    <a href="pricing.html" class="hidden md:inline-block font-semibold px-3 py-1.5 rounded-full text-sm hover:bg-gray-100">Pricing</a>
+    <a href="datasign.html" class="hidden md:inline-block bg-indigo-600 text-white font-semibold px-4 py-2 rounded-full text-sm hover:bg-indigo-700">Get started for free</a>
+    <button id="menuToggle" class="md:hidden focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed top-32 right-4 bg-white text-black rounded-lg shadow-md p-4 hidden md:hidden z-50">
+    <a href="pricing.html" class="block px-4 py-2 font-semibold hover:bg-gray-100 rounded">Pricing</a>
+    <a href="datasign.html" class="block px-4 py-2 mt-2 bg-indigo-600 text-white text-center rounded-full hover:bg-indigo-700">Get started for free</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative h-screen w-full overflow-hidden flex items-center px-6 pt-32 z-10">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-800 to-blue-400 opacity-80 z-0"></div>
+    <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover delayed-fade-in z-0">
+      <source src="assets/media/bgvid.mp4" type="video/mp4" />
+    </video>
+    <div class="relative z-10 max-w-5xl text-left">
+      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-8">
+        Real experts delivering<br />
+        quality insights to drive<br />
+        your next breakthrough
+      </h1>
+      <p class="text-xl md:text-2xl text-white/90 mb-10">
+        Build a better world with strategic data, delivered by our global team of specialists.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="datasign.html" class="bg-white text-black font-medium px-6 py-3 rounded-full">Talk to an expert</a>
+        <a href="datasign.html" class="border border-white text-white font-medium px-6 py-3 rounded-full hover:bg-white hover:text-black transition">Start your project</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="integration-services-section">
+  <div class="integration-services-title">
+    <h2>Get Started with TaiStat</h2>
+  </div>
+  <div class="integration-services-grid">
+    <!-- Card 1 -->
+    <div class="integration-card">
+      <img src="assets/img/getstarted.jpg" alt="Research Participants Pool" class="integration-card-img">
+      <h3 class="integration-card-heading">Get Started with Your Research Today</h3>
+      <p class="integration-card-text">
+        Launch your research faster with TaiStat’s ready pool of verified participants and expert-led data collection teams. Whether you're conducting academic studies, product research, or behavioral experiments, we help you reach diverse and targeted audiences in minutes not weeks. With flexible setup options, survey support, and analytics-ready data delivery, TaiStat makes high-quality research effortless from start to finish.
+      </p>
+    </div>
+    <!-- Card 2 -->
+    <div class="integration-card">
+      <img src="assets/img/today.jpg" alt="AI Training Data" class="integration-card-img">
+      <h3 class="integration-card-heading">Train AI with TaiStat Today</h3>
+      <p class="integration-card-text">
+        Fuel your machine learning and AI models with high-quality, human-verified data collected, cleaned, and annotated by our expert teams. Whether you're building LLMs, voice assistants, or computer vision systems, TaiStat supports training at any scale with precision and speed. Get started instantly, integrate your preferred tools, and receive production-ready datasets in hours, not weeks.
+      </p>
+    </div>
+    <!-- Card 3 -->
+    <div class="integration-card">
+      <img src="assets/img/intergrate.jpg" alt="API Integration" class="integration-card-img">
+      <h3 class="integration-card-heading">Integrate with TaiStat</h3>
+      <p class="integration-card-text">
+        Seamlessly connect your platform to TaiStat’s always-on participant pool and expert data teams through powerful API integrations. Enhance your customers’ AI and research workflows by giving them instant access to high-quality human data, rapid task execution, and verified feedback from diverse audiences. With flexible integration options and fast onboarding, TaiStat helps you scale smarter, serve better, and stand out from the competition.
+      </p>
+    </div>
+  </div>
+
+  <!-- Data Quality Call-Out -->
+<div class="data-quality-callout">
+  <h3>Data Quality with TaiStat</h3>
+  <p>
+    At TaiStat, we prioritize uncompromising data quality through rigorous validation, expert oversight, and continuous monitoring. Our systems are built to detect inconsistencies, low‑effort responses, and anomalies across all data types, ensuring every dataset is clean, accurate, and analysis‑ready. We use a multi‑layered quality assurance process, including pre‑task screening, identity verification, and real‑time audits, to maintain the highest standards. With TaiStat, you gain data you can trust delivered securely, ethically, and tailored to your AI or research needs.
+  </p>
+</div>
+
+</section>
+
+  <!-- Trusted & Research Section -->
+ 
+
+  <!-- Customer Use Cases -->
+  <section class="customers-section">
+  <!-- Background video -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="assets/media/participantserve.mp4" type="video/mp4">
+    <!-- Optional fallback image for non‑video browsers -->
+    <img src="assets/img/getstarted.jpg" alt="Background">
+  </video>
+
+  <div class="container">
+    <div class="text-block">
+      <h2>How organizations partner with Taistat</h2>
+      <p>Trusted by researchers, engineers, and institutions to deliver real-world solutions with smart data.</p>
+      <a href="datasign.html" class="btn">Talk to an expert</a>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Sector: Building &amp; Construction</h3>
+        <p>Shovels Inc. sourced specialized annotations for their smart city infrastructure project with Taistat's data team.</p>
+      </div>
+      <div class="card">
+        <h3>Sector: AI Ethics</h3>
+        <p>The Meaning Alignment Institute partnered with Taistat to build more ethical and transparent AI systems.</p>
+      </div>
+      <div class="card">
+        <h3>Sector: Aerospace Communications</h3>
+        <p>Braided Communications worked with Taistat to run long-term studies on improving communications in spaceflight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- CTA -->
+  <section class="taistat-cta">
+    <div class="inner">
+      <h2>Unlock expert-driven insights today</h2>
+      <p>Start transforming your raw data into real-world impact with Taistat’s team of global specialists.</p>
+      <div class="buttons">
+        <a href="datasign.html" class="btn btn-primary">Get started with Taistat</a>
+        <a href="datasign.html" class="btn btn-outline">Talk to an expert</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+ <!-- ========== FOOTER ========== -->
+<footer class="site-footer reveal flip-in">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-card">
+        <img src="assets/img/tailogo.png" alt="Taistat Logo" class="footer-logo" />
+        <p>Empowering smarter decisions with real-time data.</p>
+      </div>
+      <div class="socials">
+        <span>Follow us on</span>
+        <a href="https://x.com/TaistatFirm" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <img src="assets/img/twiter.png" alt="X" style="width:24px; height:24px;" />
+        </a>
+        <a href="https://www.linkedin.com/company/taistat-consultancy-firm/" target="_blank" rel="noopener noreferrer"
+          aria-label="LinkedIn">
+          <img src="assets/img/linkedin.png" alt="LinkedIn" style="width:24px; height:24px;" />
+        </a>
+        <a href="https://www.facebook.com/TaiStatFirm" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <img src="assets/img/facebook.jpeg" alt="Facebook" style="width:24px; height:24px;" />
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-nav">
+  <div>
+    <h4>AI Development</h4>
+    <ul>
+      <li><a href="AI.html#build-ai">Build AI</a></li>
+      <li><a href="AI.html#data-annotation">Data Annotation</a></li>
+      <li><a href="AI.html#training-alignment">Training &amp; Alignment</a></li>
+      <li><a href="AI.html#evaluation-safety">Evaluation &amp; Safety with TaiStat</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Company</h4>
+    <ul>
+      <li><a href="index.html#mission">Our Mission</a></li>
+      <li><a href="aboutus.html">About TaiStat</a></li>
+      <li><a href="AI.html#privacy">Privacy &amp; Legal</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Support</h4>
+    <ul>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="datasign.html">Contact Sales</a></li>
+      <li><a href="datasign.html">Researcher Help Center</a></li>
+      <li><a href="paticipants.html">Run Research</a></li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Taistat. All rights reserved.</p>
+  </div>
+</footer>
+
+
+  <!-- Toggle Script -->
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

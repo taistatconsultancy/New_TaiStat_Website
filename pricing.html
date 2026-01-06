@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO Meta Tags -->
+  <title>TAISTAT Pricing Calculator</title>
+  <meta name="description" content="TAISTAT pricing calculator: Estimate your service costs with minimum hourly fees and platform fees for corporate, academic, and non-profit organizations." />
+  <meta name="keywords" content="TAISTAT, pricing calculator, service cost, platform fee, corporate pricing, academic pricing, non-profit pricing" />
+  <meta name="author" content="TAISTAT" />
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
+  <style>
+    /* ===============================
+       GLOBAL RESET + BASE STYLES
+       =============================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #f9fafd;
+      color: #111827;
+      line-height: 1.6;
+      min-width: 320px;
+      padding-top: 4rem;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* CSS VARIABLES */
+    :root {
+      --primary-purple: #0963ca;
+      --primary-purple-hover: #3a16c8;
+      --gradient-start: #ffffff;
+      --gradient-mid1: #e6f0ff;
+      --gradient-mid2: #d0e1ff;
+      --gradient-mid3: #b8d2ff;
+      --gradient-end: #8facff;
+      --card-bg: #ffffff;
+      --card-shadow: rgba(0, 0, 0, 0.05);
+      --text-body: #4b5563;
+      --text-dark: #111827;
+      --text-muted: #6b7280;
+      --border-gray: #d1d5db;
+      --input-focus: var(--primary-purple);
+    }
+
+    /* UTILITY CLASSES */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    .text-center { text-align: center; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .btn {
+      display: inline-block;
+      background-color: var(--primary-purple);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .btn:hover { background-color: var(--primary-purple-hover); }
+    input, select {
+      border: 1px solid var(--border-gray);
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus, select:focus { border-color: var(--input-focus); }
+    label { display: block; font-weight: 500; margin-bottom: 0.25rem; font-size: 0.95rem; color: var(--text-muted); }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #fff; padding: 0.75rem 1.5rem; border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 95%; z-index: 1000;
+    }
+    .logo-container { display: flex; align-items: center; gap: 0.5rem; }
+    .logo { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .brand-name { font-size: 1.125rem; font-weight: 700; color: var(--primary-purple); }
+    .nav-buttons { display: flex; gap: 0.75rem; }
+    .btn-outline-purple {
+      border: 2px solid var(--primary-purple); color: var(--primary-purple);
+      background: transparent;
+    }
+    .btn-outline-purple:hover {
+      background: var(--primary-purple); color: #fff;
+    }
+    .btn-solid-purple { background: var(--primary-purple); color: #fff; }
+    .btn-solid-purple:hover { background: var(--primary-purple-hover); }
+    .hamburger {
+      display: none; background: none; border: none;
+      font-size: 1.5rem; cursor: pointer; color: var(--primary-purple);
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-buttons { display: none; position: absolute; top: 100%; right: 1.5rem;
+        flex-direction: column; background: #fff; border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 0.75rem; gap: 0.5rem; width: calc(100% - 3rem); max-width: 200px;
+      }
+      .navbar.open .nav-buttons { display: flex; }
+    }
+
+    /* HEADER SECTION */
+    .header-section {
+      background: linear-gradient(
+        to bottom right,
+        var(--gradient-start),
+        var(--gradient-mid1),
+        var(--gradient-mid2),
+        var(--gradient-mid3),
+        var(--gradient-end)
+      );
+      padding: 4rem 0 6rem;
+    }
+    .header-section h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-dark); }
+    .header-section p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; color: var(--text-body); line-height: 1.5; }
+    .features-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background-color: var(--card-bg); border-radius: 1rem;
+      box-shadow: 0 10px 15px var(--card-shadow);
+      padding: 2rem 1.5rem; position: relative; overflow: hidden;
+    }
+    .feature-icon {
+      position: absolute; top: -1rem; left: 1rem;
+      background-color: var(--card-bg); border-radius: 0.75rem;
+      width: 3rem; height: 3rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 6px var(--card-shadow);
+    }
+    .feature-icon svg { width: 1.5rem; height: 1.5rem; color: var(--primary-purple); }
+    .feature-card h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--text-dark); }
+    .feature-card p { font-size: 0.95rem; color: var(--text-body); line-height: 1.4; }
+
+    /* CALCULATOR SECTION */
+    .calculator-section { margin-top: -4rem; position: relative; z-index: 10; }
+    .calculator-container {
+      background-color: var(--card-bg); border-radius: 1rem;
+      box-shadow: 0 20px 25px var(--card-shadow);
+      padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem;
+    }
+    @media (max-width: 768px) {
+      .calculator-container { grid-template-columns: 1fr; }
+    }
+    .calc-inputs { display: flex; flex-direction: column; gap: 1.5rem; }
+    .calc-summary {
+      background-color: #f3f4f6; border-radius: 0.75rem;
+      padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between;
+      margin-bottom: 0.75rem; font-size: 1rem; color: #374151;
+    }
+    .summary-row.total {
+      font-size: 1.25rem; font-weight: 600; margin-top: 0.5rem;
+      border-top: 1px solid var(--border-gray); padding-top: 0.5rem; color: var(--text-dark);
+    }
+    .currency-toggle {
+      display: flex; gap: 0.5rem; margin-top: 1rem; align-items: center;
+      font-size: 0.9rem; color: var(--text-muted);
+    }
+    .currency-toggle button {
+      width: 2rem; height: 2rem; border: 1px solid var(--border-gray);
+      border-radius: 0.5rem; background-color: #fff; display: flex;
+      align-items: center; justify-content: center; cursor: pointer;
+      font-weight: 600; color: #374151; transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .currency-toggle button.active {
+      background-color: var(--primary-purple); color: #fff; border-color: var(--primary-purple);
+    }
+
+    /* BOTTOM CTA */
+    .bottom-cta {
+      background-color: var(--primary-purple); color: #fff;
+      padding: 4rem 1rem; text-align: center;
+    }
+    .bottom-cta h2 { font-size: 2rem; font-weight: 600; margin-bottom: 1rem; }
+    .bottom-cta p { max-width: 800px; margin: 0 auto 2rem; font-size: 1.05rem; color: #d1d5db; line-height: 1.5; }
+    .bottom-cta .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    .site-footer { background: #F5F8FF; color: #222; padding: 6rem 2rem 3rem; }
+    .footer-inner { max-width: 1600px; margin: 0 auto; display: flex; gap: 3rem; flex-wrap: wrap; align-items: flex-start; }
+    .footer-brand { flex: 1 1 350px; }
+    .brand-card { background: #fff; padding: 2.5rem; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); margin-bottom: 2.5rem; }
+    .footer-logo { width: 48px; height: 48px; margin-bottom: 1rem; }
+    .socials { display: flex; align-items: center; gap: 1rem; font-size: 1.125rem; margin-top: 1rem; }
+    .socials img { width: 40px; height: 40px; }
+    .footer-nav { flex: 3 1 650px; display: flex; gap: 3rem; flex-wrap: wrap; }
+    .footer-nav > div { flex: 1 1 160px; }
+    .footer-nav h4 { font-size: 1.375rem; margin-bottom: 1rem; }
+    .footer-nav ul { list-style: none; padding: 0; margin: 0; }
+    .footer-nav li { margin-bottom: 0.75rem; }
+    .footer-nav a { color: #222; font-size: 1rem; opacity: 0.9; transition: opacity .2s; }
+    .footer-nav a:hover { opacity: 1; }
+    .footer-bottom { text-align: center; padding-top: 2rem; opacity: 0.7; font-size: 1rem; }
+
+    @media (max-width: 1024px) {
+      .footer-inner { flex-direction: column; align-items: center; }
+      .footer-nav { justify-content: center; }
+    }
+    @media (max-width: 768px) {
+      .footer-nav > div { flex: 1 1 100%; margin-bottom: 2rem; }
+      .socials { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="assets/img/tailogo.png" class="logo" alt="TAISTAT Logo" />
+      <span class="brand-name">TAISTAT</span>
+    </div>
+    <button class="hamburger" aria-label="Menu">☰</button>
+    <nav class="nav-buttons">
+      <a href="datasign.html" class="btn-solid-purple">Sign In</a>
+    </nav>
+  </header>
+
+  <!-- HEADER & FEATURES -->
+  <header class="header-section">
+    <div class="container text-center">
+      <h1>TAISTAT Pricing Calculator</h1>
+      <p>Estimate your service costs with TAISTAT. Our pricing is based on a flat hourly fee and a flat platform fee.</p>
+      <div class="features-grid mb-6">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="mt-6">Flat platform fee</h3>
+          <p>Only $2.50 per quote—no surprises.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 20h18M5 20V10c0-1.104.896-2 2-2h10c1.104 0 2 .896 2 2v10"/>
+            </svg>
+          </div>
+          <h3 class="mt-6">Flat hourly rate</h3>
+          <p>Only $6.00/hour for all organization types.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="mt-6">Flexible add-ons</h3>
+          <p>Purchase extra services or custom packages anytime.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CALCULATOR -->
+  <section class="calculator-section">
+    <div class="container">
+      <div class="calculator-container">
+        <div class="calc-inputs">
+          <div>
+            <label for="numSubmissions">Number of projects</label>
+            <small style="color: var(--text-muted);">How many tasks?</small>
+            <input type="number" id="numSubmissions" min="1" value="20" step="1"/>
+          </div>
+          <div>
+            <label for="timePerSubmission">Time per project (minutes)</label>
+            <small style="color: var(--text-muted);">Estimated minutes per task</small>
+            <input type="number" id="timePerSubmission" min="1" value="5" step="1"/>
+          </div>
+        </div>
+        <div class="calc-summary">
+          <div>
+            <div class="summary-row">
+              <span>Service cost</span>
+              <span id="participantCost">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Platform fee</span>
+              <span id="platformFee">$0.00</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total cost</span>
+              <span id="totalCost">$0.00</span>
+            </div>
+          </div>
+          <button class="btn mt-4" style="width: 100%;">Get Started</button>
+          <div class="currency-toggle text-center">
+            <span>Currency</span>
+            <button class="active" id="usdBtn">$</button>
+            <button id="eurBtn">€</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="bottom-cta">
+    <div class="container">
+      <h2>Getting started is simple.</h2>
+      <p> Just sign up, explore, and let TAISTAT handle your data.</p>
+      <div class="cta-buttons">
+      
+        <button class="btn">Speak with Sales</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand-card">
+          <img src="assets/img/tailogo.png" alt="Taistat Logo" class="footer-logo" />
+          <p>Empowering smarter decisions with real-time data.</p>
+        </div>
+        <div class="socials">
+          <span>Follow us on</span>
+          <a href="https://x.com/TaistatFirm"><img src="assets/img/twiter.png" alt="X"/></a>
+          <a href="https://www.linkedin.com/company/taistat-consultancy-firm/"><img src="assets/img/linkedin.png" alt="LinkedIn"/></a>
+          <a href="https://www.facebook.com/TaiStatFirm"><img src="assets/img/facebook.jpeg" alt="Facebook"/></a>
+        </div>
+      </div>
+   <div class="footer-nav">
+  <div>
+    <h4>AI Development</h4>
+    <ul>
+      <li><a href="AI.html#build-ai">Build AI</a></li>
+      <li><a href="AI.html#data-annotation">Data Annotation</a></li>
+      <li><a href="AI.html#training-alignment">Training &amp; Alignment</a></li>
+      <li><a href="AI.html#evaluation-safety">Evaluation &amp; Safety with TaiStat</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Company</h4>
+    <ul>
+      <li><a href="index.html#mission">Our Mission</a></li>
+      <li><a href="aboutus.html">About TaiStat</a></li>
+      <li><a href="AI.html#privacy">Privacy &amp; Legal</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Support</h4>
+    <ul>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="datasign.html">Contact Sales</a></li>
+      <li><a href="datasign.html">Researcher Help Center</a></li>
+      <li><a href="paticipants.html">Run Research</a></li>
+    </ul>
+  </div>
+</div>
+
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Taistat. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: LIVE CALCULATION LOGIC -->
+  <script>
+    // 1) Grab DOM Elements
+    const numSubmissionsInput = document.getElementById("numSubmissions");
+    const timePerSubmissionInput = document.getElementById("timePerSubmission");
+    const participantCostEl = document.getElementById("participantCost");
+    const platformFeeEl = document.getElementById("platformFee");
+    const totalCostEl = document.getElementById("totalCost");
+    const usdBtn = document.getElementById("usdBtn");
+    const eurBtn = document.getElementById("eurBtn");
+
+    // 2) State + Constants
+    let currency = "USD";             // "USD" or "EUR"
+    const exchangeRate = 0.85;        // 1 USD = 0.85 EUR
+    const FLAT_HOURLY_FEE_USD = 6.00;  // fixed hourly fee
+    const FLAT_PLATFORM_FEE_USD = 2.50;// flat platform fee
+
+    // 3) Format number as currency
+    function formatCurrency(value) {
+      const opts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+      if (currency === "USD") {
+        return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", ...opts }).format(value);
+      } else {
+        return new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR", ...opts }).format(value);
+      }
+    }
+
+    // 4) Convert USD → current
+    function convertToCurrentCurrency(usd) {
+      return currency === "USD" ? usd : usd * exchangeRate;
+    }
+
+    // 5) Main recalc & render
+    function recalcAndRender() {
+      const numSubs = Math.max(1, parseInt(numSubmissionsInput.value) || 1);
+      const timePerSub = Math.max(1, parseFloat(timePerSubmissionInput.value) || 1);
+
+      // enforce flat hourly fee in input
+      if (currency === "USD") {
+        // show 6.00
+        document.getElementById("hourlyRate")?.remove?.(); 
+      } else {
+        // nothing to update here
+      }
+
+      // service cost (USD)
+      const costPerProjectUSD = (FLAT_HOURLY_FEE_USD * timePerSub) / 60;
+      const totalServiceCostUSD = costPerProjectUSD * numSubs;
+
+      // flat platform fee (USD)
+      const platformFeeUSD = FLAT_PLATFORM_FEE_USD;
+
+      // total
+      const totalCostUSD = totalServiceCostUSD + platformFeeUSD;
+
+      // display
+      participantCostEl.textContent = formatCurrency(convertToCurrentCurrency(totalServiceCostUSD));
+      platformFeeEl.textContent   = formatCurrency(convertToCurrentCurrency(platformFeeUSD));
+      totalCostEl.textContent      = formatCurrency(convertToCurrentCurrency(totalCostUSD));
+    }
+
+    // 6) Event listeners
+    numSubmissionsInput.addEventListener("input", recalcAndRender);
+    timePerSubmissionInput.addEventListener("input", recalcAndRender);
+
+    usdBtn.addEventListener("click", () => {
+      currency = "USD"; usdBtn.classList.add("active"); eurBtn.classList.remove("active");
+      recalcAndRender();
+    });
+    eurBtn.addEventListener("click", () => {
+      currency = "EUR"; eurBtn.classList.add("active"); usdBtn.classList.remove("active");
+      recalcAndRender();
+    });
+
+    document.querySelector(".hamburger").addEventListener("click", () => {
+      document.querySelector(".navbar").classList.toggle("open");
+    });
+
+    // init
+    recalcAndRender();
+  </script>
+</body>
+</html>

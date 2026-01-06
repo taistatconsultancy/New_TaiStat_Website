@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>About Us | TaiStat Consultancy</title>
+  <meta name="description" content="Learn about TaiStat Consultancy - Our mission, vision, values, and expertise in AI, data analytics, and digital transformation solutions.">
+  <meta name="keywords" content="TaiStat, About Us, Data Consultancy, AI Solutions, Mission, Vision, Values, Innovation, Empowerment, Collaboration">
+
+  <!-- Favicons -->
+   <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
+  
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+<style>
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+    }
+    .social-links a img {
+      display: block;
+      width: 30px;
+      height: auto;
+    }
+  </style>
+
+</head>
+<style>
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Unique Hero Section */
+#unique-hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('assets/img/cover about.png'); /* Replace with the actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-size 0.3s ease-in-out;
+}
+
+/* Responsive adjustments for small devices */
+@media (max-width: 768px) {
+  #unique-hero-section {
+    height: 60vh; /* Reduce height for small screens */
+    background-size: contain; /* Show full image without cropping */
+  }
+}
+
+@media (max-width: 480px) {
+  #unique-hero-section {
+    height: 50vh; /* Further reduce height for very small screens */
+    background-size: contain; /* Fit image fully */
+    background-position: top center; /* Adjust position if needed */
+  }
+}
+
+.unique-hero-content {
+  text-align: center;
+  color: white;
+  padding: 0 2rem;
+  max-width: 800px;
+}
+
+.unique-tagline {
+  font-size: 1.5rem;
+  color: #43ff3d; /* Green color for tagline */
+  margin-bottom: 1rem;
+}
+
+.unique-main-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .unique-tagline {
+    font-size: 1.2rem;
+  }
+  .unique-main-title {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+/* Stephen Mulingwa Image Styling */
+.stephen-mulingwa-img {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Resize image on small devices */
+@media (max-width: 768px) {
+  .stephen-mulingwa-img {
+    width: 200px; /* Adjust for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .stephen-mulingwa-img {
+    width: 150px; /* Adjust for phones */
+  }
+}
+
+/* Services Section */
+#services {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+/* Services Button */
+.services-button-wrapper {
+  text-align: center;
+}
+
+.btn-read-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #007bff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-read-more:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.btn-read-more i {
+  margin-left: 8px; /* Adds space between the text and the icon */
+}
+
+/* Responsive adjustments for button */
+@media (max-width: 768px) {
+  .btn-read-more {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Full Section Responsive */
+@media (max-width: 768px) {
+  #services {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #services {
+    padding: 0.5rem;
+  }
+}
+.whatsapp-container {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .whatsapp-float {
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        
+        .whatsapp-float img {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 50%;
+        }
+        @media screen and (max-width: 600px) {
+            .whatsapp-container {
+                bottom: 5px;
+                left: 5px;
+                gap: 3px;
+            }
+            .whatsapp-float {
+                width: 40px;
+                height: 40px;
+            }
+            .whatsapp-float img {
+                width: 20px;
+                height: 20px;
+            }
+            .close-btn {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+        }
+
+
+/* ----- Hero Section Styles ----- */
+#unique-hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  min-height: 250px;
+  padding: 0 1rem;
+  /* Angled blue gradient */
+  background: linear-gradient(
+    60deg,
+    #004e92 0%,
+    #000428 100%
+  );
+  text-align: center;
+  overflow: hidden;
+}
+
+#unique-hero-section .unique-hero-content h1 {
+  color: #fff;
+  margin: 0;
+  /* Bigger, responsive text */
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1.1;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+/* Fade-in-up animation */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional: adjust on very small screens */
+@media (max-width: 480px) {
+  #unique-hero-section {
+    height: 40vh;
+  }
+  #unique-hero-section .unique-hero-content h1 {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+}
+
+
+
+/* ==============================
+   About Us Section Styles
+   ============================== */
+#about-us {
+  background-color: #1b1a1a;
+  color: #eee;
+  padding: 4rem 0;
+}
+
+#about-us .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#about-us .section-title {
+  font-size: 2.5rem;
+  color: aquamarine;
+  font-weight: 700;
+  text-align: center;
+}
+
+#about-us p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+/* Bold last tagline */
+#about-us .tagline {
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+
+/* Make image fill its column */
+#about-us .object-fit-cover {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Flex helpers */
+#about-us .d-flex {
+  display: flex !important;
+}
+#about-us .flex-fill {
+  flex: 1 1 auto;
+}
+
+/* Responsive stacking */
+@media (max-width: 992px) {
+  /* Stack: heading first, then image, then text */
+  #about-us .order-lg-2 { order: 0 !important; }
+  #about-us .order-lg-1 { order: 1 !important; }
+  #about-us .order-lg-3 { order: 2 !important; }
+
+  /* Center everything on mobile */
+  #about-us .section-title,
+  #about-us p,
+  #about-us .tagline {
+    text-align: center !important;
+  }
+
+  /* Give space below heading */
+  #about-us .section-title {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #about-us {
+    padding: 3rem 1rem;
+  }
+}
+
+/* Value Cards Hover Effect */
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Feature Box Hover Effect */
+.feature-box {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 35px rgba(97, 97, 252, 0.2);
+}
+
+/* Expertise Items Hover Effect */
+.expertise-item {
+  transition: transform 0.3s ease;
+}
+
+.expertise-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Mission & Vision Cards Hover Effect */
+.mission-card:hover,
+.vision-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+.mission-card:hover {
+  border-color: rgba(67, 255, 61, 0.4) !important;
+}
+
+.vision-card:hover {
+  border-color: rgba(127, 255, 212, 0.4) !important;
+}
+
+/* Responsive adjustments for new sections */
+@media (max-width: 992px) {
+  .mission-card,
+  .vision-card {
+    margin-bottom: 2rem;
+  }
+  
+  #mission-vision {
+    padding: 3rem 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .mission-card,
+  .vision-card {
+    padding: 2rem !important;
+  }
+  
+  .mission-card p,
+  .vision-card p {
+    font-size: 0.95rem !important;
+  }
+  
+  #mission-vision {
+    padding: 2.5rem 0 !important;
+    min-height: auto !important;
+  }
+  
+  .section-subtitle {
+    font-size: 0.8rem !important;
+  }
+}
+
+</style>
+<body class="index-page">
+
+  
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="assets/img/tailogo.png" alt="" style="border-radius: 50%; ">
+       
+      </a>
+
+    <nav id="navmenu" class="navmenu">
+  <ul>
+    <li><a href="index.html" class="active">Home<br></a></li>
+     <li><a href="AI.html">AI</a></li> <!-- Added "Data" menu item -->
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <!-- <li><a href="courses.html">Courses</a></li> --> <!-- Commented out "Courses" -->
+    <li><a href="aboutus.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+</nav>
+
+
+       <a class="btn-getstarted flex-md-shrink-0" href="contact.html">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+<!-- Mission & Vision Section - Side by Side -->
+<section id="mission-vision" class="mission-vision section" style="background: #001f3f; padding: 5rem 0; min-height: auto; display: flex; align-items: center;">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4 gx-4 justify-content-center align-items-stretch">
+      
+      <!-- Mission - Left Side -->
+      <div class="col-lg-5 col-md-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="mission-card" style="background: #1a1a1a; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; border: 1px solid rgba(67, 255, 61, 0.2);">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #43ff3d;"></div>
+          <div class="mb-3">
+            <h3 class="section-subtitle" style="color: #43ff3d; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.75rem; font-weight: 600;">Our Purpose</h3>
+            <h2 class="section-title" style="color: #ffffff; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2;">Mission</h2>
+          </div>
+          <div class="mission-content">
+            <p style="font-size: 1rem; line-height: 1.8; color: #e0e0e0; margin: 0; text-align: left;">
+              To deliver scalable, data-driven and AI-powered solutions that empower organizations and communities across sectors — from agriculture to education — by transforming raw data into actionable insights, automating operations, and building smart digital platforms.
+            </p>
+          </div>
+          <div class="mt-3" style="display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem;">
+            <i class="bi bi-bullseye" style="font-size: 1.5rem; color: #43ff3d;"></i>
+            <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #43ff3d 0%, rgba(67, 255, 61, 0.3) 100%); border-radius: 2px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vision - Right Side -->
+      <div class="col-lg-5 col-md-6" data-aos="fade-left" data-aos-delay="200">
+        <div class="vision-card" style="background: #1a1a1a; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; border: 1px solid rgba(127, 255, 212, 0.2);">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, aquamarine 0%, rgba(127, 255, 212, 0.8) 100%);"></div>
+          <div class="mb-3">
+            <h3 class="section-subtitle" style="color: aquamarine; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.75rem; font-weight: 600;">Our Aspiration</h3>
+            <h2 class="section-title" style="color: #ffffff; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2;">Vision</h2>
+          </div>
+          <div class="vision-content">
+            <p style="font-size: 1rem; line-height: 1.8; color: #e0e0e0; margin: 0; text-align: left;">
+              To be a leading African technology firm driving inclusive digital transformation, where every sector benefits from intelligent systems, transparent data, and automation that accelerates growth, innovation, and social impact.
+            </p>
+          </div>
+          <div class="mt-3" style="display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem;">
+            <i class="bi bi-eye-fill" style="font-size: 1.5rem; color: aquamarine;"></i>
+            <div style="flex: 1; height: 2px; background: linear-gradient(90deg, aquamarine 0%, rgba(127, 255, 212, 0.3) 100%); border-radius: 2px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Values Section -->
+<section id="values" class="values section" style="background-color: #f9f9f9; padding: 5rem 0;">
+  <div class="container" data-aos="zoom-out">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h3 class="section-subtitle" style="color: #667eea; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">What Drives Us</h3>
+        <h2 class="section-title" style="color: #012970; font-size: 3rem; font-weight: 700; margin-bottom: 1rem;">Our Core Values</h2>
+        <p style="font-size: 1.1rem; color: #666; margin-bottom: 0;">The principles that guide everything we do at TaiStat</p>
+      </div>
+    </div>
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="value-card" style="background: #fff; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); height: 100%; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center;">
+          <div class="value-icon" style="font-size: 4rem; color: #43ff3d; margin-bottom: 1.5rem;">
+            <i class="bi bi-rocket-takeoff-fill"></i>
+          </div>
+          <h3 style="color: #012970; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">Empowerment</h3>
+          <p style="color: #666; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            We believe in empowering organizations and communities through accessible technology, knowledge transfer, and tools that enable independent growth and innovation.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="value-card" style="background: #fff; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); height: 100%; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center;">
+          <div class="value-icon" style="font-size: 4rem; color: #667eea; margin-bottom: 1.5rem;">
+            <i class="bi bi-lightbulb-fill"></i>
+          </div>
+          <h3 style="color: #012970; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">Innovation</h3>
+          <p style="color: #666; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            We continuously push boundaries, exploring cutting-edge technologies and creative solutions to solve complex challenges and stay ahead of industry trends.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="value-card" style="background: #fff; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); height: 100%; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center;">
+          <div class="value-icon" style="font-size: 4rem; color: #764ba2; margin-bottom: 1.5rem;">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h3 style="color: #012970; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">Collaboration</h3>
+          <p style="color: #666; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            We work closely with clients, partners, and communities, fostering open communication and shared success to achieve transformative outcomes together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section id="why-choose-us" class="why-choose-us section" style="background-color: #1b1a1a; color: #eee; padding: 5rem 0;">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h3 class="section-subtitle" style="color: aquamarine; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">Why Partner With Us</h3>
+        <h2 class="section-title" style="color: rgb(61, 61, 252); font-size: 3rem; font-weight: 700; margin-bottom: 2rem;">What Sets TaiStat Apart</h2>
+      </div>
+    </div>
+    <div class="row gy-4">
+      <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+        <div class="feature-box" style="padding: 2rem; background: rgba(97, 97, 252, 0.1); border-radius: 10px; border-left: 4px solid aquamarine; height: 100%;">
+          <h4 style="color: aquamarine; font-size: 1.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-check-circle-fill me-2"></i>Expert Team
+          </h4>
+          <p style="color: #eee; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            Our team consists of highly skilled professionals with extensive experience in AI, data science, automation, and digital transformation, ensuring world-class delivery.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="feature-box" style="padding: 2rem; background: rgba(97, 97, 252, 0.1); border-radius: 10px; border-left: 4px solid aquamarine; height: 100%;">
+          <h4 style="color: aquamarine; font-size: 1.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-globe me-2"></i>Global Standards
+          </h4>
+          <p style="color: #eee; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            We deliver work that is precise, timely, and aligned with international best practices, meeting the highest quality benchmarks in every project.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="feature-box" style="padding: 2rem; background: rgba(97, 97, 252, 0.1); border-radius: 10px; border-left: 4px solid aquamarine; height: 100%;">
+          <h4 style="color: aquamarine; font-size: 1.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-shield-check me-2"></i>Trusted by Many
+          </h4>
+          <p style="color: #eee; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            Our services are trusted by clients across Education, AI Research, Hospitality, E-commerce, Agriculture, and Technology sectors looking to scale and innovate.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="400">
+        <div class="feature-box" style="padding: 2rem; background: rgba(97, 97, 252, 0.1); border-radius: 10px; border-left: 4px solid aquamarine; height: 100%;">
+          <h4 style="color: aquamarine; font-size: 1.5rem; margin-bottom: 1rem;">
+            <i class="bi bi-graph-up-arrow me-2"></i>Scalable Solutions
+          </h4>
+          <p style="color: #eee; font-size: 1.1rem; line-height: 1.7; margin: 0;">
+            Whether it's annotating datasets, developing chatbots, running surveys, or creating websites, we provide solutions that grow with your business needs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Expertise Section -->
+<section id="expertise" class="expertise section" style="background-color: #f9f9f9; padding: 5rem 0;">
+  <div class="container" data-aos="zoom-out">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h3 class="section-subtitle" style="color: #667eea; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">Our Expertise</h3>
+        <h2 class="section-title" style="color: #012970; font-size: 3rem; font-weight: 700; margin-bottom: 1rem;">What We Do Best</h2>
+        <p style="font-size: 1.1rem; color: #666; margin-bottom: 0;">Comprehensive technology solutions across multiple domains</p>
+      </div>
+    </div>
+    <div class="row gy-4">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="expertise-item text-center" style="padding: 2rem;">
+          <div style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;">
+            <i class="bi bi-cpu-fill"></i>
+          </div>
+          <h4 style="color: #012970; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Artificial Intelligence</h4>
+          <p style="color: #666; font-size: 0.95rem; margin: 0;">AI training, machine learning, and intelligent automation</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="expertise-item text-center" style="padding: 2rem;">
+          <div style="font-size: 3rem; color: #43ff3d; margin-bottom: 1rem;">
+            <i class="bi bi-database-fill"></i>
+          </div>
+          <h4 style="color: #012970; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Data Analytics</h4>
+          <p style="color: #666; font-size: 0.95rem; margin: 0;">Data collection, analysis, and actionable insights</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="expertise-item text-center" style="padding: 2rem;">
+          <div style="font-size: 3rem; color: #764ba2; margin-bottom: 1rem;">
+            <i class="bi bi-code-slash"></i>
+          </div>
+          <h4 style="color: #012970; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Web Development</h4>
+          <p style="color: #666; font-size: 0.95rem; margin: 0;">Dynamic, responsive websites and digital platforms</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="expertise-item text-center" style="padding: 2rem;">
+          <div style="font-size: 3rem; color: #f093fb; margin-bottom: 1rem;">
+            <i class="bi bi-chat-dots-fill"></i>
+          </div>
+          <h4 style="color: #012970; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Automation</h4>
+          <p style="color: #666; font-size: 0.95rem; margin: 0;">Chatbots, workflow automation, and process optimization</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- /About Section -->
+
+
+</main>
+
+<footer style="background-color: rgb(10, 9, 9); color: beige;" id="footer" class="footer">
+
+<div class="footer-newsletter">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-6">
+        <h4 style="color: aquamarine;">Join Our Newsletter</h4>
+        <p>Subscribe to our newsletter and stay updated on the latest in Data Science, Machine Learning, and Business Intelligence solutions!</p>
+        <!-- Replace your old form with this: -->
+        <form id="newsletter-form">
+          <div class="newsletter-form">
+            <input type="email" name="email" placeholder="Your email" required>
+            <input type="submit" value="Subscribe">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const form = document.getElementById('newsletter-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.elements['email'].value.trim();
+      if (!email) return alert('Please enter a valid email.');
+
+      // Google Form "formResponse" endpoint:
+      const url = 'https://docs.google.com/forms/d/e/1FAIpQLSfBxKteHJY_BR5PG8D1RiNH8zNohQ4MseFXf75Qcipiu8iLkA/formResponse';
+
+      // Map your input to the correct entry ID:
+      const data = new URLSearchParams();
+      data.append('entry.975547394', email);
+
+      // Send as POST, no-cors so it won’t redirect
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString()
+      })
+      .then(() => {
+        alert('Your subscription request has been sent. Thank you!');
+        form.reset();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Oops—something went wrong. Please try again later.');
+      });
+    });
+  })();
+</script>
+
+
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="index.html" class="d-flex align-items-center">
+          <span style="color: aquamarine;" class="sitename">TaiStat Consultancy</span>
+        </a>
+        <div class="footer-contact pt-3">
+          <p>Remote Firm</p>
+          <p>Serving Clients Worldwide</p>
+          <p class="mt-3"><strong>Phone:</strong> <span>+254 111-224-952</span></p>
+          <p><strong>Email:</strong> <span>taistatfirm@gmail.com</span></p>
+        </div>
+      </div>
+
+    <div class="col-lg-4 col-md-6">
+  <h4 style="color: aquamarine;">Services</h4>
+  <ul style="color: white;">
+    <li><a href="services.html#service-data-analysis-consultancy" style="color: white;">Data Analysis &amp; Consultancy</a></li>
+    <li><a href="services.html#service-ai-taskers" style="color: white;">Get Participants &amp; AI Taskers</a></li>
+    <li><a href="services.html#service-ai-in-schools" style="color: white;">AI in Schools</a></li>
+    <li><a href="services.html#service-hotels-businesses" style="color: white;">Hotels &amp; Businesses Analytics</a></li>
+    <li><a href="services.html#service-agriculture" style="color: white;">Agriculture Solutions</a></li>
+    <li><a href="services.html#service-climate-change" style="color: white;">Climate Change Initiatives</a></li>
+    <li><a href="services.html#service-data-analytics" style="color: white;">Data Analytics</a></li>
+    <li><a href="services.html#service-machine-learning" style="color: white;">Machine Learning Models</a></li>
+    <li><a href="services.html#service-business-intelligence" style="color: white;">Business Intelligence</a></li>
+    <li><a href="services.html#service-software-solutions" style="color: white;">Custom Software Solutions</a></li>
+    <li><a href="services.html#service-training-workshops" style="color: white;">Training &amp; Workshops</a></li>
+    <li><a href="services.html#service-consulting-services" style="color: white;">Consulting Services</a></li>
+  </ul>
+</div>
+
+<div class="col-lg-4 col-md-6">
+  <h4 style="color: aquamarine;">Industries</h4>
+  <ul>
+    <li>Artificial Intelligence</li>
+    <li>Agriculture</li>
+    <li>Healthcare</li>
+    <li>Hospitality</li>
+    <li>Retail</li>
+    <li>Finance</li>
+    <li>Education</li>
+  </ul>
+</div>
+
+
+
+      <div class="col-lg-4 col-md-12">
+        <h4 style="color: aquamarine;">Follow Us</h4>
+        <p>Join our community and explore the transformative power of data-driven insights.</p>
+    <div class="social-links">
+    <!-- X icon from local storage -->
+    <a
+      href="https://x.com/TaistatFirm"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="X"
+    >
+      <img src="assets/img/twiter.png" alt="X logo">
+    </a>
+
+    <!-- LinkedIn icon from local storage -->
+    <a
+      href="https://www.linkedin.com/company/taistat-consultancy-firm/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+    >
+      <img src="assets/img/linkedin.png" alt="LinkedIn logo">
+    </a>
+
+    <!-- Facebook icon from local storage -->
+    <a
+      href="https://www.facebook.com/TaiStatFirm"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook"
+    >
+      <img src="assets/img/facebook.jpeg" alt="Facebook logo">
+    </a>
+  </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>&copy; <span>Copyright</span> <strong class="px-1 sitename" style="color: aquamarine;">TaiStat Firm</strong> <span>All Rights Reserved</span></p>
+    
+  </div>
+
+</footer>
+<div id="whatsapp-container" class="whatsapp-container">
+  <a href="https://wa.me/254111224952" target="_blank" class="whatsapp-float">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='64' height='64'%3E%3Cpath fill='%23fff' d='M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.5 2.1 8L0 32l8.2-2.1c2.5 1.3 5.2 2 7.8 2 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 27.9c-2.4 0-4.7-.6-6.8-1.7l-.5-.3-4.9 1.2 1.3-4.7-.3-.5c-1.3-2.1-1.9-4.3-1.9-6.6C2.9 8.1 8.1 2.9 16 2.9s13.1 5.2 13.1 13.1-5.2 13.1-13.1 13.1zm7.1-9.9c-.4-.2-2.4-1.2-2.8-1.3-.4-.1-.7-.2-1 .2s-.9 1.3-1.1 1.6c-.2.3-.4.3-.8.1s-1.6-.6-3.1-1.9c-1.1-1-1.9-2.2-2.2-2.6s0-.6.2-.8c.2-.2.4-.4.6-.6.2-.2.3-.4.5-.6.2-.2.3-.4.5-.6s.3-.4.4-.6c.1-.2.1-.4 0-.6-.1-.2-.9-2.1-1.2-2.8-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6 0-.9.4-.3.4-1.2 1.1-1.2 2.7s1.3 3.2 1.5 3.5c.2.3 2.6 4.3 6.3 6 .9.4 1.6.6 2.1.8.9.3 1.7.3 2.3.2.7-.1 2.4-1 2.8-2 .4-1.1.4-2 .3-2.2-.1-.2-.4-.2-.8-.4z'/%3E%3C/svg%3E" alt="WhatsApp">
+  </a>
+  <button class="close-btn" onclick="closeWhatsApp()">X</button>
+</div>
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+ <script>
+        function closeWhatsApp() {
+            document.getElementById('whatsapp-container').style.display = 'none';
+        }
+    </script>
+<!-- Vendor JS Files -->
+
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Main JS File -->
+<script src="assets/js/main.js"></script>
+</body>
+</html>
