@@ -1,0 +1,18 @@
+{
+  "name": "taistat-website",
+  "version": "1.0.0",
+  "description": "TaiStat Consultancy Website with Blog Management System",
+  "scripts": {
+    "dev": "vercel dev",
+    "setup-db": "node scripts/setup-database.js",
+    "migrate": "node scripts/migrate-blogs.js"
+  },
+  "dependencies": {
+    "cloudinary": "^1.41.0",
+    "dotenv": "^16.6.1",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.7"
+  }
+}

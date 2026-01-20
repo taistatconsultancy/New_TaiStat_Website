@@ -21,6 +21,10 @@
       "destination": "/blog.html"
     },
     {
+      "source": "/blog/:slug",
+      "destination": "/blog-detail.html?slug=:slug"
+    },
+    {
       "source": "/about-us",
       "destination": "/aboutus.html"
     },

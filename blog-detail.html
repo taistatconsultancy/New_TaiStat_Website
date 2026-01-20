@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Blog Detail - TaiStat</title>
+  <meta name="description" content="TaiStat Blog">
+  
+  <!-- Favicons -->
+  <link href="assets/img/tailogo.png" rel="icon">
+  <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="/home" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/tailogo.png" alt="" style="border-radius: 50%;">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/ai">AI</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/blog" class="active">Blog</a></li>
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted flex-md-shrink-0" href="/contact">Get Started</a>
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main class="main">
+    <br><br>
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 id="blog-title">Blog</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li class="current" id="breadcrumb-title">Loading...</li>
+          </ol>
+        </div>
+      </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <section id="blog-detail" class="blog-posts section">
+            <div id="blog-loading" class="text-center py-5">
+              <p>Loading blog post...</p>
+            </div>
+            <div id="blog-content" style="display: none;">
+              <!-- Blog content will be loaded here -->
+            </div>
+            <div id="blog-error" class="text-center py-5" style="display: none;">
+              <p class="text-danger">Blog post not found.</p>
+              <a href="/blog" class="btn btn-primary mt-3">Back to Blog</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="background-color: rgb(10, 9, 9); color: beige;" id="footer" class="footer">
+    <div class="container copyright text-center mt-4">
+      <p>&copy; <span>Copyright</span> <strong class="px-1 sitename" style="color: aquamarine;">TaiStat Firm</strong> <span>All Rights Reserved</span></p>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Get slug from URL - try query param first, then path
+    const urlParams = new URLSearchParams(window.location.search);
+    let slug = urlParams.get('slug');
+    
+    // If not in query, extract from path
+    if (!slug) {
+      const pathParts = window.location.pathname.split('/').filter(p => p);
+      slug = pathParts[pathParts.length - 1];
+    }
+
+    async function loadBlogDetail() {
+      const loadingEl = document.getElementById('blog-loading');
+      const contentEl = document.getElementById('blog-content');
+      const errorEl = document.getElementById('blog-error');
+
+      if (!slug) {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/blogs?slug=${slug}`);
+        
+        if (!response.ok) {
+          throw new Error('Blog not found');
+        }
+
+        const blog = await response.json();
+
+        // Update page title
+        document.title = `${blog.title} - TaiStat Blog`;
+        document.getElementById('blog-title').textContent = blog.title;
+        document.getElementById('breadcrumb-title').textContent = blog.title;
+
+        // Update meta description if available
+        if (blog.meta_description) {
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) {
+            metaDesc.content = blog.meta_description;
+          }
+        }
+
+        // Render blog content
+        const imageUrl = blog.featured_image_url || 'https://via.placeholder.com/800x400?text=No+Image';
+        const date = new Date(blog.published_at || blog.created_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+
+        contentEl.innerHTML = `
+          <article>
+            <div class="post-img">
+              <img src="${imageUrl}" alt="${blog.title}" class="img-fluid" style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
+            
+            <h2 class="title">${blog.title}</h2>
+            
+            <div class="meta-top">
+              <ul>
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> 
+                  <a href="#">${blog.author || 'Stephen Mulingwa'}</a>
+                </li>
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-clock"></i> 
+                  <a href="#"><time datetime="${blog.published_at || blog.created_at}">${date}</time></a>
+                </li>
+                ${blog.category ? `
+                <li class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> 
+                  <a href="/blog?category=${encodeURIComponent(blog.category)}">${blog.category}</a>
+                </li>
+                ` : ''}
+              </ul>
+            </div>
+            
+            <div class="content" style="margin-top: 2rem; line-height: 1.8; font-size: 1.1rem;">
+              ${blog.content.split('\n').map(para => `<p>${para}</p>`).join('')}
+            </div>
+
+            ${blog.tags && blog.tags.length > 0 ? `
+            <div class="tags" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
+              <h4>Tags:</h4>
+              ${blog.tags.map(tag => `<span style="display: inline-block; background: #f3f4f6; padding: 0.5rem 1rem; border-radius: 20px; margin: 0.25rem; font-size: 0.875rem;">${tag}</span>`).join('')}
+            </div>
+            ` : ''}
+          </article>
+        `;
+
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'block';
+      } catch (error) {
+        console.error('Error loading blog:', error);
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+      }
+    }
+
+    // Load blog detail when page loads
+    document.addEventListener('DOMContentLoaded', loadBlogDetail);
+  </script>
+</body>
+</html>
