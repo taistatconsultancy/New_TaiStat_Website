@@ -24,8 +24,10 @@ module.exports = async (req, res) => {
 
   // Simple auth check
   const authHeader = req.headers.authorization;
-  if (authHeader !== `Bearer ${process.env.ADMIN_API_KEY}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  const expectedAuth = `Bearer ${process.env.ADMIN_API_KEY}`;
+  
+  if (!authHeader || authHeader !== expectedAuth) {
+    return res.status(401).json({ error: 'Unauthorized. Please check your API key.' });
   }
 
   try {

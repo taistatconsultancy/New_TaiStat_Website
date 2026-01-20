@@ -25,9 +25,10 @@ function getPool() {
 // Simple authentication check (you should implement proper auth)
 function checkAuth(req) {
   const authHeader = req.headers.authorization;
+  const expectedAuth = `Bearer ${process.env.ADMIN_API_KEY}`;
   // In production, implement proper JWT or session-based auth
   // For now, using a simple API key check
-  return authHeader === `Bearer ${process.env.ADMIN_API_KEY}`;
+  return authHeader && authHeader === expectedAuth;
 }
 
 function generateSlug(title) {
@@ -38,7 +39,6 @@ function generateSlug(title) {
 }
 
 module.exports = async (req, res) => {
-  const dbPool = getPool();
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -50,10 +50,12 @@ module.exports = async (req, res) => {
 
   // Check authentication for admin operations
   if (!checkAuth(req)) {
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({ error: 'Unauthorized. Please check your API key.' });
   }
 
   try {
+    const dbPool = getPool();
+    
     if (req.method === 'POST') {
       // Create new blog
       const { title, excerpt, content, featured_image_url, author, category, tags, published, meta_description, meta_keywords } = req.body;
@@ -82,7 +84,7 @@ module.exports = async (req, res) => {
 
     if (req.method === 'PUT') {
       // Update blog
-      const { id } = req.query;
+      const id = req.query?.id;
       const { title, excerpt, content, featured_image_url, author, category, tags, published, meta_description, meta_keywords } = req.body;
 
       if (!id) {
@@ -164,7 +166,7 @@ module.exports = async (req, res) => {
 
     if (req.method === 'DELETE') {
       // Delete blog
-      const { id } = req.query;
+      const id = req.query?.id;
 
       if (!id) {
         return res.status(400).json({ error: 'Blog ID is required' });

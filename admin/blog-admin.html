@@ -441,18 +441,178 @@
     </div>
   </div>
 
+  <style>
+    /* API Key Modal Styles */
+    #apiKeyModal {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #apiKeyModal.hidden {
+      display: none;
+    }
+    
+    .api-key-modal-content {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .api-key-modal-content h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+    
+    .api-key-modal-content p {
+      color: #6c757d;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    .api-key-input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    
+    .api-key-input:focus {
+      outline: none;
+      border-color: #4A1DE1;
+    }
+    
+    .api-key-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .api-key-buttons button {
+      flex: 1;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .api-key-submit {
+      background: #4A1DE1;
+      color: white;
+    }
+    
+    .api-key-submit:hover {
+      background: #3000D2;
+    }
+    
+    .api-key-cancel {
+      background: #e5e7eb;
+      color: #1a1a1a;
+    }
+    
+    .api-key-cancel:hover {
+      background: #d1d5db;
+    }
+  </style>
+  
+  <!-- API Key Modal -->
+  <div id="apiKeyModal" class="hidden">
+    <div class="api-key-modal-content">
+      <h2><i class="bi bi-shield-lock"></i> Admin Authentication</h2>
+      <p>Please enter your Admin API Key to access the blog management system.</p>
+      <input type="password" id="apiKeyInput" class="api-key-input" placeholder="Enter Admin API Key" autofocus>
+      <div class="api-key-buttons">
+        <button class="api-key-submit" onclick="submitApiKey()">Continue</button>
+        <button class="api-key-cancel" onclick="cancelApiKey()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const API_BASE = '/api/blogs';
-    const ADMIN_API_KEY = prompt('Enter Admin API Key:'); // In production, use proper auth
-    
+    let ADMIN_API_KEY = null;
     let currentTags = [];
+    
+    // Show API key modal on page load
+    function showApiKeyModal() {
+      document.getElementById('apiKeyModal').classList.remove('hidden');
+      document.getElementById('apiKeyInput').focus();
+    }
+    
+    function submitApiKey() {
+      const key = document.getElementById('apiKeyInput').value.trim();
+      if (key) {
+        ADMIN_API_KEY = key;
+        document.getElementById('apiKeyModal').classList.add('hidden');
+        loadBlogs();
+      } else {
+        alert('Please enter an API key');
+      }
+    }
+    
+    function cancelApiKey() {
+      document.getElementById('apiKeyModal').classList.add('hidden');
+      alert('API key is required to access the admin panel.');
+    }
+    
+    // Handle Enter key in API key input
+    document.addEventListener('DOMContentLoaded', function() {
+      const apiKeyInput = document.getElementById('apiKeyInput');
+      if (apiKeyInput) {
+        apiKeyInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            submitApiKey();
+          }
+        });
+      }
+      showApiKeyModal();
+    });
 
     async function loadBlogs() {
+      if (!ADMIN_API_KEY) {
+        showApiKeyModal();
+        return;
+      }
+      
       const container = document.getElementById('blogs-container');
       container.innerHTML = '<p class="loading">Loading blogs...</p>';
 
       try {
         const response = await fetch(API_BASE);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         
         if (data.blogs && data.blogs.length > 0) {
@@ -618,6 +778,12 @@
     async function saveBlog(event) {
       event.preventDefault();
       
+      if (!ADMIN_API_KEY) {
+        showAlert('Please enter your API key first', 'error');
+        showApiKeyModal();
+        return;
+      }
+      
       const id = document.getElementById('blogId').value;
       const blogData = {
         title: document.getElementById('title').value,
@@ -698,8 +864,8 @@
       }, 5000);
     }
 
-    // Load blogs on page load
-    loadBlogs();
+    // Don't load blogs until API key is entered
+    // loadBlogs() will be called after API key is submitted
   </script>
 </body>
 </html>

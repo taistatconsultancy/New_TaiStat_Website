@@ -15,7 +15,6 @@ function getPool() {
 }
 
 module.exports = async (req, res) => {
-  const dbPool = getPool();
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -26,8 +25,12 @@ module.exports = async (req, res) => {
   }
 
   try {
+    const dbPool = getPool();
+    
     if (req.method === 'GET') {
-      const { id, slug } = req.query;
+      // Handle query parameters - Vercel passes them in req.query
+      const id = req.query?.id;
+      const slug = req.query?.slug;
 
       if (id) {
         // Get single blog by ID
@@ -58,7 +61,9 @@ module.exports = async (req, res) => {
       }
 
       // Get all published blogs
-      const { page = 1, limit = 10, category } = req.query;
+      const page = parseInt(req.query?.page) || 1;
+      const limit = parseInt(req.query?.limit) || 10;
+      const category = req.query?.category;
       const offset = (page - 1) * limit;
 
       let query = 'SELECT * FROM blogs WHERE published = true';
@@ -76,14 +81,15 @@ module.exports = async (req, res) => {
 
       const result = await dbPool.query(query, params);
       const countResult = await dbPool.query('SELECT COUNT(*) FROM blogs WHERE published = true');
+      const total = parseInt(countResult.rows[0].count);
 
       return res.status(200).json({
         blogs: result.rows,
         pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
-          total: parseInt(countResult.rows[0].count),
-          totalPages: Math.ceil(countResult.rows[0].count / limit)
+          page: page,
+          limit: limit,
+          total: total,
+          totalPages: Math.ceil(total / limit)
         }
       });
     }
@@ -91,6 +97,11 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
     console.error('Database error:', error);
-    return res.status(500).json({ error: 'Internal server error', details: error.message });
+    // Return error in a format that won't break the frontend
+    return res.status(500).json({ 
+      error: 'Internal server error', 
+      details: error.message,
+      blogs: [] // Ensure blogs array exists even on error
+    });
   }
 }
