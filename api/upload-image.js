@@ -1,15 +1,29 @@
-// Vercel Serverless Function - Upload image to Cloudinary
+// Vercel Serverless Function - Upload image to Cloudinary (admin JWT required)
 const cloudinary = require('cloudinary').v2;
+const { requireAdmin } = require('./_auth');
 
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+async function readJson(req) {
+  if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) {
+    return req.body;
+  }
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  const raw = Buffer.concat(chunks).toString('utf8');
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
+
 module.exports = async (req, res) => {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -22,24 +36,21 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Simple auth check
-  const authHeader = req.headers.authorization;
-  const expectedAuth = `Bearer ${process.env.ADMIN_API_KEY}`;
-  
-  if (!authHeader || authHeader !== expectedAuth) {
-    return res.status(401).json({ error: 'Unauthorized. Please check your API key.' });
-  }
+  const admin = requireAdmin(req, res);
+  if (!admin) return;
 
   try {
-    const { image } = req.body;
+    const body = await readJson(req);
+    const { image, folder } = body;
 
     if (!image) {
       return res.status(400).json({ error: 'Image data is required' });
     }
 
-    // Upload to Cloudinary
+    const uploadFolder = folder || 'taistat-uploads';
+
     const uploadResult = await cloudinary.uploader.upload(image, {
-      folder: 'taistat-blogs',
+      folder: uploadFolder,
       resource_type: 'auto'
     });
 
@@ -51,4 +62,4 @@ module.exports = async (req, res) => {
     console.error('Cloudinary upload error:', error);
     return res.status(500).json({ error: 'Failed to upload image', details: error.message });
   }
-}
+};

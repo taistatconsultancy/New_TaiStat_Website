@@ -1,196 +1,97 @@
-# Blog Management System - Setup Guide
+# Content management (blogs, portfolio, admin)
 
 ## Overview
-This blog management system uses:
-- **Neon PostgreSQL Database** for storing blog data
-- **Cloudinary** for image storage
-- **Vercel Serverless Functions** for API endpoints
-- **Admin Panel** for managing blogs
 
-## Setup Instructions
+- **Neon PostgreSQL** — blogs, projects, admin users  
+- **Cloudinary** — uploaded images  
+- **Vercel serverless** — `/api/*` routes  
+- **Admin dashboard** — `/admin` (login + Blogs & Portfolio tabs)
 
-### 1. Environment Variables
-Add these to your `.env` file (or Vercel environment variables):
+Admin APIs use **JWT** sessions (no `ADMIN_API_KEY` in headers). Sign in at `/admin`, then use the issued bearer token for API calls (the dashboard does this automatically).
 
-```env
-# Neon Database
-NEON_DATABASE_URL=postgresql://user:password@host/database
+## Environment variables
 
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+Copy `.env.example` to `.env` and fill in:
 
-# Admin API Key (create a secure random string)
-ADMIN_API_KEY=your_secure_random_api_key_here
-```
+| Variable | Purpose |
+|----------|---------|
+| `NEON_DATABASE_URL` | Postgres connection string |
+| `JWT_SECRET` | Signs admin JWTs (use a long random value in production) |
+| `CLOUDINARY_*` | Image uploads |
+| `ADMIN_SEED_USERNAME`, `ADMIN_SEED_PASSWORD`, `ADMIN_SEED_EMAIL` | Optional; used only by `npm run seed-admin` |
 
-### 2. Database Setup
-Run the SQL schema to create the blogs table:
+Add the same variables in **Vercel → Project → Settings → Environment Variables**.
+
+## Database setup
+
+Apply schema (Neon SQL editor or `psql`):
 
 ```bash
-# Connect to your Neon database and run:
-psql $NEON_DATABASE_URL -f database/schema.sql
+psql "$NEON_DATABASE_URL" -f database/schema.sql
 ```
 
-Or copy the SQL from `database/schema.sql` and run it in your Neon dashboard.
+Or run:
 
-### 3. Install Dependencies
+```bash
+npm run setup-db
+```
+
+(applies `database/schema.sql` via `scripts/setup-database.js`)
+
+## Install & seed
+
 ```bash
 npm install
+npm run migrate          # optional: import legacy blog HTML into DB
+npm run seed-admin       # first admin user (uses ADMIN_SEED_* from .env)
+npm run seed-projects    # optional: Mkulima Sokoni / YodaAI-style samples
 ```
 
-### 4. Migrate Existing Blogs
-Run the migration script to transfer existing blog data:
+## Admin UI
 
-```bash
-npm run migrate
-```
+- URL: **`/admin`** (rewrites to `admin/index.html`)
+- Log in with credentials created by `seed-admin` (stored hashed in `admin_users`).
+- **Blogs** and **Portfolio** tabs for CRUD; image upload uses Cloudinary via `/api/upload-image` with the same JWT.
 
-This will:
-- Upload all blog images to Cloudinary
-- Insert blog data into the database
-- Create slugs for each blog
+## Public URLs
 
-### 5. Deploy to Vercel
-```bash
-vercel deploy
-```
+- Blog index: `/blog`
+- Blog post: `/blog/{slug}`
+- Portfolio: `/portfolio` (projects from `/api/projects`)
 
-Make sure to add all environment variables in Vercel dashboard:
-- Go to Project Settings → Environment Variables
-- Add all variables from step 1
+## API reference
 
-## Usage
+### Public
 
-### Admin Panel
-Access the admin panel at: `https://yourdomain.com/admin/blog-admin.html`
+- `GET /api/blogs` — query: `page`, `limit`, `category`, `slug`, `id`
+- `GET /api/projects` — published projects only
 
-**Note:** The admin panel will prompt for the API key. Use the `ADMIN_API_KEY` you set in environment variables.
+### Auth
 
-### API Endpoints
+- `POST /api/admin-auth` — body: `{ "username", "password" }` → sets cookie / returns token (see `api/admin-auth.js`)
+- `GET /api/admin-auth` — validate session (Bearer token or cookie)
 
-#### Get All Blogs
-```
-GET /api/blogs?page=1&limit=10&category=Machine%20Learning
-```
+### Admin (requires `Authorization: Bearer <jwt>`)
 
-#### Get Single Blog by Slug
-```
-GET /api/blogs?slug=machine-learning
-```
-
-#### Get Single Blog by ID
-```
-GET /api/blogs?id=1
-```
-
-#### Create Blog (Admin)
-```
-POST /api/blogs-admin
-Authorization: Bearer YOUR_ADMIN_API_KEY
-Content-Type: application/json
-
-{
-  "title": "Blog Title",
-  "excerpt": "Short excerpt",
-  "content": "Full blog content...",
-  "featured_image_url": "https://cloudinary.com/image.jpg",
-  "author": "Stephen Mulingwa",
-  "category": "Machine Learning",
-  "tags": ["AI", "ML"],
-  "published": true
-}
-```
-
-#### Update Blog (Admin)
-```
-PUT /api/blogs-admin?id=1
-Authorization: Bearer YOUR_ADMIN_API_KEY
-Content-Type: application/json
-
-{
-  "title": "Updated Title",
-  "content": "Updated content..."
-}
-```
-
-#### Delete Blog (Admin)
-```
-DELETE /api/blogs-admin?id=1
-Authorization: Bearer YOUR_ADMIN_API_KEY
-```
-
-#### Upload Image (Admin)
-```
-POST /api/upload-image
-Authorization: Bearer YOUR_ADMIN_API_KEY
-Content-Type: application/json
-
-{
-  "image": "data:image/jpeg;base64,..."
-}
-```
-
-## Blog URLs
-
-- Blog listing: `/blog`
-- Blog detail: `/blog/{slug}`
-
-Example: `/blog/machine-learning`
-
-## Features
-
-- ✅ Dynamic blog listing from database
-- ✅ SEO-friendly URLs with slugs
-- ✅ Image upload to Cloudinary
-- ✅ Rich text content support
-- ✅ Categories and tags
-- ✅ Published/Draft status
-- ✅ Admin panel for easy management
-- ✅ Responsive design
-- ✅ Meta descriptions and keywords
-
-## File Structure
-
-```
-├── api/
-│   ├── blogs.js              # GET blogs endpoint
-│   ├── blogs-admin.js        # POST/PUT/DELETE blogs endpoint
-│   └── upload-image.js      # Image upload endpoint
-├── admin/
-│   └── blog-admin.html       # Admin panel
-├── database/
-│   └── schema.sql           # Database schema
-├── scripts/
-│   └── migrate-blogs.js     # Migration script
-├── blog.html                # Blog listing page (updated)
-└── blog-detail.html         # Blog detail page (dynamic)
-```
+- `GET/POST/PUT/DELETE /api/blogs-admin`
+- `GET/POST/PUT/DELETE /api/projects-admin`
+- `POST /api/upload-image` — JSON `{ "image": "data:image/...;base64,..." }`
 
 ## Troubleshooting
 
-### Images not uploading
-- Check Cloudinary credentials in environment variables
-- Verify API key has upload permissions
+- **401 on admin routes** — Log in again; ensure `JWT_SECRET` matches between deploys and local `.env`.
+- **DB errors** — Confirm `NEON_DATABASE_URL` and that `database/schema.sql` has been applied (including `projects` and `admin_users` columns).
+- **Upload failures** — Check Cloudinary env vars and JWT on the request.
 
-### Database connection errors
-- Verify NEON_DATABASE_URL is correct
-- Check SSL settings (should be enabled for Neon)
+## File map
 
-### API returns 401 Unauthorized
-- Verify ADMIN_API_KEY matches in environment variables
-- Check Authorization header format: `Bearer YOUR_API_KEY`
-
-### Blogs not showing
-- Run migration script to populate database
-- Check that blogs have `published: true`
-- Verify API endpoint is accessible
-
-## Security Notes
-
-- **Important:** In production, implement proper authentication (JWT, sessions)
-- The current API key check is basic - enhance for production use
-- Consider rate limiting for API endpoints
-- Add input validation and sanitization
-- Use HTTPS for all API calls
+```
+api/
+  admin-auth.js, blogs.js, blogs-admin.js
+  projects.js, projects-admin.js, upload-image.js
+  _db.js, _auth.js
+admin/index.html
+database/schema.sql
+scripts/migrate-blogs.js, seed-admin.js, seed-projects.js
+blog.html, blog-detail.html, portfolio.html
+```

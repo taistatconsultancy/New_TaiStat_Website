@@ -38,64 +38,174 @@
       height: auto;
     }
   </style>
-  <!-- Custom Styles for Blog Cards -->
   <style>
+    /* Portfolio-aligned blog index (dark band + purple hero) */
+    #blog-posts.section {
+      background: #001f3f;
+      padding-top: 3rem;
+      padding-bottom: 4rem;
+    }
+    .blog-lede {
+      max-width: 640px;
+      margin: 0 auto 1.75rem;
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+    .blog-filters {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+    }
+    .blog-search-wrap .input-group-text {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+    }
+    .blog-search-wrap .form-control {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+    }
+    .blog-search-wrap .form-control::placeholder {
+      color: #64748b;
+    }
+    .blog-search-wrap .form-control:focus {
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.35);
+      border-color: rgba(102, 126, 234, 0.5);
+    }
+    .blog-chip {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .blog-chip:hover {
+      background: rgba(102, 126, 234, 0.2);
+      border-color: rgba(102, 126, 234, 0.45);
+      color: #fff;
+    }
+    .blog-chip.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-color: transparent;
+      color: #fff;
+    }
     .post-item {
       display: flex;
       flex-direction: column;
       height: 100%;
-      background: #fff;
-      border: 1px solid #eaeaea;
-      border-radius: 4px;
+      background: #141414;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
       overflow: hidden;
-      transition: box-shadow 0.3s;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
     .post-item:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+      border-color: rgba(102, 126, 234, 0.35);
     }
     .post-img {
       height: 200px;
       overflow: hidden;
+      background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
     }
     .post-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+      min-height: 200px;
     }
     .post-content {
-      padding: 15px;
+      padding: 1.35rem 1.25rem 1.5rem;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
     }
     .post-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .post-title a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .post-title a:hover {
+      color: #a5b4fc;
     }
     .meta {
-      font-size: 0.875rem;
-      color: #6c757d;
-      margin-bottom: 0.75rem;
+      font-size: 0.82rem;
+      color: #94a3b8;
+      margin-bottom: 0.85rem;
+    }
+    .meta .sep {
+      opacity: 0.45;
+      margin: 0 0.2rem;
     }
     .post-excerpt {
-      font-size: 0.9rem;
-      color: #555;
+      font-size: 0.92rem;
+      color: #cbd5e1;
       margin-bottom: 1rem;
       flex-grow: 1;
+      line-height: 1.6;
     }
     .readmore {
       margin-top: auto;
-      font-weight: 600;
+      font-weight: 700;
       text-decoration: none;
-      color: #007bff;
-      transition: color 0.3s;
+      font-size: 0.88rem;
+      color: #a5b4fc;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
     }
     .readmore:hover {
-      color: #0056b3;
+      color: #c7d2fe;
+    }
+    .blog-page-hero .heading {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding-top: 5rem !important;
+      padding-bottom: 2.5rem !important;
+    }
+    .blog-page-hero .heading h1 { color: #fff !important; }
+    .blog-page-hero .heading .text-muted { color: rgba(255,255,255,.88) !important; }
+    #blogs-pagination .btn {
+      border-radius: 999px;
+      min-width: 2.5rem;
+    }
+    #blogs-pagination .btn-outline-secondary {
+      border-color: rgba(255,255,255,.25);
+      color: #e2e8f0;
+    }
+    #blogs-pagination .btn-outline-secondary:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.35);
+      color: #fff;
+    }
+    #blogs-pagination .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+    }
+    #blogs-loading { color: #94a3b8 !important; }
+    #blogs-empty-filter {
+      color: #94a3b8;
+      display: none;
     }
   </style>
 </head>
-<body>
+<body class="index-page">
 
   <!-- ======= Header ======= -->
  <header id="header" class="header d-flex align-items-center fixed-top">
@@ -131,13 +241,13 @@
   <main class="main">
     <br><br>
     <!-- Page Title -->
-    <div class="page-title">
+    <div class="page-title blog-page-hero">
       <div class="heading">
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1>Blog</h1>
-              <p class="mb-0"></p>
+              <h1>Insights &amp; Ideas</h1>
+              <p class="mb-0 text-muted">Articles on AI, data, agriculture technology, and how we build at TaiStat.</p>
             </div>
           </div>
         </div>
@@ -156,37 +266,37 @@
     <!-- Blog Posts Section -->
     <section id="blog-posts" class="blog-posts section">
       <div class="container">
+        <p class="blog-lede">Fresh perspectives from our team — explore tutorials, case-style writeups, and technology notes.</p>
+
+        <div id="blog-filters" class="blog-filters" style="display: none;">
+          <div class="row g-3 align-items-center">
+            <div class="col-lg-5 col-md-12">
+              <label class="visually-hidden" for="blog-search">Search articles</label>
+              <div class="input-group blog-search-wrap">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="search" id="blog-search" class="form-control rounded-end" placeholder="Search titles &amp; topics…" autocomplete="off" />
+              </div>
+            </div>
+            <div class="col-lg-7 col-md-12">
+              <div id="blog-categories" class="d-flex flex-wrap gap-2 justify-content-lg-end" role="toolbar" aria-label="Filter by category"></div>
+            </div>
+          </div>
+        </div>
+
         <div id="blogs-loading" class="text-center py-5">
           <p>Loading blogs...</p>
         </div>
+        <div id="blogs-empty-filter" class="text-center py-4"></div>
         <div id="blogs-container" class="row gy-5" style="display: none;">
           <!-- Blogs will be dynamically loaded here -->
         </div>
         <div id="blogs-error" class="text-center py-5" style="display: none;">
           <p class="text-danger">Error loading blogs. Please try again later.</p>
         </div>
+        <nav id="blogs-pagination" class="d-flex justify-content-center align-items-center flex-wrap gap-2 py-4" style="display:none;" aria-label="Blog pagination"></nav>
       </div><!-- End container -->
     </section>
     <!-- End Blog Posts Section -->
-
-    <!-- Blog Pagination Section -->
-    <section id="blog-pagination" class="blog-pagination section">
-      <div class="container">
-        <div class="d-flex justify-content-center">
-          <ul>
-            <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#" class="active">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li>...</li>
-            <li><a href="#">10</a></li>
-            <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <!-- End Blog Pagination Section -->
 
   </main>
 
@@ -254,7 +364,6 @@
           <div class="footer-contact pt-3">
             <p>Remote Firm</p>
             <p>Serving Clients Worldwide</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+254 111-224-952</span></p>
             <p><strong>Email:</strong> <span>taistatfirm@gmail.com</span></p>
           </div>
         </div>
@@ -296,15 +405,6 @@
           <p>Join our community and explore the transformative power of data-driven insights.</p>
      <div class="social-links">
     <!-- X icon from local storage -->
-    <a
-      href="https://x.com/TaistatFirm"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="X"
-    >
-      <img src="twiter.png" alt="X logo">
-    </a>
-
     <!-- LinkedIn icon from local storage -->
     <a
       href="https://www.linkedin.com/company/taistat-consultancy-firm/"
@@ -312,7 +412,7 @@
       rel="noopener noreferrer"
       aria-label="LinkedIn"
     >
-      <img src="linkedin.png" alt="LinkedIn logo">
+      <img src="assets/img/linkedin.png" alt="LinkedIn logo">
     </a>
 
     <!-- Facebook icon from local storage -->
@@ -322,7 +422,7 @@
       rel="noopener noreferrer"
       aria-label="Facebook"
     >
-      <img src="facebook.jpeg" alt="Facebook logo">
+      <img src="assets/img/facebook.jpeg" alt="Facebook logo">
     </a>
   </div>
         </div>
@@ -334,28 +434,11 @@
       
     </div>
   </footer>
-  <!-- End Footer -->
-
-  <!-- WhatsApp Floating Button -->
-  <div id="whatsapp-container" class="whatsapp-container">
-    <a href="https://wa.me/254111224952" target="_blank" class="whatsapp-float">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='64' height='64'%3E%3Cpath fill='%23fff' d='M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.5 2.1 8L0 32l8.2-2.1c2.5 1.3 5.2 2 7.8 2 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 27.9c-2.4 0-4.7-.6-6.8-1.7l-.5-.3-4.9 1.2 1.3-4.7-.3-.5c-1.3-2.1-1.9-4.3-1.9-6.6C2.9 8.1 8.1 2.9 16 2.9s13.1 5.2 13.1 13.1-5.2 13.1-13.1 13.1zm7.1-9.9c-.4-.2-2.4-1.2-2.8-1.3-.4-.1-.7-.2-1 .2s-.9 1.3-1.1 1.6c-.2.3-.4.3-.8.1s-1.6-.6-3.1-1.9c-1.1-1-1.9-2.2-2.2-2.6s0-.6.2-.8c.2-.2.4-.4.6-.6.2-.2.3-.4.5-.6.2-.2.3-.4.5-.6s.3-.4.4-.6c.1-.2.1-.4 0-.6-.1-.2-.9-2.1-1.2-2.8-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6 0-.9.4-.3.4-1.2 1.1-1.2 2.7s1.3 3.2 1.5 3.5c.2.3 2.6 4.3 6.3 6 .9.4 1.6.6 2.1.8.9.3 1.7.3 2.3.2.7-.1 2.4-1 2.8-2 .4-1.1.4-2 .3-2.2-.1-.2-.4-.2-.8-.4z'/%3E%3C/svg%3E" alt="WhatsApp">
-    </a>
-    <button class="close-btn" onclick="closeWhatsApp()">X</button>
-  </div>
-
-  <!-- Scroll Top -->
+  <!-- End Footer --><!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
     <i class="bi bi-arrow-up-short"></i>
   </a>
-
-  <script>
-    function closeWhatsApp() {
-      document.getElementById('whatsapp-container').style.display = 'none';
-    }
-  </script>
-
-  <!-- Vendor JS Files -->
+<!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -369,92 +452,226 @@
   <script src="assets/js/main.js"></script>
   
   <script>
-    // Fetch and display blogs from API
-    async function loadBlogs() {
+    const blogPageState = {
+      page: 1,
+      limit: 9,
+      totalPages: 0,
+      total: 0,
+      category: '',
+      q: '',
+      categories: [],
+      searchTimer: null
+    };
+
+    function escapeHtml(s) {
+      return String(s ?? '').replace(/[&<>"']/g, (c) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+      );
+    }
+
+    function blogQueryString() {
+      const p = new URLSearchParams();
+      p.set('limit', String(blogPageState.limit));
+      p.set('page', String(blogPageState.page));
+      if (blogPageState.category) p.set('category', blogPageState.category);
+      if (blogPageState.q) p.set('q', blogPageState.q);
+      return p.toString();
+    }
+
+    function renderCategoryChips() {
+      const root = document.getElementById('blog-categories');
+      if (!root) return;
+      root.innerHTML = '';
+      function addChip(label, catVal, active) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'blog-chip' + (active ? ' active' : '');
+        b.textContent = label;
+        b.addEventListener('click', function () {
+          blogPageState.category = catVal;
+          renderCategoryChips();
+          loadBlogs(1);
+        });
+        root.appendChild(b);
+      }
+      addChip('All', '', !blogPageState.category);
+      blogPageState.categories.forEach(function (c) {
+        if (!c) return;
+        addChip(c, c, blogPageState.category === c);
+      });
+    }
+
+    async function loadBlogs(page) {
       const loadingEl = document.getElementById('blogs-loading');
       const containerEl = document.getElementById('blogs-container');
       const errorEl = document.getElementById('blogs-error');
-      
+      const pagEl = document.getElementById('blogs-pagination');
+      const filterEmptyEl = document.getElementById('blogs-empty-filter');
+      const filtersEl = document.getElementById('blog-filters');
+
+      blogPageState.page = page || 1;
+
       try {
-        const response = await fetch('/api/blogs?limit=12');
-        
+        const response = await fetch('/api/blogs?' + blogQueryString());
+
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error('HTTP error ' + response.status);
         }
-        
+
         const data = await response.json();
-        
-        // Handle both response formats
         const blogs = data.blogs || data || [];
-        
+
+        if (Array.isArray(data.categories)) {
+          blogPageState.categories = data.categories;
+        }
+
+        if (data.pagination) {
+          blogPageState.totalPages = data.pagination.totalPages || 0;
+          blogPageState.page = data.pagination.page || blogPageState.page;
+          blogPageState.total = data.pagination.total || 0;
+        } else {
+          blogPageState.totalPages = 0;
+          blogPageState.total = blogs.length;
+        }
+
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'none';
+
+        if (filtersEl) filtersEl.style.display = 'block';
+        renderCategoryChips();
+
+        containerEl.innerHTML = '';
+        filterEmptyEl.style.display = 'none';
+        filterEmptyEl.innerHTML = '';
+
+        const hasFilter = !!(blogPageState.category || blogPageState.q);
+
         if (blogs && blogs.length > 0) {
-          loadingEl.style.display = 'none';
-          errorEl.style.display = 'none';
           containerEl.style.display = 'flex';
-          
-          containerEl.innerHTML = '';
-          
-          blogs.forEach((blog, index) => {
-            const blogCard = createBlogCard(blog, index);
-            containerEl.appendChild(blogCard);
+          blogs.forEach(function (blog, index) {
+            containerEl.appendChild(createBlogCard(blog, index));
           });
         } else {
-          loadingEl.style.display = 'none';
-          containerEl.innerHTML = '<div class="col-12 text-center py-5"><p>No blogs found.</p></div>';
           containerEl.style.display = 'flex';
+          if (hasFilter) {
+            filterEmptyEl.style.display = 'block';
+            filterEmptyEl.innerHTML =
+              '<p class="mb-0">No articles match your filters. Try another category or search term.</p>';
+            containerEl.innerHTML = '';
+          } else {
+            containerEl.innerHTML =
+              '<div class="col-12 text-center py-5"><p style="color:#94a3b8;">No articles yet — check back soon.</p></div>';
+          }
         }
+
+        renderBlogPagination();
+        if (window.AOS) AOS.refresh();
       } catch (error) {
         console.error('Error loading blogs:', error);
         loadingEl.style.display = 'none';
         errorEl.style.display = 'block';
-        errorEl.innerHTML = `
-          <p class="text-danger">Error loading blogs. Please try again later.</p>
-          <p class="text-muted" style="font-size: 0.875rem;">Error: ${error.message}</p>
-        `;
+        errorEl.innerHTML =
+          '<p class="text-danger">Error loading blogs. Please try again later.</p>' +
+          '<p class="text-muted small">' +
+          escapeHtml(error.message) +
+          '</p>';
+        if (pagEl) pagEl.style.display = 'none';
       }
     }
-    
+
+    function renderBlogPagination() {
+      const pagEl = document.getElementById('blogs-pagination');
+      if (!pagEl) return;
+      const total = blogPageState.totalPages;
+      const cur = blogPageState.page;
+      if (!blogPageState.total || total <= 1) {
+        pagEl.style.display = 'none';
+        pagEl.innerHTML = '';
+        return;
+      }
+      pagEl.style.display = 'flex';
+      pagEl.innerHTML = '';
+      for (let i = 1; i <= total; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-sm ' + (i === cur ? 'btn-primary' : 'btn-outline-secondary');
+        b.textContent = String(i);
+        b.addEventListener('click', function () {
+          loadBlogs(i);
+          document.getElementById('blog-posts').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        pagEl.appendChild(b);
+      }
+    }
+
     function createBlogCard(blog, index) {
       const col = document.createElement('div');
       col.className = 'col-xl-4 col-md-6';
       col.setAttribute('data-aos', 'zoom-out-up');
-      col.setAttribute('data-aos-delay', (index + 1) * 100);
-      
-      const imageUrl = blog.featured_image_url || 'https://via.placeholder.com/400x200?text=No+Image';
-      const excerpt = blog.excerpt || blog.content.substring(0, 150) + '...';
-      const slug = blog.slug || `blog-${blog.id}`;
-      
-      col.innerHTML = `
-        <div class="post-item">
-          <div class="post-img">
-            <img src="${imageUrl}" alt="${blog.title}" loading="lazy">
-          </div>
-          <div class="post-content">
-            <h3 class="post-title"><a href="/blog/${slug}">${blog.title}</a></h3>
-            <div class="meta d-flex align-items-center">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person"></i> <span class="ps-2">${blog.author || 'Stephen Mulingwa'}</span>
-              </div>
-              ${blog.category ? `
-              <span class="px-3 text-black-50">/</span>
-              <div class="d-flex align-items-center">
-                <i class="bi bi-folder2"></i> <span class="ps-2">${blog.category}</span>
-              </div>
-              ` : ''}
-            </div>
-            <p class="post-excerpt">${excerpt}</p>
-            <a href="/blog/${slug}" class="readmore stretched-link">
-              <span>Read More</span> <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      `;
-      
+      col.setAttribute('data-aos-delay', String((index + 1) * 100));
+
+      const imageUrl = blog.featured_image_url || 'https://placehold.co/480x280/1e3a5f/ffffff?text=TaiStat';
+      let excerpt = (blog.excerpt || '').trim();
+      if (!excerpt && blog.content) {
+        excerpt = blog.content.slice(0, 160).trim() + (blog.content.length > 160 ? '…' : '');
+      }
+      const slug = blog.slug || 'blog-' + blog.id;
+      const title = escapeHtml(blog.title);
+      const author = escapeHtml(blog.author || 'Stephen Mulingwa');
+      const cat = blog.category ? escapeHtml(blog.category) : '';
+
+      col.innerHTML =
+        '<div class="post-item h-100">' +
+        '<div class="post-img">' +
+        '<img src="' +
+        escapeHtml(imageUrl) +
+        '" alt="' +
+        title +
+        '" loading="lazy" onerror="this.onerror=null;this.src=\'https://placehold.co/480x280/1e3a5f/ffffff?text=TaiStat\';">' +
+        '</div>' +
+        '<div class="post-content d-flex flex-column">' +
+        '<h3 class="post-title"><a href="/blog/' +
+        encodeURIComponent(slug) +
+        '">' +
+        title +
+        '</a></h3>' +
+        '<div class="meta d-flex align-items-center flex-wrap gap-2">' +
+        '<span><i class="bi bi-person"></i> ' +
+        author +
+        '</span>' +
+        (blog.category
+          ? '<span class="sep">/</span><span><i class="bi bi-folder2"></i> ' + cat + '</span>'
+          : '') +
+        '</div>' +
+        '<p class="post-excerpt flex-grow-1">' +
+        escapeHtml(excerpt) +
+        '</p>' +
+        '<a href="/blog/' +
+        encodeURIComponent(slug) +
+        '" class="readmore stretched-link mt-auto"><span>Read More</span> <i class="bi bi-arrow-right"></i></a>' +
+        '</div>' +
+        '</div>';
+
       return col;
     }
-    
-    // Load blogs when page loads
-    document.addEventListener('DOMContentLoaded', loadBlogs);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var search = document.getElementById('blog-search');
+      if (search) {
+        search.addEventListener(
+          'input',
+          function (e) {
+            clearTimeout(blogPageState.searchTimer);
+            blogPageState.searchTimer = setTimeout(function () {
+              blogPageState.q = (e.target.value || '').trim();
+              loadBlogs(1);
+            }, 380);
+          },
+          false
+        );
+      }
+      loadBlogs(1);
+    });
   </script>
 </body>
 </html>

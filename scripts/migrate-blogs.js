@@ -223,11 +223,19 @@ async function migrateBlogs() {
     for (const blog of existingBlogs) {
       console.log(`Migrating: ${blog.title}`);
       
-      // Upload image to Cloudinary
+      // Upload image to Cloudinary; fall back to site-root path for local assets
       let imageUrl = null;
       if (blog.imagePath) {
         imageUrl = await uploadImageToCloudinary(blog.imagePath);
-        console.log(`  Image uploaded: ${imageUrl || 'Failed'}`);
+        if (!imageUrl) {
+          const localAbs = path.join(__dirname, '..', blog.imagePath);
+          if (fs.existsSync(localAbs)) {
+            imageUrl = '/' + blog.imagePath.replace(/^\/+/, '');
+            console.log(`  Using local image URL: ${imageUrl}`);
+          }
+        } else {
+          console.log(`  Image uploaded: ${imageUrl}`);
+        }
       }
 
       // Insert into database

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project | TaiStat</title>
+  <meta name="description" content="TaiStat portfolio case study">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="/assets/img/tailogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/css/case-study.css" rel="stylesheet">
+</head>
+<body class="case-study-page">
+
+<!-- NAVBAR — TaiStat (paths root-relative so CSS works on /portfolio/slug) -->
+<nav class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="/home" class="nav-logo">
+      <img src="/assets/img/tailogo.png" alt="TaiStat">
+      <span class="nav-logo-text">Tai<span>Stat</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/ai">AI</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/portfolio" class="active">Portfolio</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about-us">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/contact" class="nav-cta-btn"><i class="bi bi-rocket-takeoff"></i> Get Started</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
+      <i class="bi bi-list" id="hamburgerIcon"></i>
+    </button>
+  </div>
+  <div class="nav-mobile" id="mobileMenu" hidden>
+    <a href="/home">Home</a>
+    <a href="/ai">AI</a>
+    <a href="/services">Services</a>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/blog">Blog</a>
+    <a href="/about-us">About Us</a>
+    <a href="/contact">Contact</a>
+    <a href="/contact" class="nav-cta-btn">Get Started</a>
+  </div>
+</nav>
+
+<div id="pd-loading" class="loading-screen">
+  <p>Loading project…</p>
+</div>
+<div id="pd-error" class="error-screen" style="display:none;">
+  <p>Project not found.</p>
+  <a href="/portfolio" class="btn btn-primary" style="margin-top:1rem;">Back to portfolio</a>
+</div>
+<div id="pd-app" style="display:none;"></div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <nav class="footer-nav">
+      <a href="/home">Home</a>
+      <a href="/portfolio">Portfolio</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/company/taistat-consultancy-firm/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      <a href="https://www.facebook.com/TaiStatFirm" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+    </div>
+    <p class="footer-copy">© TaiStat Firm · All rights reserved</p>
+    <button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  let slug = params.get('slug');
+  if (!slug) {
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    slug = parts[parts.length - 1];
+  }
+
+  function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]);
+    });
+  }
+  function escAttr(s) { return String(s ?? '').replace(/"/g, '&quot;'); }
+
+  const PIPE_ICONS = ['bi-database', 'bi-diagram-3', 'bi-sliders', 'bi-bar-chart-line', 'bi-eye', 'bi-file-earmark-text'];
+
+  function titleHtml(title) {
+    const w = String(title || '').trim().split(/\s+/).filter(Boolean);
+    if (w.length < 2) return esc(title || 'Project');
+    const last = w.pop();
+    return esc(w.join(' ')) + ' <span class="text-gradient">' + esc(last) + '</span>';
+  }
+
+  function metaChipsFromProject(p) {
+    const raw = (p.features && p.features.length) ? p.features.slice(0, 4) : (p.tech_tags || []).slice(0, 4);
+    return raw.map(function (line) {
+      var short = String(line).split(/[—\-:|]/)[0].trim();
+      if (short.length > 42) short = short.slice(0, 40) + '…';
+      return '<span class="meta-chip"><i class="bi bi-tag"></i> ' + esc(short) + '</span>';
+    }).join('');
+  }
+
+  function pipelineHtml(p) {
+    const items = (p.tech_tags && p.tech_tags.length) ? p.tech_tags.slice(0, 6) : (p.features || []).slice(0, 6);
+    if (!items.length) return '';
+    return (
+      '<div class="pipeline">' +
+      items.map(function (t, i) {
+        var ic = PIPE_ICONS[i % PIPE_ICONS.length];
+        var label = String(t).slice(0, 48);
+        return (
+          '<div class="pipeline-step fade-up">' +
+          '<i class="bi ' + ic + '"></i>' +
+          '<strong>' + esc(label) + '</strong>' +
+          '<span>Highlight</span></div>'
+        );
+      }).join('') +
+      '</div>'
+    );
+  }
+
+  function metricStripHtml(p) {
+    const tags = (p.tech_tags || []).slice(0, 5);
+    if (!tags.length) return '';
+    return (
+      '<div class="metric-strip">' +
+      tags.map(function (t) {
+        return '<div class="metric-pill"><i class="bi bi-check2-circle"></i><span>' + esc(t) + '</span></div>';
+      }).join('') +
+      '</div>'
+    );
+  }
+
+  function paragraphs(text) {
+    return String(text || '')
+      .split(/\n{2,}|\r\n{2,}/)
+      .map(function (x) { return x.trim(); })
+      .filter(Boolean)
+      .map(function (x) { return '<p>' + esc(x) + '</p>'; })
+      .join('');
+  }
+
+  function render(p) {
+    document.title = esc(p.title) + ' | TaiStat Portfolio';
+
+    const chips = metaChipsFromProject(p);
+    const img = p.image_url
+      ? '<div class="project-image-frame fade-up"><img src="' + escAttr(p.image_url) + '" alt="' + escAttr(p.title) + '" onerror="this.style.minHeight=\'280px\';this.style.background=\'#e2e8f0\';"></div>'
+      : '<div class="project-image-frame fade-up"><div style="min-height:280px;background:#e2e8f0;border-radius:20px;border:1px solid var(--border)"></div></div>';
+
+    let main = '';
+
+    if (p.problem_statement) {
+      main +=
+        '<div class="project-block fade-up">' +
+        '<h3><span class="block-icon" style="background:rgba(239,68,68,0.1);color:#ef4444"><i class="bi bi-exclamation-circle"></i></span> The Problem</h3>' +
+        '<div>' + paragraphs(p.problem_statement) + '</div></div>';
+    }
+
+    if (p.description) {
+      main +=
+        '<div class="project-block fade-up delay-1">' +
+        '<h3><span class="block-icon" style="background:rgba(45,212,191,0.1);color:var(--primary)"><i class="bi bi-cpu"></i></span> What We Built</h3>' +
+        '<div>' + paragraphs(p.description) + '</div>' +
+        pipelineHtml(p) +
+        metricStripHtml(p) +
+        '</div>';
+    }
+
+    var outcomeBody = p.outcome_text ? paragraphs(p.outcome_text) : '';
+    var listItems = (p.features || []).map(function (f) {
+      return '<li>' + esc(f) + '</li>';
+    }).join('');
+    if (outcomeBody || listItems) {
+      main +=
+        '<div class="project-block fade-up delay-2">' +
+        '<h3><span class="block-icon" style="background:rgba(16,185,129,0.1);color:#10b981"><i class="bi bi-graph-up-arrow"></i></span> Outcome</h3>' +
+        (outcomeBody ? '<div>' + outcomeBody + '</div>' : '') +
+        (listItems ? '<ul style="margin-top:14px">' + listItems + '</ul>' : '') +
+        '</div>';
+    }
+
+    const techTags = (p.tech_tags || []).map(function (t) {
+      return '<span class="tag">' + esc(t) + '</span>';
+    }).join('');
+
+    let sidebar = '';
+    sidebar +=
+      '<aside class="project-sidebar">' +
+      '<div class="sidebar-card fade-up">' +
+      '<h4>Project Details</h4>';
+    if (p.category) sidebar += '<div class="sidebar-row"><span class="label">Category</span><span class="value">' + esc(p.category) + '</span></div>';
+    if (p.client_name) sidebar += '<div class="sidebar-row"><span class="label">Client</span><span class="value">' + esc(p.client_name) + '</span></div>';
+    if (p.project_type) sidebar += '<div class="sidebar-row"><span class="label">Type</span><span class="value">' + esc(p.project_type) + '</span></div>';
+    if (p.status_label) sidebar += '<div class="sidebar-row"><span class="label">Status</span><span class="value" style="color:var(--primary)">' + esc(p.status_label) + '</span></div>';
+    if (p.featured) sidebar += '<div class="sidebar-row"><span class="label">Highlight</span><span class="value">Featured</span></div>';
+    sidebar += '</div>';
+
+    if (techTags) {
+      sidebar +=
+        '<div class="sidebar-card fade-up delay-1">' +
+        '<h4>Tools &amp; Technologies</h4>' +
+        '<div class="tools-tags">' + techTags + '</div></div>';
+    }
+
+    sidebar += '<div class="sidebar-card fade-up delay-2"><h4>Actions</h4><div class="sidebar-actions">';
+    if (p.project_url) {
+      sidebar += '<a href="' + escAttr(p.project_url) + '" target="_blank" rel="noopener" class="btn btn-primary"><i class="bi bi-box-arrow-up-right"></i> View Live Project</a>';
+    }
+    if (p.secondary_url) {
+      sidebar += '<a href="' + escAttr(p.secondary_url) + '" target="_blank" rel="noopener" class="btn btn-outline"><i class="bi bi-link-45deg"></i> More</a>';
+    }
+    sidebar += '<a href="/portfolio" class="btn btn-outline"><i class="bi bi-arrow-left"></i> Back to Projects</a>';
+    sidebar += '</div></div></aside>';
+
+    const html =
+      '<section class="page-hero">' +
+      '<div class="container page-hero-inner">' +
+      '<div class="breadcrumb">' +
+      '<a href="/home">Home</a><i class="bi bi-chevron-right"></i>' +
+      '<a href="/portfolio">Portfolio</a><i class="bi bi-chevron-right"></i>' +
+      '<span class="current">' + esc(p.title) + '</span></div>' +
+      '<h1>' + titleHtml(p.title) + '</h1>' +
+      (p.summary ? '<p class="page-hero-tagline">' + esc(p.summary) + '</p>' : '') +
+      (chips ? '<div class="hero-meta-chips">' + chips + '</div>' : '') +
+      '</div></section>' +
+      '<div class="project-image-wrap">' + img + '</div>' +
+      '<section class="project-content"><div class="project-layout"><div>' + main + '</div>' + sidebar + '</div></section>';
+
+    document.getElementById('pd-app').innerHTML = html;
+    document.getElementById('pd-app').style.display = 'block';
+    bindReveal();
+  }
+
+  function bindReveal() {
+    document.querySelectorAll('.fade-up').forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
+
+  async function load() {
+    if (!slug) {
+      document.getElementById('pd-loading').style.display = 'none';
+      document.getElementById('pd-error').style.display = 'flex';
+      return;
+    }
+    try {
+      var res = await fetch('/api/projects?slug=' + encodeURIComponent(slug));
+      if (!res.ok) throw new Error('nf');
+      var p = await res.json();
+      document.getElementById('pd-loading').style.display = 'none';
+      render(p);
+    } catch (e) {
+      document.getElementById('pd-loading').style.display = 'none';
+      document.getElementById('pd-error').style.display = 'flex';
+    }
+  }
+
+  document.getElementById('hamburger').addEventListener('click', function () {
+    var m = document.getElementById('mobileMenu');
+    var ic = document.getElementById('hamburgerIcon');
+    var open = m.classList.toggle('open');
+    m.hidden = !open;
+    ic.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+    this.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.getElementById('scrollTopBtn').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.addEventListener('DOMContentLoaded', load);
+})();
+</script>
+</body>
+</html>

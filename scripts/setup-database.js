@@ -39,7 +39,7 @@ async function setupDatabase() {
     await pool.query(schemaSQL);
 
     console.log('✓ Database schema created successfully!');
-    console.log('✓ Tables: blogs, admin_users');
+    console.log('✓ Tables: blogs, admin_users, projects');
     console.log('✓ Indexes and triggers created');
     
     await pool.end();

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Admin | TaiStat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0f1419; color: #e8eaed; min-height: 100vh; }
+    .login-wrap {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 2rem; background: radial-gradient(ellipse at top, #1a2744 0%, #0f1419 55%);
+    }
+    .login-card {
+      width: 100%; max-width: 420px; background: #1c2430; border-radius: 16px;
+      padding: 2.5rem; box-shadow: 0 20px 50px rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.06);
+    }
+    .login-card h1 { font-size: 1.5rem; margin-bottom: .5rem; }
+    .login-card p { color: #9aa0a6; font-size: .9rem; margin-bottom: 1.5rem; }
+    .login-card input {
+      width: 100%; padding: .85rem 1rem; border-radius: 10px; border: 1px solid rgba(255,255,255,.12);
+      background: #121820; color: #fff; margin-bottom: 1rem;
+    }
+    .login-card button {
+      width: 100%; padding: .9rem; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, #43ff3d 0%, #05d1c8 100%);
+      color: #042015; font-weight: 700; cursor: pointer;
+    }
+    .shell { display: none; max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .shell.active { display: block; }
+    .topbar {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .brand { font-size: 1.35rem; font-weight: 700; }
+    .brand span { color: #43ff3d; }
+    .tabs { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .tab {
+      padding: .6rem 1.2rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.12);
+      background: transparent; color: #c4c7c5; cursor: pointer; font-weight: 600;
+    }
+    .tab.active { background: rgba(67,255,61,.15); color: #b8ffc4; border-color: rgba(67,255,61,.35); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .toolbar { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .btn {
+      padding: .65rem 1.25rem; border-radius: 10px; border: none; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary { background: #4A1DE1; color: #fff; }
+    .btn-ghost { background: rgba(255,255,255,.08); color: #e8eaed; }
+    .btn-danger { background: #c62828; color: #fff; }
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;
+    }
+    .card {
+      background: #1c2430; border-radius: 14px; padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,.06); box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .card img.cover {
+      width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: .75rem;
+      background: #121820;
+    }
+    .card h3 { font-size: 1.1rem; margin-bottom: .35rem; line-height: 1.3; }
+    .meta { font-size: .8rem; color: #9aa0a6; margin-bottom: .75rem; }
+    .actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
+    .badge {
+      display: inline-block; padding: .2rem .55rem; border-radius: 999px; font-size: .75rem; font-weight: 600;
+    }
+    .badge-ok { background: rgba(67,255,61,.2); color: #b8ffc4; }
+    .badge-off { background: rgba(255,193,7,.15); color: #ffd54f; }
+    .alert {
+      padding: .85rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-size: .9rem;
+    }
+    .alert-err { background: rgba(198,40,40,.2); border: 1px solid rgba(198,40,40,.4); color: #ffcdd2; }
+    .alert-ok { background: rgba(21,190,86,.2); border: 1px solid rgba(21,190,86,.35); color: #c8e6c9; }
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 1000;
+      align-items: center; justify-content: center; padding: 1.5rem; overflow-y: auto;
+    }
+    .modal.open { display: flex; }
+    .modal-box {
+      background: #1c2430; border-radius: 16px; max-width: 720px; width: 100%; max-height: 92vh; overflow-y: auto;
+      padding: 1.75rem; border: 1px solid rgba(255,255,255,.08);
+    }
+    .modal-box.wide { max-width: 920px; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .35rem; color: #c4c7c5; }
+    .form-row input, .form-row textarea, .form-row select {
+      width: 100%; padding: .65rem .85rem; border-radius: 10px; border: 1px solid rgba(255,255,255,.12);
+      background: #121820; color: #e8eaed;
+    }
+    .form-row textarea { min-height: 120px; resize: vertical; }
+    #blog-content { min-height: 240px; }
+    #proj-description { min-height: 160px; }
+    #proj-features { min-height: 100px; font-family: ui-monospace, monospace; font-size: .85rem; }
+    #proj-problem, #proj-outcome { min-height: 100px; }
+    #proj-tech-tags { min-height: 90px; font-family: ui-monospace, monospace; font-size: .85rem; }
+    .modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .modal-head h2 { font-size: 1.25rem; }
+    .x { background: none; border: none; color: #9aa0a6; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+    .empty { text-align: center; padding: 3rem 1rem; color: #9aa0a6; }
+    .drop {
+      border: 2px dashed rgba(255,255,255,.15); border-radius: 12px; padding: 1.25rem; text-align: center;
+      cursor: pointer; color: #9aa0a6; font-size: .9rem;
+    }
+    .drop:hover { border-color: rgba(67,255,61,.4); color: #c4c7c5; }
+  </style>
+</head>
+<body>
+  <div id="login-view" class="login-wrap">
+    <div class="login-card">
+      <h1>TaiStat <span style="color:#43ff3d">Admin</span></h1>
+      <p>Sign in with your Neon-stored admin account.</p>
+      <div id="login-error" class="alert alert-err" style="display:none;"></div>
+      <input type="text" id="login-user" placeholder="Username or email" autocomplete="username" />
+      <input type="password" id="login-pass" placeholder="Password" autocomplete="current-password" />
+      <button type="button" id="login-btn">Sign in</button>
+    </div>
+  </div>
+
+  <div id="app-shell" class="shell">
+    <div class="topbar">
+      <div class="brand">TaiStat <span>Studio</span></div>
+      <div class="tabs">
+        <button type="button" class="tab active" data-tab="blogs">Blogs</button>
+        <button type="button" class="tab" data-tab="projects">Portfolio</button>
+        <button type="button" class="btn btn-ghost" id="logout-btn"><i class="bi bi-box-arrow-right"></i> Log out</button>
+      </div>
+    </div>
+    <div id="alert-box"></div>
+
+    <section id="panel-blogs" class="panel active">
+      <div class="toolbar">
+        <button type="button" class="btn btn-primary" id="btn-new-blog"><i class="bi bi-plus-lg"></i> New blog</button>
+        <button type="button" class="btn btn-ghost" id="btn-refresh-blogs"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+      </div>
+      <div id="blogs-grid" class="grid"></div>
+      <div id="blogs-empty" class="empty" style="display:none;">No blog posts yet.</div>
+    </section>
+
+    <section id="panel-projects" class="panel">
+      <div class="toolbar">
+        <button type="button" class="btn btn-primary" id="btn-new-project"><i class="bi bi-plus-lg"></i> New project</button>
+        <button type="button" class="btn btn-ghost" id="btn-refresh-projects"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+      </div>
+      <div id="projects-grid" class="grid"></div>
+      <div id="projects-empty" class="empty" style="display:none;">No projects yet.</div>
+    </section>
+  </div>
+
+  <!-- Blog modal -->
+  <div id="blog-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box wide">
+      <div class="modal-head">
+        <h2 id="blog-modal-title">Blog</h2>
+        <button type="button" class="x" data-close-blog>&times;</button>
+      </div>
+      <form id="blog-form">
+        <input type="hidden" id="blog-id" />
+        <div class="form-row"><label>Title *</label><input type="text" id="blog-title" required /></div>
+        <div class="form-row"><label>Excerpt</label><textarea id="blog-excerpt"></textarea></div>
+        <div class="form-row"><label>Content *</label><textarea id="blog-content" required></textarea></div>
+        <div class="form-row">
+          <label>Featured image</label>
+          <div class="drop" id="blog-image-drop">Click to upload (saved via Cloudinary)</div>
+          <input type="file" id="blog-image-file" accept="image/*" hidden />
+          <input type="hidden" id="blog-image-url" />
+          <div id="blog-image-preview" style="margin-top:.5rem;display:none;"><img id="blog-image-img" alt="" style="max-width:100%;border-radius:10px;" /></div>
+        </div>
+        <div class="form-row"><label>Author</label><input type="text" id="blog-author" value="Stephen Mulingwa" /></div>
+        <div class="form-row"><label>Category</label><input type="text" id="blog-category" placeholder="e.g. Machine Learning" /></div>
+        <div class="form-row"><label>Tags (comma-separated)</label><input type="text" id="blog-tags" /></div>
+        <div class="form-row"><label><input type="checkbox" id="blog-published" checked /> Published</label></div>
+        <div class="form-row"><label>Meta description</label><textarea id="blog-meta-desc" rows="2"></textarea></div>
+        <div class="form-row"><label>Meta keywords</label><input type="text" id="blog-meta-kw" /></div>
+        <div class="toolbar" style="margin-top:1rem;">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-ghost" data-close-blog>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Project modal -->
+  <div id="project-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box wide">
+      <div class="modal-head">
+        <h2 id="project-modal-title">Project</h2>
+        <button type="button" class="x" data-close-project>&times;</button>
+      </div>
+      <form id="project-form">
+        <input type="hidden" id="project-id" />
+        <div class="form-row"><label>Title *</label><input type="text" id="project-title" required /></div>
+        <div class="form-row"><label>Slug (optional, URL-safe)</label><input type="text" id="project-slug" placeholder="auto from title if empty" /></div>
+        <div class="form-row"><label>Summary (card teaser)</label><textarea id="project-summary" rows="2"></textarea></div>
+        <div class="form-row"><label>The problem</label><textarea id="project-problem" placeholder="Short problem statement for the case study"></textarea></div>
+        <div class="form-row"><label>What we built (long)</label><textarea id="project-description"></textarea></div>
+        <div class="form-row"><label>Outcome</label><textarea id="project-outcome"></textarea></div>
+        <div class="form-row"><label>Category</label><input type="text" id="project-category" /></div>
+        <div class="form-row"><label>Highlights (one per line)</label><textarea id="project-features" placeholder="Bullet outcomes"></textarea></div>
+        <div class="form-row"><label>Tech tags (one per line)</label><textarea id="project-tech-tags" placeholder="Python&#10;NLP"></textarea></div>
+        <div class="form-row"><label>Client</label><input type="text" id="project-client" placeholder="e.g. TaiStat Firm" /></div>
+        <div class="form-row"><label>Project type</label><input type="text" id="project-type" placeholder="Web application" /></div>
+        <div class="form-row"><label>Status</label><input type="text" id="project-status" placeholder="Live" /></div>
+        <div class="form-row">
+          <label>Image</label>
+          <div class="drop" id="project-image-drop">Upload cover image</div>
+          <input type="file" id="project-image-file" accept="image/*" hidden />
+          <input type="hidden" id="project-image-url" />
+          <div id="project-image-preview" style="margin-top:.5rem;display:none;"><img id="project-image-img" alt="" style="max-width:100%;border-radius:10px;" /></div>
+        </div>
+        <div class="form-row"><label>Primary URL</label><input type="url" id="project-url" placeholder="https://" /></div>
+        <div class="form-row"><label>Secondary URL</label><input type="url" id="project-url-2" placeholder="https://" /></div>
+        <div class="form-row"><label>Sort order</label><input type="number" id="project-sort" value="0" /></div>
+        <div class="form-row"><label><input type="checkbox" id="project-featured" /> Highlight (featured)</label></div>
+        <div class="form-row"><label><input type="checkbox" id="project-published" checked /> Published on site</label></div>
+        <div class="toolbar" style="margin-top:1rem;">
+          <button type="submit" class="btn btn-primary">Save project</button>
+          <button type="button" class="btn btn-ghost" data-close-project>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const TOKEN_KEY = 'taistat_admin_jwt';
+
+    function getToken() { return sessionStorage.getItem(TOKEN_KEY); }
+    function setToken(t) { sessionStorage.setItem(TOKEN_KEY, t); }
+    function clearToken() { sessionStorage.removeItem(TOKEN_KEY); }
+
+    function authHeaders() {
+      const t = getToken();
+      const h = { 'Content-Type': 'application/json' };
+      if (t) h['Authorization'] = 'Bearer ' + t;
+      return h;
+    }
+
+    function showAlert(msg, ok) {
+      const box = document.getElementById('alert-box');
+      box.innerHTML = '<div class="alert ' + (ok ? 'alert-ok' : 'alert-err') + '">' + esc(msg) + '</div>';
+      setTimeout(() => { box.innerHTML = ''; }, 5000);
+    }
+
+    function esc(s) {
+      return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    async function apiLogin(user, pass) {
+      const res = await fetch('/api/admin-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Login failed');
+      return data.token;
+    }
+
+    function showApp() {
+      document.getElementById('login-view').style.display = 'none';
+      document.getElementById('app-shell').classList.add('active');
+      loadBlogs();
+    }
+
+    function showLogin() {
+      document.getElementById('login-view').style.display = 'flex';
+      document.getElementById('app-shell').classList.remove('active');
+    }
+
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const u = document.getElementById('login-user').value.trim();
+      const p = document.getElementById('login-pass').value;
+      const err = document.getElementById('login-error');
+      err.style.display = 'none';
+      try {
+        const token = await apiLogin(u, p);
+        setToken(token);
+        showApp();
+      } catch (e) {
+        err.textContent = e.message;
+        err.style.display = 'block';
+      }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      clearToken();
+      showLogin();
+    });
+
+    // Tabs
+    document.querySelectorAll('.tab[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = btn.getAttribute('data-tab');
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        document.getElementById('panel-' + tab).classList.add('active');
+        if (tab === 'projects') loadProjects();
+        if (tab === 'blogs') loadBlogs();
+      });
+    });
+
+    async function loadBlogs() {
+      const grid = document.getElementById('blogs-grid');
+      const empty = document.getElementById('blogs-empty');
+      grid.innerHTML = '<div class="empty">Loading…</div>';
+      try {
+        const res = await fetch('/api/blogs-admin', { headers: authHeaders() });
+        if (res.status === 401) { clearToken(); showLogin(); return; }
+        const data = await res.json();
+        const blogs = data.blogs || [];
+        grid.innerHTML = '';
+        if (!blogs.length) {
+          empty.style.display = 'block';
+          return;
+        }
+        empty.style.display = 'none';
+        blogs.forEach(b => {
+          const el = document.createElement('div');
+          el.className = 'card';
+          const img = b.featured_image_url || '';
+          el.innerHTML =
+            (img ? '<img class="cover" src="' + esc(img) + '" alt="">' : '<div class="cover"></div>') +
+            '<h3>' + esc(b.title) + '</h3>' +
+            '<div class="meta">' + esc(b.category || 'Uncategorized') + ' · ' +
+            new Date(b.created_at).toLocaleDateString() + '</div>' +
+            '<div><span class="badge ' + (b.published ? 'badge-ok' : 'badge-off') + '">' +
+            (b.published ? 'Published' : 'Draft') + '</span></div>' +
+            '<div class="actions">' +
+            '<button type="button" class="btn btn-primary btn-edit-blog" data-id="' + b.id + '">Edit</button>' +
+            '<button type="button" class="btn btn-danger btn-del-blog" data-id="' + b.id + '">Delete</button>' +
+            '</div>';
+          grid.appendChild(el);
+        });
+        grid.querySelectorAll('.btn-edit-blog').forEach(btn => {
+          btn.addEventListener('click', () => editBlog(btn.getAttribute('data-id')));
+        });
+        grid.querySelectorAll('.btn-del-blog').forEach(btn => {
+          btn.addEventListener('click', () => deleteBlog(btn.getAttribute('data-id')));
+        });
+      } catch (e) {
+        grid.innerHTML = '<div class="empty">Failed to load blogs.</div>';
+      }
+    }
+
+    async function editBlog(id) {
+      const res = await fetch('/api/blogs-admin?id=' + encodeURIComponent(id), { headers: authHeaders() });
+      if (res.status === 401) { clearToken(); showLogin(); return; }
+      const b = await res.json();
+      document.getElementById('blog-modal-title').textContent = 'Edit blog';
+      document.getElementById('blog-id').value = b.id;
+      document.getElementById('blog-title').value = b.title || '';
+      document.getElementById('blog-excerpt').value = b.excerpt || '';
+      document.getElementById('blog-content').value = b.content || '';
+      document.getElementById('blog-author').value = b.author || 'Stephen Mulingwa';
+      document.getElementById('blog-category').value = b.category || '';
+      document.getElementById('blog-tags').value = Array.isArray(b.tags) ? b.tags.join(', ') : '';
+      document.getElementById('blog-published').checked = !!b.published;
+      document.getElementById('blog-meta-desc').value = b.meta_description || '';
+      document.getElementById('blog-meta-kw').value = b.meta_keywords || '';
+      document.getElementById('blog-image-url').value = b.featured_image_url || '';
+      const prev = document.getElementById('blog-image-preview');
+      const im = document.getElementById('blog-image-img');
+      if (b.featured_image_url) {
+        im.src = b.featured_image_url;
+        prev.style.display = 'block';
+      } else {
+        prev.style.display = 'none';
+      }
+      document.getElementById('blog-modal').classList.add('open');
+    }
+
+    document.getElementById('btn-new-blog').addEventListener('click', () => {
+      document.getElementById('blog-modal-title').textContent = 'New blog';
+      document.getElementById('blog-form').reset();
+      document.getElementById('blog-id').value = '';
+      document.getElementById('blog-author').value = 'Stephen Mulingwa';
+      document.getElementById('blog-published').checked = true;
+      document.getElementById('blog-image-preview').style.display = 'none';
+      document.getElementById('blog-modal').classList.add('open');
+    });
+
+    document.querySelectorAll('[data-close-blog]').forEach(b => b.addEventListener('click', () => {
+      document.getElementById('blog-modal').classList.remove('open');
+    }));
+
+    document.getElementById('btn-refresh-blogs').addEventListener('click', loadBlogs);
+
+    async function uploadImage(file, folder) {
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = async () => {
+          try {
+            const res = await fetch('/api/upload-image', {
+              method: 'POST',
+              headers: authHeaders(),
+              body: JSON.stringify({ image: r.result, folder: folder || 'taistat-blogs' })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Upload failed');
+            resolve(data.url);
+          } catch (e) { reject(e); }
+        };
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+    }
+
+    document.getElementById('blog-image-drop').addEventListener('click', () => document.getElementById('blog-image-file').click());
+    document.getElementById('blog-image-file').addEventListener('change', async (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      try {
+        const url = await uploadImage(f, 'taistat-blogs');
+        document.getElementById('blog-image-url').value = url;
+        document.getElementById('blog-image-img').src = url;
+        document.getElementById('blog-image-preview').style.display = 'block';
+        showAlert('Image uploaded', true);
+      } catch (err) {
+        showAlert(err.message, false);
+      }
+    });
+
+    document.getElementById('blog-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('blog-id').value;
+      const tagsRaw = document.getElementById('blog-tags').value;
+      const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
+      const payload = {
+        title: document.getElementById('blog-title').value,
+        excerpt: document.getElementById('blog-excerpt').value,
+        content: document.getElementById('blog-content').value,
+        featured_image_url: document.getElementById('blog-image-url').value || null,
+        author: document.getElementById('blog-author').value,
+        category: document.getElementById('blog-category').value || null,
+        tags,
+        published: document.getElementById('blog-published').checked,
+        meta_description: document.getElementById('blog-meta-desc').value || null,
+        meta_keywords: document.getElementById('blog-meta-kw').value || null
+      };
+      const url = id ? '/api/blogs-admin?id=' + encodeURIComponent(id) : '/api/blogs-admin';
+      const method = id ? 'PUT' : 'POST';
+      const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(payload) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showAlert(data.error || 'Save failed', false);
+        return;
+      }
+      document.getElementById('blog-modal').classList.remove('open');
+      showAlert('Blog saved', true);
+      loadBlogs();
+    });
+
+    async function deleteBlog(id) {
+      if (!confirm('Delete this blog post?')) return;
+      const res = await fetch('/api/blogs-admin?id=' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showAlert(data.error || 'Delete failed', false);
+        return;
+      }
+      showAlert('Deleted', true);
+      loadBlogs();
+    }
+
+    /* Projects */
+    async function loadProjects() {
+      const grid = document.getElementById('projects-grid');
+      const empty = document.getElementById('projects-empty');
+      grid.innerHTML = '<div class="empty">Loading…</div>';
+      try {
+        const res = await fetch('/api/projects-admin', { headers: authHeaders() });
+        if (res.status === 401) { clearToken(); showLogin(); return; }
+        const data = await res.json();
+        const projects = data.projects || [];
+        grid.innerHTML = '';
+        if (!projects.length) {
+          empty.style.display = 'block';
+          return;
+        }
+        empty.style.display = 'none';
+        projects.forEach(p => {
+          const el = document.createElement('div');
+          el.className = 'card';
+          const img = p.image_url || '';
+          el.innerHTML =
+            (img ? '<img class="cover" src="' + esc(img) + '" alt="">' : '<div class="cover"></div>') +
+            '<h3>' + esc(p.title) + '</h3>' +
+            '<div class="meta">' + esc(p.category || '') + ' · order ' + (p.sort_order ?? 0) + '</div>' +
+            '<div><span class="badge ' + (p.published ? 'badge-ok' : 'badge-off') + '">' +
+            (p.published ? 'Live' : 'Draft') + '</span>' +
+            (p.featured ? ' <span class="badge badge-ok">Featured</span>' : '') + '</div>' +
+            '<div class="actions">' +
+            '<button type="button" class="btn btn-primary btn-edit-proj" data-id="' + p.id + '">Edit</button>' +
+            '<button type="button" class="btn btn-danger btn-del-proj" data-id="' + p.id + '">Delete</button>' +
+            '</div>';
+          grid.appendChild(el);
+        });
+        grid.querySelectorAll('.btn-edit-proj').forEach(btn => {
+          btn.addEventListener('click', () => editProject(btn.getAttribute('data-id')));
+        });
+        grid.querySelectorAll('.btn-del-proj').forEach(btn => {
+          btn.addEventListener('click', () => deleteProject(btn.getAttribute('data-id')));
+        });
+      } catch (e) {
+        grid.innerHTML = '<div class="empty">Failed to load projects.</div>';
+      }
+    }
+
+    async function editProject(id) {
+      const res = await fetch('/api/projects-admin?id=' + encodeURIComponent(id), { headers: authHeaders() });
+      if (res.status === 401) { clearToken(); showLogin(); return; }
+      const p = await res.json();
+      document.getElementById('project-modal-title').textContent = 'Edit project';
+      document.getElementById('project-id').value = p.id;
+      document.getElementById('project-title').value = p.title || '';
+      document.getElementById('project-slug').value = p.slug || '';
+      document.getElementById('project-summary').value = p.summary || '';
+      document.getElementById('project-problem').value = p.problem_statement || '';
+      document.getElementById('project-description').value = p.description || '';
+      document.getElementById('project-outcome').value = p.outcome_text || '';
+      document.getElementById('project-category').value = p.category || '';
+      document.getElementById('project-features').value = Array.isArray(p.features) ? p.features.join('\n') : '';
+      document.getElementById('project-tech-tags').value = Array.isArray(p.tech_tags) ? p.tech_tags.join('\n') : '';
+      document.getElementById('project-client').value = p.client_name || '';
+      document.getElementById('project-type').value = p.project_type || '';
+      document.getElementById('project-status').value = p.status_label || '';
+      document.getElementById('project-url').value = p.project_url || '';
+      document.getElementById('project-url-2').value = p.secondary_url || '';
+      document.getElementById('project-sort').value = p.sort_order ?? 0;
+      document.getElementById('project-featured').checked = !!p.featured;
+      document.getElementById('project-published').checked = !!p.published;
+      document.getElementById('project-image-url').value = p.image_url || '';
+      if (p.image_url) {
+        document.getElementById('project-image-img').src = p.image_url;
+        document.getElementById('project-image-preview').style.display = 'block';
+      } else {
+        document.getElementById('project-image-preview').style.display = 'none';
+      }
+      document.getElementById('project-modal').classList.add('open');
+    }
+
+    document.getElementById('btn-new-project').addEventListener('click', () => {
+      document.getElementById('project-modal-title').textContent = 'New project';
+      document.getElementById('project-form').reset();
+      document.getElementById('project-id').value = '';
+      document.getElementById('project-sort').value = '0';
+      document.getElementById('project-featured').checked = false;
+      document.getElementById('project-published').checked = true;
+      document.getElementById('project-image-preview').style.display = 'none';
+      document.getElementById('project-modal').classList.add('open');
+    });
+
+    document.querySelectorAll('[data-close-project]').forEach(b => b.addEventListener('click', () => {
+      document.getElementById('project-modal').classList.remove('open');
+    }));
+
+    document.getElementById('btn-refresh-projects').addEventListener('click', loadProjects);
+
+    document.getElementById('project-image-drop').addEventListener('click', () => document.getElementById('project-image-file').click());
+    document.getElementById('project-image-file').addEventListener('change', async (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      try {
+        const url = await uploadImage(f, 'taistat-projects');
+        document.getElementById('project-image-url').value = url;
+        document.getElementById('project-image-img').src = url;
+        document.getElementById('project-image-preview').style.display = 'block';
+        showAlert('Image uploaded', true);
+      } catch (err) {
+        showAlert(err.message, false);
+      }
+    });
+
+    document.getElementById('project-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('project-id').value;
+      const featLines = document.getElementById('project-features').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const techLines = document.getElementById('project-tech-tags').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const slugVal = document.getElementById('project-slug').value.trim();
+      const payload = {
+        title: document.getElementById('project-title').value,
+        slug: slugVal || undefined,
+        summary: document.getElementById('project-summary').value || null,
+        problem_statement: document.getElementById('project-problem').value || null,
+        description: document.getElementById('project-description').value || '',
+        outcome_text: document.getElementById('project-outcome').value || null,
+        category: document.getElementById('project-category').value || null,
+        features: featLines,
+        tech_tags: techLines,
+        client_name: document.getElementById('project-client').value || null,
+        project_type: document.getElementById('project-type').value || null,
+        status_label: document.getElementById('project-status').value || null,
+        image_url: document.getElementById('project-image-url').value || null,
+        project_url: document.getElementById('project-url').value || null,
+        secondary_url: document.getElementById('project-url-2').value || null,
+        sort_order: parseInt(document.getElementById('project-sort').value, 10) || 0,
+        featured: document.getElementById('project-featured').checked,
+        published: document.getElementById('project-published').checked
+      };
+      const url = id ? '/api/projects-admin?id=' + encodeURIComponent(id) : '/api/projects-admin';
+      const method = id ? 'PUT' : 'POST';
+      const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(payload) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showAlert(data.error || 'Save failed', false);
+        return;
+      }
+      document.getElementById('project-modal').classList.remove('open');
+      showAlert('Project saved', true);
+      loadProjects();
+    });
+
+    async function deleteProject(id) {
+      if (!confirm('Delete this project?')) return;
+      const res = await fetch('/api/projects-admin?id=' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showAlert(data.error || 'Delete failed', false);
+        return;
+      }
+      showAlert('Deleted', true);
+      loadProjects();
+    }
+
+    // Restore session
+    (async function init() {
+      const t = getToken();
+      if (!t) return;
+      try {
+        const res = await fetch('/api/admin-auth', { headers: authHeaders() });
+        if (res.ok) showApp();
+        else { clearToken(); }
+      } catch { clearToken(); }
+    })();
+  </script>
+</body>
+</html>

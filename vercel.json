@@ -13,6 +13,10 @@
       "destination": "/services.html"
     },
     {
+      "source": "/portfolio/:slug",
+      "destination": "/project-detail.html?slug=:slug"
+    },
+    {
       "source": "/portfolio",
       "destination": "/portfolio.html"
     },
@@ -31,6 +35,10 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
     },
     {
       "source": "/",

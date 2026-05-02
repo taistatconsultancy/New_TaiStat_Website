@@ -2,213 +2,281 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Blog Detail - TaiStat</title>
-  <meta name="description" content="TaiStat Blog">
-  
-  <!-- Favicons -->
-  <link href="assets/img/tailogo.png" rel="icon">
-  <link rel="icon" type="image/svg+xml" href="assets/img/tailogo.png" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article | TaiStat Blog</title>
+  <meta name="description" content="TaiStat blog article">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="/assets/img/tailogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/css/case-study.css" rel="stylesheet">
 </head>
-<body>
-  <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-      <a href="/home" class="logo d-flex align-items-center me-auto">
-        <img src="assets/img/tailogo.png" alt="" style="border-radius: 50%;">
-      </a>
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/ai">AI</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/portfolio">Portfolio</a></li>
-          <li><a href="/blog" class="active">Blog</a></li>
-          <li><a href="/about-us">About Us</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-      <a class="btn-getstarted flex-md-shrink-0" href="/contact">Get Started</a>
+<body class="case-study-page">
+
+<nav class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="/home" class="nav-logo">
+      <img src="/assets/img/tailogo.png" alt="TaiStat">
+      <span class="nav-logo-text">Tai<span>Stat</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/ai">AI</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/blog" class="active">Blog</a></li>
+      <li><a href="/about-us">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/contact" class="nav-cta-btn"><i class="bi bi-rocket-takeoff"></i> Get Started</a>
     </div>
-  </header>
-  <!-- End Header -->
+    <button class="nav-hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
+      <i class="bi bi-list" id="hamburgerIcon"></i>
+    </button>
+  </div>
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="/home">Home</a>
+    <a href="/ai">AI</a>
+    <a href="/services">Services</a>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/blog">Blog</a>
+    <a href="/about-us">About Us</a>
+    <a href="/contact">Contact</a>
+    <a href="/contact" class="nav-cta-btn">Get Started</a>
+  </div>
+</nav>
 
-  <main class="main">
-    <br><br>
-    <!-- Page Title -->
-    <div class="page-title">
-      <div class="heading">
-        <div class="container">
-          <div class="row d-flex justify-content-center text-center">
-            <div class="col-lg-8">
-              <h1 id="blog-title">Blog</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      <nav class="breadcrumbs">
-        <div class="container">
-          <ol>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li class="current" id="breadcrumb-title">Loading...</li>
-          </ol>
-        </div>
-      </nav>
+<div id="ad-loading" class="loading-screen">
+  <p>Loading article…</p>
+</div>
+<div id="ad-error" class="error-screen" style="display:none;">
+  <p>Article not found.</p>
+  <a href="/blog" class="btn btn-primary" style="margin-top:1rem;">Back to blog</a>
+</div>
+<div id="ad-app" style="display:none;"></div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <nav class="footer-nav">
+      <a href="/home">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/portfolio">Portfolio</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/company/taistat-consultancy-firm/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      <a href="https://www.facebook.com/TaiStatFirm" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
     </div>
-    <!-- End Page Title -->
+    <p class="footer-copy">© TaiStat Firm · All rights reserved</p>
+    <button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+      <i class="bi bi-arrow-up-short"></i>
+    </button>
+  </div>
+</footer>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <section id="blog-detail" class="blog-posts section">
-            <div id="blog-loading" class="text-center py-5">
-              <p>Loading blog post...</p>
-            </div>
-            <div id="blog-content" style="display: none;">
-              <!-- Blog content will be loaded here -->
-            </div>
-            <div id="blog-error" class="text-center py-5" style="display: none;">
-              <p class="text-danger">Blog post not found.</p>
-              <a href="/blog" class="btn btn-primary mt-3">Back to Blog</a>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
-  </main>
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  let slug = params.get('slug');
+  if (!slug) {
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    slug = parts[parts.length - 1];
+  }
 
-  <!-- Footer -->
-  <footer style="background-color: rgb(10, 9, 9); color: beige;" id="footer" class="footer">
-    <div class="container copyright text-center mt-4">
-      <p>&copy; <span>Copyright</span> <strong class="px-1 sitename" style="color: aquamarine;">TaiStat Firm</strong> <span>All Rights Reserved</span></p>
-    </div>
-  </footer>
+  function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]);
+    });
+  }
+  function escAttr(s) { return String(s ?? '').replace(/"/g, '&quot;'); }
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/js/main.js"></script>
+  function looksLikeHtml(str) {
+    const t = String(str || '').trim();
+    return /^<[a-z!]/i.test(t) || /<\/[a-z]/i.test(t) || /<br\s*\/?>/i.test(t);
+  }
 
-  <script>
-    // Get slug from URL - try query param first, then path
-    const urlParams = new URLSearchParams(window.location.search);
-    let slug = urlParams.get('slug');
-    
-    // If not in query, extract from path
-    if (!slug) {
-      const pathParts = window.location.pathname.split('/').filter(p => p);
-      slug = pathParts[pathParts.length - 1];
-    }
+  function paragraphs(text) {
+    return String(text || '')
+      .split(/\n+/)
+      .map(function (p) { return p.trim(); })
+      .filter(Boolean)
+      .map(function (p) { return '<p>' + esc(p) + '</p>'; })
+      .join('');
+  }
 
-    async function loadBlogDetail() {
-      const loadingEl = document.getElementById('blog-loading');
-      const contentEl = document.getElementById('blog-content');
-      const errorEl = document.getElementById('blog-error');
+  function titleHtml(title) {
+    const w = String(title || '').trim().split(/\s+/).filter(Boolean);
+    if (w.length < 2) return esc(title || 'Article');
+    const last = w.pop();
+    return esc(w.join(' ')) + ' <span class="text-gradient">' + esc(last) + '</span>';
+  }
 
-      if (!slug) {
-        loadingEl.style.display = 'none';
-        errorEl.style.display = 'block';
+  function readingMins(text) {
+    const words = String(text || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.round(words / 220));
+  }
+
+  function tagChips(tags) {
+    if (!tags || !tags.length) return '';
+    return tags.slice(0, 5).map(function (t) {
+      return '<span class="meta-chip"><i class="bi bi-bookmark"></i> ' + esc(t) + '</span>';
+    }).join('');
+  }
+
+  async function loadRelated(currentSlug, container) {
+    try {
+      const res = await fetch('/api/blogs?limit=8');
+      const data = await res.json();
+      const blogs = (data.blogs || []).filter(function (b) { return (b.slug || '') !== currentSlug; }).slice(0, 4);
+      if (!blogs.length) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:0.88rem;">No other posts yet.</p>';
         return;
       }
+      container.innerHTML =
+        '<div class="related-list">' +
+        blogs.map(function (b) {
+          const s = b.slug || 'post-' + b.id;
+          const th = b.featured_image_url
+            ? '<img class="related-thumb" src="' + escAttr(b.featured_image_url) + '" alt="" loading="lazy">'
+            : '<div class="related-thumb"></div>';
+          return (
+            '<a href="/blog/' + encodeURIComponent(s) + '">' +
+            th +
+            '<span class="related-title">' + esc(b.title) + '</span></a>'
+          );
+        }).join('') +
+        '</div>';
+    } catch (e) {
+      container.innerHTML = '<p style="color:var(--text-muted);font-size:0.88rem;">Could not load related posts.</p>';
+    }
+  }
 
-      try {
-        const response = await fetch(`/api/blogs?slug=${slug}`);
-        
-        if (!response.ok) {
-          throw new Error('Blog not found');
-        }
-
-        const blog = await response.json();
-
-        // Update page title
-        document.title = `${blog.title} - TaiStat Blog`;
-        document.getElementById('blog-title').textContent = blog.title;
-        document.getElementById('breadcrumb-title').textContent = blog.title;
-
-        // Update meta description if available
-        if (blog.meta_description) {
-          const metaDesc = document.querySelector('meta[name="description"]');
-          if (metaDesc) {
-            metaDesc.content = blog.meta_description;
-          }
-        }
-
-        // Render blog content
-        const imageUrl = blog.featured_image_url || 'https://via.placeholder.com/800x400?text=No+Image';
-        const date = new Date(blog.published_at || blog.created_at).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
-
-        contentEl.innerHTML = `
-          <article>
-            <div class="post-img">
-              <img src="${imageUrl}" alt="${blog.title}" class="img-fluid" style="width: 100%; height: auto; border-radius: 8px;">
-            </div>
-            
-            <h2 class="title">${blog.title}</h2>
-            
-            <div class="meta-top">
-              <ul>
-                <li class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> 
-                  <a href="#">${blog.author || 'Stephen Mulingwa'}</a>
-                </li>
-                <li class="d-flex align-items-center">
-                  <i class="bi bi-clock"></i> 
-                  <a href="#"><time datetime="${blog.published_at || blog.created_at}">${date}</time></a>
-                </li>
-                ${blog.category ? `
-                <li class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> 
-                  <a href="/blog?category=${encodeURIComponent(blog.category)}">${blog.category}</a>
-                </li>
-                ` : ''}
-              </ul>
-            </div>
-            
-            <div class="content" style="margin-top: 2rem; line-height: 1.8; font-size: 1.1rem;">
-              ${blog.content.split('\n').map(para => `<p>${para}</p>`).join('')}
-            </div>
-
-            ${blog.tags && blog.tags.length > 0 ? `
-            <div class="tags" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
-              <h4>Tags:</h4>
-              ${blog.tags.map(tag => `<span style="display: inline-block; background: #f3f4f6; padding: 0.5rem 1rem; border-radius: 20px; margin: 0.25rem; font-size: 0.875rem;">${tag}</span>`).join('')}
-            </div>
-            ` : ''}
-          </article>
-        `;
-
-        loadingEl.style.display = 'none';
-        contentEl.style.display = 'block';
-      } catch (error) {
-        console.error('Error loading blog:', error);
-        loadingEl.style.display = 'none';
-        errorEl.style.display = 'block';
+  function render(blog) {
+    document.title = esc(blog.title) + ' | TaiStat Blog';
+    if (blog.meta_description) {
+      var m = document.querySelector('meta[name="description"]');
+      if (!m) {
+        m = document.createElement('meta');
+        m.name = 'description';
+        document.head.appendChild(m);
       }
+      m.content = blog.meta_description;
     }
 
-    // Load blog detail when page loads
-    document.addEventListener('DOMContentLoaded', loadBlogDetail);
-  </script>
+    const raw = blog.content || '';
+    const bodyInner = looksLikeHtml(raw)
+      ? '<div class="article-prose">' + raw + '</div>'
+      : '<div class="article-prose">' + paragraphs(raw) + '</div>';
+
+    const dateStr = new Date(blog.published_at || blog.created_at).toLocaleDateString('en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+    const mins = readingMins(raw);
+    const imgUrl = blog.featured_image_url || 'https://placehold.co/960x420/060d14/2dd4bf?text=TaiStat';
+
+    const tagsFooter =
+      blog.tags && blog.tags.length
+        ? '<div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">' +
+          '<h4 style="margin-bottom:12px">Tags</h4>' +
+          '<div class="tools-tags">' +
+          blog.tags.map(function (t) { return '<span class="tag">#' + esc(t) + '</span>'; }).join('') +
+          '</div></div>'
+        : '';
+
+    const chips = tagChips(blog.tags || []);
+
+    const sidebar =
+      '<aside class="project-sidebar">' +
+      '<div class="sidebar-card fade-up">' +
+      '<h4>Article Details</h4>' +
+      '<div class="sidebar-row"><span class="label">Author</span><span class="value">' + esc(blog.author || 'Stephen Mulingwa') + '</span></div>' +
+      (blog.category ? '<div class="sidebar-row"><span class="label">Category</span><span class="value">' + esc(blog.category) + '</span></div>' : '') +
+      '<div class="sidebar-row"><span class="label">Published</span><span class="value">' + esc(dateStr) + '</span></div>' +
+      '<div class="sidebar-row"><span class="label">Read time</span><span class="value">' + mins + ' min</span></div>' +
+      '</div>' +
+      '<div class="sidebar-card fade-up delay-1">' +
+      '<h4>More Articles</h4>' +
+      '<div id="related-posts"></div>' +
+      '</div>' +
+      '<div class="sidebar-card fade-up delay-2">' +
+      '<h4>Actions</h4>' +
+      '<div class="sidebar-actions">' +
+      '<a href="/contact" class="btn btn-primary"><i class="bi bi-chat-dots"></i> Talk to Us</a>' +
+      '<a href="/blog" class="btn btn-outline"><i class="bi bi-arrow-left"></i> All Articles</a>' +
+      '</div></div>' +
+      '</aside>';
+
+    const html =
+      '<section class="page-hero">' +
+      '<div class="container page-hero-inner">' +
+      '<div class="breadcrumb">' +
+      '<a href="/home">Home</a><i class="bi bi-chevron-right"></i>' +
+      '<a href="/blog">Blog</a><i class="bi bi-chevron-right"></i>' +
+      '<span class="current">' + esc(blog.title) + '</span></div>' +
+      '<h1>' + titleHtml(blog.title) + '</h1>' +
+      (blog.excerpt ? '<p class="page-hero-tagline">' + esc(blog.excerpt) + '</p>' : '') +
+      '<div class="hero-meta-inline">' +
+      '<span><i class="bi bi-person"></i>' + esc(blog.author || 'Stephen Mulingwa') + '</span>' +
+      '<span><i class="bi bi-calendar3"></i>' + esc(dateStr) + '</span>' +
+      '<span><i class="bi bi-clock"></i>' + mins + ' min read</span>' +
+      '</div>' +
+      (chips ? '<div class="hero-meta-chips" style="margin-top:16px">' + chips + '</div>' : '') +
+      '</div></section>' +
+      '<div class="project-image-wrap">' +
+      '<div class="project-image-frame fade-up">' +
+      '<img src="' + escAttr(imgUrl) + '" alt="' + escAttr(blog.title) + '" onerror="this.src=\'' + escAttr('https://placehold.co/960x420/060d14/2dd4bf?text=TaiStat') + '\'">' +
+      '</div></div>' +
+      '<section class="project-content"><div class="project-layout"><div>' +
+      '<div class="project-block fade-up">' +
+      bodyInner +
+      tagsFooter +
+      '</div></div>' +
+      sidebar +
+      '</div></section>';
+
+    document.getElementById('ad-app').innerHTML = html;
+    document.getElementById('ad-app').style.display = 'block';
+
+    document.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+
+    loadRelated(blog.slug || slug, document.getElementById('related-posts'));
+  }
+
+  async function load() {
+    if (!slug) {
+      document.getElementById('ad-loading').style.display = 'none';
+      document.getElementById('ad-error').style.display = 'flex';
+      return;
+    }
+    try {
+      var res = await fetch('/api/blogs?slug=' + encodeURIComponent(slug));
+      if (!res.ok) throw new Error('nf');
+      var blog = await res.json();
+      document.getElementById('ad-loading').style.display = 'none';
+      render(blog);
+    } catch (e) {
+      document.getElementById('ad-loading').style.display = 'none';
+      document.getElementById('ad-error').style.display = 'flex';
+    }
+  }
+
+  document.getElementById('hamburger').addEventListener('click', function () {
+    var m = document.getElementById('mobileMenu');
+    var ic = document.getElementById('hamburgerIcon');
+    var open = m.classList.toggle('open');
+    ic.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+    this.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.getElementById('scrollTopBtn').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.addEventListener('DOMContentLoaded', load);
+})();
+</script>
 </body>
 </html>

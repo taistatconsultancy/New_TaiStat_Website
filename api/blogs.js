@@ -1,5 +1,6 @@
 // Vercel Serverless Function - Get all blogs or single blog
 const { Pool } = require('pg');
+const { mapBlogRow } = require('./_urls');
 
 let pool;
 function getPool() {
@@ -42,8 +43,8 @@ module.exports = async (req, res) => {
         if (result.rows.length === 0) {
           return res.status(404).json({ error: 'Blog not found' });
         }
-        
-        return res.status(200).json(result.rows[0]);
+
+        return res.status(200).json(mapBlogRow(result.rows[0]));
       }
 
       if (slug) {
@@ -52,44 +53,70 @@ module.exports = async (req, res) => {
           'SELECT * FROM blogs WHERE slug = $1 AND published = true',
           [slug]
         );
-        
+
         if (result.rows.length === 0) {
           return res.status(404).json({ error: 'Blog not found' });
         }
-        
-        return res.status(200).json(result.rows[0]);
+
+        return res.status(200).json(mapBlogRow(result.rows[0]));
       }
 
-      // Get all published blogs
-      const page = parseInt(req.query?.page) || 1;
-      const limit = parseInt(req.query?.limit) || 10;
-      const category = req.query?.category;
+      // List published blogs with optional category + search (q)
+      const page = parseInt(req.query?.page, 10) || 1;
+      const limit = Math.min(parseInt(req.query?.limit, 10) || 10, 50);
+      const category = req.query?.category ? String(req.query.category).trim() : '';
+      const qRaw = req.query?.q;
+      const q = qRaw != null && String(qRaw).trim() ? String(qRaw).trim() : '';
       const offset = (page - 1) * limit;
 
-      let query = 'SELECT * FROM blogs WHERE published = true';
-      const params = [];
-      
+      const conditions = ['published = true'];
+      const filterParams = [];
+
       if (category) {
-        query += ' AND category = $1';
-        params.push(category);
-        query += ' ORDER BY created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
-        params.push(limit, offset);
-      } else {
-        query += ' ORDER BY created_at DESC LIMIT $1 OFFSET $2';
-        params.push(limit, offset);
+        filterParams.push(category);
+        conditions.push(`category = $${filterParams.length}`);
       }
 
-      const result = await dbPool.query(query, params);
-      const countResult = await dbPool.query('SELECT COUNT(*) FROM blogs WHERE published = true');
-      const total = parseInt(countResult.rows[0].count);
+      if (q) {
+        filterParams.push('%' + q + '%');
+        const idx = filterParams.length;
+        conditions.push(
+          `(title ILIKE $${idx} OR excerpt ILIKE $${idx} OR content ILIKE $${idx})`
+        );
+      }
+
+      const whereClause = 'WHERE ' + conditions.join(' AND ');
+
+      const countResult = await dbPool.query(
+        `SELECT COUNT(*) FROM blogs ${whereClause}`,
+        filterParams
+      );
+      const total = parseInt(countResult.rows[0].count, 10);
+
+      const listParams = [...filterParams, limit, offset];
+      const limIdx = filterParams.length + 1;
+      const offIdx = filterParams.length + 2;
+
+      const result = await dbPool.query(
+        `SELECT * FROM blogs ${whereClause} ORDER BY created_at DESC LIMIT $${limIdx} OFFSET $${offIdx}`,
+        listParams
+      );
+
+      const catsResult = await dbPool.query(
+        `SELECT DISTINCT category FROM blogs
+         WHERE published = true AND category IS NOT NULL AND TRIM(category) <> ''
+         ORDER BY category ASC`
+      );
+      const categories = catsResult.rows.map((r) => r.category).filter(Boolean);
 
       return res.status(200).json({
-        blogs: result.rows,
+        blogs: result.rows.map((row) => mapBlogRow(row)),
+        categories,
         pagination: {
-          page: page,
-          limit: limit,
-          total: total,
-          totalPages: Math.ceil(total / limit)
+          page,
+          limit,
+          total,
+          totalPages: total === 0 ? 0 : Math.ceil(total / limit)
         }
       });
     }

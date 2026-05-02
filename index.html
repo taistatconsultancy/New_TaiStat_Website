@@ -135,65 +135,6 @@ body, html {
     padding: 8px 16px;
   }
 }
-.whatsapp-container {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .whatsapp-float {
-            width: 60px;
-            height: 60px;
-            background-color: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
-        
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-        
-        .whatsapp-float img {
-            width: 35px;
-            height: 35px;
-        }
-        
-        .close-btn {
-            background: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 50%;
-        }
-        @media screen and (max-width: 600px) {
-            .whatsapp-container {
-                bottom: 5px;
-                left: 5px;
-                gap: 3px;
-            }
-            .whatsapp-float {
-                width: 40px;
-                height: 40px;
-            }
-            .whatsapp-float img {
-                width: 20px;
-                height: 20px;
-            }
-            .close-btn {
-                font-size: 10px;
-                padding: 4px 8px;
-            }
-        }
 
 
 
@@ -234,17 +175,49 @@ body, html {
 <!-- Hero Section -->
 <section id="unique-hero-section" class="hero-section">
   <div class="unique-hero-content">
-    <h2 class="unique-tagline">Grow with Confidence</h2>
+    <h2 class="unique-tagline">AI for Agriculture &amp; Enterprise</h2>
 
     <br><br>
 
     <h1 class="unique-main-title" style="color: azure;">
-      TaiStat Firm is an AI company pioneering innovation in Software Engineering, Machine Learning, AI training, and Business Intelligence based in Nairobi, the vibrant heart of Africa's savannah. We develop intelligent systems that power automation, insight, and scale. Delivering AI-driven innovation in agriculture, climate, and business transformation.
+      TaiStat is an AI and data consultancy rooted in Nairobi and built for real-world impact especially in agriculture. We combine software engineering, machine learning, AI enablement, and business intelligence to ship systems that automate work, sharpen decisions, and scale securely across farms, climate programmes, and growing businesses.
     </h1>
   </div>
 </section>
 
 <!-- /Hero Section -->
+
+<!-- Flagship: Mkulima Sokoni -->
+<section id="mkulima-spotlight" style="padding: 4rem 1.5rem; background: linear-gradient(180deg, #0d1f14 0%, #152a1c 100%); border-top: 1px solid rgba(67,255,61,.15); border-bottom: 1px solid rgba(67,255,61,.12);">
+  <div class="container">
+    <div class="row align-items-center gy-4">
+      <div class="col-lg-7" data-aos="fade-right">
+        <span style="display:inline-block;padding:.35rem .85rem;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(67,255,61,.15);color:#b8ffc4;border:1px solid rgba(67,255,61,.35);">Flagship project</span>
+        <h2 style="color:#fff;font-size:clamp(1.75rem,4vw,2.35rem);font-weight:700;margin:1rem 0 .75rem;line-height:1.25;">Mkulima Sokoni — marketplace intelligence for Kenyan agriculture</h2>
+        <p style="color:#c8e6c9;font-size:1.05rem;line-height:1.75;margin-bottom:1.25rem;max-width:42rem;">
+          Our biggest build connects farmers and buyers with transparent pricing and traceable produce — pairing field realities with data and AI so stakeholders move from guesswork to measurable outcomes.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="https://www.mkulimasokoni.com/" target="_blank" rel="noopener noreferrer" class="btn-read-more d-inline-flex align-items-center justify-content-center" style="background:linear-gradient(135deg,#43ff3d 0%,#05d1c8 100%);border:none;color:#062211;font-weight:700;">
+            <span>See Mkulima Sokoni</span><i class="bi bi-arrow-right"></i>
+          </a>
+          <a href="/contact" class="btn-read-more d-inline-flex align-items-center justify-content-center" style="background:transparent;border:2px solid rgba(255,255,255,.35);color:#fff;">
+            <span>Talk to us</span><i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-5" data-aos="fade-left">
+        <div style="border-radius:16px;padding:1.5rem;background:rgba(0,0,0,.25);border:1px solid rgba(67,255,61,.2);">
+          <ul style="list-style:none;padding:0;margin:0;color:#e0f2e9;font-size:.95rem;line-height:1.7;">
+            <li style="margin-bottom:.65rem;"><i class="bi bi-check-circle-fill" style="color:#43ff3d;margin-right:.5rem;"></i> Farmer–buyer discovery &amp; fair pricing signals</li>
+            <li style="margin-bottom:.65rem;"><i class="bi bi-check-circle-fill" style="color:#43ff3d;margin-right:.5rem;"></i> Traceability &amp; verification workflows</li>
+            <li style="margin-bottom:.65rem;"><i class="bi bi-check-circle-fill" style="color:#43ff3d;margin-right:.5rem;"></i> Data &amp; AI layered on real agricultural operations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
@@ -428,8 +401,8 @@ body, html {
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="zoom-out-up">
-    <h2 style="color: rgb(13, 4, 53); background-color: azure;">Features</h2>
-    <p style="color: beige;">What Makes TaiStat Stand Out</p>
+    <h2 style="color: #ffffff; background: transparent; text-shadow: 0 2px 18px rgba(0,0,0,.45); padding: .35rem .75rem; border-radius: 10px; display: inline-block;">Features</h2>
+    <p style="color: #e8f5e9;">What Makes TaiStat Stand Out</p>
   </div><!-- End Section Title -->
 
   <div class="container">
@@ -493,80 +466,6 @@ body, html {
   </div>
 
 </section><!-- /Features Section -->
-
-
-<!-- Alt Features Section -->
-<section id="alt-features" class="alt-features section">
-
-  <div class="container">
-
-    <div class="row gy-5">
-
-      <div class="col-xl-7 d-flex order-2 order-xl-1" data-aos="zoom-out-up" data-aos-delay="200">
-
-        <div class="row align-self-center gy-5">
-
-          <div class="col-md-6 icon-box">
-            <i class="bi bi-award"></i>
-            <div>
-              <h4>Expertise You Can Trust</h4>
-              <p>Benefit from years of proven experience and industry recognition, ensuring top-notch solutions for your business.</p>
-            </div>
-          </div><!-- End Feature Item -->
-
-          <div class="col-md-6 icon-box">
-            <i class="bi bi-card-checklist"></i>
-            <div>
-              <h4>Comprehensive Analysis</h4>
-              <p>We conduct detailed assessments tailored to your specific challenges, delivering actionable insights for growth.</p>
-            </div>
-          </div><!-- End Feature Item -->
-
-          <div class="col-md-6 icon-box">
-            <i class="bi bi-dribbble"></i>
-            <div>
-              <h4>Innovative Solutions</h4>
-              <p>Leverage cutting-edge tools and technologies to implement solutions that keep you ahead of the competition.</p>
-            </div>
-          </div><!-- End Feature Item -->
-
-          <div class="col-md-6 icon-box">
-            <i class="bi bi-filter-circle"></i>
-            <div>
-              <h4>Scalable Strategies</h4>
-              <p>Our solutions are designed to grow with your business, adapting to evolving needs without compromising quality.</p>
-            </div>
-          </div><!-- End Feature Item -->
-
-          <div class="col-md-6 icon-box">
-            <i class="bi bi-lightning-charge"></i>
-            <div>
-              <h4>Efficiency Redefined</h4>
-              <p>Streamline processes and improve productivity with our fast, reliable, and cost-effective services.</p>
-            </div>
-          </div><!-- End Feature Item -->
-
-          <div class="col-md-6 icon-box">
-            <i class="bi bi-patch-check"></i>
-            <div>
-              <h4>Commitment to Excellence</h4>
-              <p>We prioritize quality and precision in every project, ensuring exceptional outcomes that drive success.</p>
-            </div>
-          </div><!-- End Feature Item -->
-
-        </div>
-
-      </div>
-
-      <div class="col-xl-5 d-flex align-items-center order-1 order-xl-2" data-aos="zoom-out-up" data-aos-delay="100">
-        <img src="assets/img/two.jpg" class="img-fluid" alt="Innovative Features of TaiStat">
-      </div>
-
-    </div>
-
-  </div>
-
-</section><!-- /Alt Features Section -->
 
 
 
@@ -725,112 +624,64 @@ At TaiStat, our mission is to empower businesses, institutions, and individuals 
   </div><!-- End Section Title -->
 
   <div class="container">
-
-    <div class="row gy-5">
-
-      <div class="col-xl-4 col-md-6">
-        <div class="post-item position-relative h-100" data-aos="zoom-out-up" data-aos-delay="100">
-
-          <div class="post-img position-relative overflow-hidden">
-            <img  style="width: 100%;" src="blogdetails/blog1.jpg" class="img-fluid" alt="Machine Learning Image">
-            <span class="post-date">December 12</span>
-          </div>
-
-          <div class="post-content d-flex flex-column">
-
-            <h3 class="post-title"> Machine Learning</h3>
-
-            <div class="meta d-flex align-items-center">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person"></i> <span class="ps-2">Stephen Mulingwa</span>
-              </div>
-              <span class="px-3 text-black-50">/</span>
-              <div class="d-flex align-items-center">
-                <i class="bi bi-folder2"></i> <span class="ps-2">Machine Learning</span>
-              </div>
-            </div>
-
-            <hr>
-
-            <a href="/blog" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-          </div>
-
-        </div>
-      </div><!-- End post item -->
-
-      <div class="col-xl-4 col-md-6">
-        <div class="post-item position-relative h-100" data-aos="zoom-out-up" data-aos-delay="200">
-
-          <div class="post-img position-relative overflow-hidden">
-            <img width="100%" src="blogdetails/data.jpg" class="img-fluid" alt="Data Science Image">
-            <span class="post-date">DEC 1</span>
-          </div>
-
-          <div class="post-content d-flex flex-column">
-
-            <h3 class="post-title">Why Every Business Needs a Data-Driven Strategy Today</h3>
-
-            <div class="meta d-flex align-items-center">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person"></i> <span class="ps-2">Stephen Mulingwa</span>
-              </div>
-              <span class="px-3 text-black-50">/</span>
-              <div class="d-flex align-items-center">
-                <i class="bi bi-folder2"></i> <span class="ps-2">Data Science</span>
-              </div>
-            </div>
-
-            <hr>
-
-            <a href="/blog" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-          </div>
-
-        </div>
-      </div><!-- End post item -->
-
-      <div class="col-xl-4 col-md-6" data-aos="zoom-out-up" data-aos-delay="300">
-        <div class="post-item position-relative h-100">
-
-          <div class="post-img position-relative overflow-hidden">
-            <img src="blogdetails/blog4.jpg" alt="Innovation Framework" class="img-fluid">
-            <span class="post-date">Dec 1</span>
-          </div>
-
-          <div class="post-content d-flex flex-column">
-            <h3 class="post-title">The Innovation Framework: Driving Success Through Tailored Strategies</h3>
-
-            <div class="meta d-flex align-items-center">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person"></i> <span class="ps-2">Stephen Mulingwa</span>
-              </div>
-              <span class="px-3 text-black-50">/</span>
-              <div class="d-flex align-items-center">
-                <i class="bi bi-folder2"></i> <span class="ps-2">Technology</span>
-              </div>
-            </div>
-
-            <hr>
-
-            <a href="blog.html#blog4" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-          </div>
-
-        </div>
-      </div><!-- End post item -->
-
-    </div>
-
+    <div id="home-recent-loading" class="text-center py-4"><p class="text-muted">Loading latest articles…</p></div>
+    <div class="row gy-5" id="home-recent-row" style="display:none;"></div>
   </div>
-
+  <script>
+  (function () {
+    function esc(s) {
+      return String(s ?? '').replace(/[&<>"']/g, function (c) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+      });
+    }
+    document.addEventListener('DOMContentLoaded', async function () {
+      var row = document.getElementById('home-recent-row');
+      var loadEl = document.getElementById('home-recent-loading');
+      if (!row || !loadEl) return;
+      try {
+        var res = await fetch('/api/blogs?limit=3');
+        var data = await res.json();
+        var blogs = data.blogs || [];
+        loadEl.style.display = 'none';
+        row.style.display = 'flex';
+        row.classList.add('gy-5');
+        if (!blogs.length) {
+          row.innerHTML = '<div class="col-12 text-center py-4"><p class="text-muted">No blog posts yet.</p></div>';
+          return;
+        }
+        blogs.forEach(function (b, i) {
+          var slug = b.slug || ('post-' + b.id);
+          var img = b.featured_image_url || 'https://placehold.co/480x280/1e3a5f/ffffff?text=TaiStat';
+          var dt = new Date(b.published_at || b.created_at);
+          var label = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          var excerpt = (b.excerpt || '').trim() || ((b.content || '').slice(0, 120) + '…');
+          var col = document.createElement('div');
+          col.className = 'col-xl-4 col-md-6';
+          col.setAttribute('data-aos', 'zoom-out-up');
+          col.setAttribute('data-aos-delay', String(100 * (i + 1)));
+          col.innerHTML =
+            '<div class="post-item position-relative h-100">' +
+            '<div class="post-img position-relative overflow-hidden">' +
+            '<img style="width:100%" src="' + esc(img) + '" class="img-fluid" alt="" onerror="this.onerror=null;this.src=\'https://placehold.co/480x280/1e3a5f/ffffff?text=TaiStat\';">' +
+            '<span class="post-date">' + esc(label) + '</span></div>' +
+            '<div class="post-content d-flex flex-column">' +
+            '<h3 class="post-title">' + esc(b.title) + '</h3>' +
+            '<div class="meta d-flex align-items-center flex-wrap gap-2">' +
+            '<span><i class="bi bi-person"></i> ' + esc(b.author || 'Stephen Mulingwa') + '</span>' +
+            (b.category ? '<span class="text-black-50">/</span><span><i class="bi bi-folder2"></i> ' + esc(b.category) + '</span>' : '') +
+            '</div><hr><p class="small text-muted flex-grow-1">' + esc(excerpt) + '</p>' +
+            '<a href="/blog/' + esc(slug) + '" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>' +
+            '</div></div>';
+          row.appendChild(col);
+        });
+        if (window.AOS) AOS.refresh();
+      } catch (e) {
+        loadEl.innerHTML = '<p class="text-danger text-center">Could not load posts.</p>';
+      }
+    });
+  })();
+  </script>
 </section><!-- /Recent Posts Section -->
-
-    </div>
-
-  </div>
-
-</section><!-- /Contact Section -->
 <!-- Testimonials Section -->
 <!-- <section id="team" class="team section"> -->
 
@@ -1000,7 +851,6 @@ At TaiStat, our mission is to empower businesses, institutions, and individuals 
         <div class="footer-contact pt-3">
           <p>Nairobi, Kenya</p>
           <p>Serving Clients Worldwide</p>
-          <p class="mt-3"><strong>Phone:</strong> <span>+254 111-224-952</span></p>
           <p><strong>Email:</strong> <span>taistatfirm@gmail.com</span></p>
         </div>
       </div>
@@ -1038,16 +888,6 @@ At TaiStat, our mission is to empower businesses, institutions, and individuals 
         <h4 style="color: aquamarine;">Follow Us</h4>
         <p>Join our community and explore the transformative power of data-driven insights.</p>
    <div class="social-links">
-    <!-- X icon from local storage -->
-    <a
-      href="https://x.com/TaistatFirm"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="X"
-    >
-      <img src="assets/img/twiter.png" alt="X logo">
-    </a>
-
     <!-- LinkedIn icon from local storage -->
     <a
       href="https://www.linkedin.com/company/taistat-consultancy-firm/"
@@ -1079,19 +919,8 @@ At TaiStat, our mission is to empower businesses, institutions, and individuals 
   </div>
 
 </footer>
-<div id="whatsapp-container" class="whatsapp-container">
-  <a href="https://wa.me/254111224952" target="_blank" class="whatsapp-float">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='64' height='64'%3E%3Cpath fill='%23fff' d='M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.5 2.1 8L0 32l8.2-2.1c2.5 1.3 5.2 2 7.8 2 8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zm0 27.9c-2.4 0-4.7-.6-6.8-1.7l-.5-.3-4.9 1.2 1.3-4.7-.3-.5c-1.3-2.1-1.9-4.3-1.9-6.6C2.9 8.1 8.1 2.9 16 2.9s13.1 5.2 13.1 13.1-5.2 13.1-13.1 13.1zm7.1-9.9c-.4-.2-2.4-1.2-2.8-1.3-.4-.1-.7-.2-1 .2s-.9 1.3-1.1 1.6c-.2.3-.4.3-.8.1s-1.6-.6-3.1-1.9c-1.1-1-1.9-2.2-2.2-2.6s0-.6.2-.8c.2-.2.4-.4.6-.6.2-.2.3-.4.5-.6.2-.2.3-.4.5-.6s.3-.4.4-.6c.1-.2.1-.4 0-.6-.1-.2-.9-2.1-1.2-2.8-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6 0-.9.4-.3.4-1.2 1.1-1.2 2.7s1.3 3.2 1.5 3.5c.2.3 2.6 4.3 6.3 6 .9.4 1.6.6 2.1.8.9.3 1.7.3 2.3.2.7-.1 2.4-1 2.8-2 .4-1.1.4-2 .3-2.2-.1-.2-.4-.2-.8-.4z'/%3E%3C/svg%3E" alt="WhatsApp">
-  </a>
-  <button class="close-btn" onclick="closeWhatsApp()">X</button>
-</div>
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
- <script>
-        function closeWhatsApp() {
-            document.getElementById('whatsapp-container').style.display = 'none';
-        }
-    </script>
 <!-- Vendor JS Files -->
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendor/php-email-form/validate.js"></script>
