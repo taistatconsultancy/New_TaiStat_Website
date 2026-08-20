@@ -1,17 +1,11 @@
 /**
- * Create the first admin user in Neon (run once).
- * Required env: NEON_DATABASE_URL, JWT_SECRET (for app runtime; not used here)
- *               ADMIN_SEED_USERNAME, ADMIN_SEED_PASSWORD, ADMIN_SEED_EMAIL
+ * Create / refresh the first admin user in Supabase Postgres (run once).
+ * Required: DATABASE_URL (or SUPABASE_DATABASE_URL),
+ *           ADMIN_SEED_USERNAME, ADMIN_SEED_PASSWORD, ADMIN_SEED_EMAIL
  */
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
-const { Pool } = require('pg');
-
-const dbUrl = process.env.NEON_DATABASE_URL;
-const pool = new Pool({
-  connectionString: dbUrl,
-  ssl: dbUrl && !dbUrl.includes('sslmode=') ? { rejectUnauthorized: false } : undefined
-});
+const { getPool, resolveDatabaseUrl } = require('../api/_db');
 
 async function seed() {
   const username = process.env.ADMIN_SEED_USERNAME || process.env.ADMIN_USERNAME;
@@ -21,10 +15,11 @@ async function seed() {
     process.env.ADMIN_EMAIL ||
     `${username || 'admin'}@taistat.local`;
 
-  if (!dbUrl) {
-    console.error('NEON_DATABASE_URL is required');
+  if (!resolveDatabaseUrl()) {
+    console.error('DATABASE_URL (or SUPABASE_DATABASE_URL) is required');
     process.exit(1);
   }
+  const pool = getPool();
   if (!username || !password) {
     console.error('Set ADMIN_SEED_USERNAME and ADMIN_SEED_PASSWORD (or ADMIN_USERNAME / ADMIN_PASSWORD)');
     process.exit(1);

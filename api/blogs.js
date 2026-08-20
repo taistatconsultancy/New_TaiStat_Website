@@ -1,24 +1,13 @@
-// Vercel Serverless Function - Get all blogs or single blog
-const { Pool } = require('pg');
+// Public blogs API — Supabase Postgres
+const { getPool } = require('./_db');
 const { mapBlogRow } = require('./_urls');
 
-let pool;
-function getPool() {
-  if (!pool) {
-    pool = new Pool({
-      connectionString: process.env.NEON_DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false
-      }
-    });
-  }
-  return pool;
-}
+/** Live on site: published flag + published_at not in the future */
+const LIVE_CLAUSE = `published = true AND (published_at IS NULL OR published_at <= NOW())`;
 
 module.exports = async (req, res) => {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
@@ -27,41 +16,33 @@ module.exports = async (req, res) => {
 
   try {
     const dbPool = getPool();
-    
+
     if (req.method === 'GET') {
-      // Handle query parameters - Vercel passes them in req.query
       const id = req.query?.id;
       const slug = req.query?.slug;
 
       if (id) {
-        // Get single blog by ID
         const result = await dbPool.query(
-          'SELECT * FROM blogs WHERE id = $1 AND published = true',
+          `SELECT * FROM blogs WHERE id = $1 AND ${LIVE_CLAUSE}`,
           [id]
         );
-        
         if (result.rows.length === 0) {
           return res.status(404).json({ error: 'Blog not found' });
         }
-
         return res.status(200).json(mapBlogRow(result.rows[0]));
       }
 
       if (slug) {
-        // Get single blog by slug
         const result = await dbPool.query(
-          'SELECT * FROM blogs WHERE slug = $1 AND published = true',
+          `SELECT * FROM blogs WHERE slug = $1 AND ${LIVE_CLAUSE}`,
           [slug]
         );
-
         if (result.rows.length === 0) {
           return res.status(404).json({ error: 'Blog not found' });
         }
-
         return res.status(200).json(mapBlogRow(result.rows[0]));
       }
 
-      // List published blogs with optional category + search (q)
       const page = parseInt(req.query?.page, 10) || 1;
       const limit = Math.min(parseInt(req.query?.limit, 10) || 10, 50);
       const category = req.query?.category ? String(req.query.category).trim() : '';
@@ -69,7 +50,7 @@ module.exports = async (req, res) => {
       const q = qRaw != null && String(qRaw).trim() ? String(qRaw).trim() : '';
       const offset = (page - 1) * limit;
 
-      const conditions = ['published = true'];
+      const conditions = [LIVE_CLAUSE];
       const filterParams = [];
 
       if (category) {
@@ -98,13 +79,13 @@ module.exports = async (req, res) => {
       const offIdx = filterParams.length + 2;
 
       const result = await dbPool.query(
-        `SELECT * FROM blogs ${whereClause} ORDER BY created_at DESC LIMIT $${limIdx} OFFSET $${offIdx}`,
+        `SELECT * FROM blogs ${whereClause} ORDER BY published_at DESC NULLS LAST, created_at DESC LIMIT $${limIdx} OFFSET $${offIdx}`,
         listParams
       );
 
       const catsResult = await dbPool.query(
         `SELECT DISTINCT category FROM blogs
-         WHERE published = true AND category IS NOT NULL AND TRIM(category) <> ''
+         WHERE ${LIVE_CLAUSE} AND category IS NOT NULL AND TRIM(category) <> ''
          ORDER BY category ASC`
       );
       const categories = catsResult.rows.map((r) => r.category).filter(Boolean);
@@ -124,11 +105,10 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
     console.error('Database error:', error);
-    // Return error in a format that won't break the frontend
-    return res.status(500).json({ 
-      error: 'Internal server error', 
+    return res.status(500).json({
+      error: 'Internal server error',
       details: error.message,
-      blogs: [] // Ensure blogs array exists even on error
+      blogs: []
     });
   }
-}
+};

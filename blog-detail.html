@@ -154,6 +154,102 @@
     }
   }
 
+  function splitPlainSections(text) {
+    const lines = String(text || '').split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean);
+    if (!lines.length) return [];
+    const headingRe = /^(the\s+problem|problem|challenge|overview|context|what\s+we\s+(built|recommend|did)|solution|approach|outcome|results?|key\s+takeaways?|summary|conclusion)\b[:\s-]*/i;
+    const sections = [];
+    let current = { title: 'Overview', body: [] };
+    lines.forEach(function (line) {
+      const m = line.match(headingRe);
+      if (m && line.length < 80) {
+        if (current.body.length) sections.push(current);
+        current = { title: line.replace(/[:\-]+$/, '').trim(), body: [] };
+      } else {
+        current.body.push(line);
+      }
+    });
+    if (current.body.length) sections.push(current);
+    return sections;
+  }
+
+  function sectionIcon(title) {
+    const t = title.toLowerCase();
+    if (/problem|challenge/.test(t)) return { bg: 'rgba(239,68,68,0.1)', color: '#ef4444', icon: 'bi-exclamation-circle' };
+    if (/built|solution|approach|recommend|did/.test(t)) return { bg: 'rgba(45,212,191,0.1)', color: 'var(--primary)', icon: 'bi-cpu' };
+    if (/outcome|result/.test(t)) return { bg: 'rgba(16,185,129,0.1)', color: '#10b981', icon: 'bi-graph-up-arrow' };
+    if (/takeaway|key/.test(t)) return { bg: 'rgba(99,102,241,0.1)', color: '#6366f1', icon: 'bi-lightbulb' };
+    return { bg: 'rgba(45,212,191,0.1)', color: 'var(--primary)', icon: 'bi-journal-text' };
+  }
+
+  function buildMainBlocks(blog) {
+    const raw = blog.content || '';
+    let blocks = '';
+
+    if (blog.excerpt) {
+      blocks +=
+        '<div class="project-block fade-up">' +
+        '<h3><span class="block-icon" style="background:rgba(45,212,191,0.1);color:var(--primary)"><i class="bi bi-bookmark-check"></i></span> Overview</h3>' +
+        '<p>' + esc(blog.excerpt) + '</p></div>';
+    }
+
+    if (looksLikeHtml(raw)) {
+      blocks +=
+        '<div class="project-block fade-up delay-1">' +
+        '<h3><span class="block-icon" style="background:rgba(45,212,191,0.1);color:var(--primary)"><i class="bi bi-journal-richtext"></i></span> Article</h3>' +
+        '<div class="article-prose">' + raw + '</div></div>';
+    } else {
+      const sections = splitPlainSections(raw);
+      if (sections.length <= 1) {
+        blocks +=
+          '<div class="project-block fade-up delay-1">' +
+          '<h3><span class="block-icon" style="background:rgba(45,212,191,0.1);color:var(--primary)"><i class="bi bi-journal-text"></i></span> Deep Dive</h3>' +
+          '<div class="article-prose">' + paragraphs(raw) + '</div></div>';
+      } else {
+        sections.forEach(function (sec, i) {
+          const ic = sectionIcon(sec.title);
+          blocks +=
+            '<div class="project-block fade-up' + (i ? ' delay-' + Math.min(i, 3) : '') + '">' +
+            '<h3><span class="block-icon" style="background:' + ic.bg + ';color:' + ic.color + '"><i class="bi ' + ic.icon + '"></i></span> ' +
+            esc(sec.title) + '</h3>' +
+            '<div class="article-prose">' + sec.body.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div></div>';
+        });
+      }
+    }
+
+    const tags = blog.tags || [];
+    if (tags.length) {
+      blocks +=
+        '<div class="project-block fade-up">' +
+        '<h3><span class="block-icon" style="background:rgba(99,102,241,0.1);color:#6366f1"><i class="bi bi-lightbulb"></i></span> Key Themes</h3>' +
+        '<div class="pipeline">' +
+        tags.slice(0, 6).map(function (t, i) {
+          const icons = ['bi-tag', 'bi-diagram-3', 'bi-bar-chart-line', 'bi-gear', 'bi-shield-check', 'bi-stars'];
+          return (
+            '<div class="pipeline-step"><i class="bi ' + icons[i % icons.length] + '"></i>' +
+            '<strong>' + esc(t) + '</strong><span>Focus area</span></div>'
+          );
+        }).join('') +
+        '</div></div>';
+    }
+
+    blocks +=
+      '<div class="project-block fade-up">' +
+      '<h3><span class="block-icon" style="background:rgba(16,185,129,0.1);color:#10b981"><i class="bi bi-rocket-takeoff"></i></span> Next Steps with TaiStat</h3>' +
+      '<p>If this topic maps to a challenge in your organisation — data products, AI workflows, or agriculture platforms — we can help scope a practical next step.</p>' +
+      '<ul>' +
+      '<li>Clarify the business problem and success metrics</li>' +
+      '<li>Shape a lean build or analytics roadmap</li>' +
+      '<li>Ship measurable outcomes, not slide decks alone</li>' +
+      '</ul>' +
+      '<div class="sidebar-actions" style="margin-top:18px;flex-direction:row;flex-wrap:wrap">' +
+      '<a href="/contact" class="btn btn-primary"><i class="bi bi-chat-dots"></i> Talk to Us</a>' +
+      '<a href="/portfolio" class="btn btn-outline"><i class="bi bi-briefcase"></i> See Portfolio</a>' +
+      '</div></div>';
+
+    return blocks;
+  }
+
   function render(blog) {
     document.title = esc(blog.title) + ' | TaiStat Blog';
     if (blog.meta_description) {
@@ -167,26 +263,15 @@
     }
 
     const raw = blog.content || '';
-    const bodyInner = looksLikeHtml(raw)
-      ? '<div class="article-prose">' + raw + '</div>'
-      : '<div class="article-prose">' + paragraphs(raw) + '</div>';
-
     const dateStr = new Date(blog.published_at || blog.created_at).toLocaleDateString('en-US', {
       year: 'numeric', month: 'short', day: 'numeric'
     });
     const mins = readingMins(raw);
     const imgUrl = blog.featured_image_url || 'https://placehold.co/960x420/060d14/2dd4bf?text=TaiStat';
-
-    const tagsFooter =
-      blog.tags && blog.tags.length
-        ? '<div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">' +
-          '<h4 style="margin-bottom:12px">Tags</h4>' +
-          '<div class="tools-tags">' +
-          blog.tags.map(function (t) { return '<span class="tag">#' + esc(t) + '</span>'; }).join('') +
-          '</div></div>'
-        : '';
-
     const chips = tagChips(blog.tags || []);
+    const techTags = (blog.tags || []).map(function (t) {
+      return '<span class="tag">#' + esc(t) + '</span>';
+    }).join('');
 
     const sidebar =
       '<aside class="project-sidebar">' +
@@ -196,7 +281,11 @@
       (blog.category ? '<div class="sidebar-row"><span class="label">Category</span><span class="value">' + esc(blog.category) + '</span></div>' : '') +
       '<div class="sidebar-row"><span class="label">Published</span><span class="value">' + esc(dateStr) + '</span></div>' +
       '<div class="sidebar-row"><span class="label">Read time</span><span class="value">' + mins + ' min</span></div>' +
+      '<div class="sidebar-row"><span class="label">Type</span><span class="value">Insight</span></div>' +
       '</div>' +
+      (techTags
+        ? '<div class="sidebar-card fade-up delay-1"><h4>Topics</h4><div class="tools-tags">' + techTags + '</div></div>'
+        : '') +
       '<div class="sidebar-card fade-up delay-1">' +
       '<h4>More Articles</h4>' +
       '<div id="related-posts"></div>' +
@@ -230,10 +319,8 @@
       '<img src="' + escAttr(imgUrl) + '" alt="' + escAttr(blog.title) + '" onerror="this.src=\'' + escAttr('https://placehold.co/960x420/060d14/2dd4bf?text=TaiStat') + '\'">' +
       '</div></div>' +
       '<section class="project-content"><div class="project-layout"><div>' +
-      '<div class="project-block fade-up">' +
-      bodyInner +
-      tagsFooter +
-      '</div></div>' +
+      buildMainBlocks(blog) +
+      '</div>' +
       sidebar +
       '</div></section>';
 

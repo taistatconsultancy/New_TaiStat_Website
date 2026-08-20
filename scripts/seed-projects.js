@@ -2,13 +2,9 @@
  * Seed / refresh portfolio projects (upsert by slug).
  */
 require('dotenv').config();
-const { Pool } = require('pg');
+const { getPool, resolveDatabaseUrl } = require('../api/_db');
 
-const dbUrl = process.env.NEON_DATABASE_URL;
-const pool = new Pool({
-  connectionString: dbUrl,
-  ssl: dbUrl && !dbUrl.includes('sslmode=') ? { rejectUnauthorized: false } : undefined
-});
+const pool = getPool();
 
 const seeds = [
   {
@@ -75,8 +71,8 @@ Teams vote on what matters most; the product surfaces Disciplined Agile–aligne
 ];
 
 async function run() {
-  if (!dbUrl) {
-    console.error('NEON_DATABASE_URL is required');
+  if (!resolveDatabaseUrl()) {
+    console.error('DATABASE_URL (or SUPABASE_DATABASE_URL) is required');
     process.exit(1);
   }
 

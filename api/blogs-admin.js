@@ -77,6 +77,7 @@ module.exports = async (req, res) => {
         category,
         tags,
         published,
+        published_at,
         meta_description,
         meta_keywords
       } = body;
@@ -92,10 +93,14 @@ module.exports = async (req, res) => {
       }
 
       const tagArr = normalizeTags(tags);
+      const goLiveAt = published_at ? new Date(published_at) : new Date();
+      if (Number.isNaN(goLiveAt.getTime())) {
+        return res.status(400).json({ error: 'Invalid published_at datetime' });
+      }
 
       const result = await dbPool.query(
-        `INSERT INTO blogs (title, slug, excerpt, content, featured_image_url, author, category, tags, published, meta_description, meta_keywords)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8::text[], $9, $10, $11)
+        `INSERT INTO blogs (title, slug, excerpt, content, featured_image_url, author, category, tags, published, published_at, meta_description, meta_keywords)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8::text[], $9, $10, $11, $12)
          RETURNING *`,
         [
           title,
@@ -107,6 +112,7 @@ module.exports = async (req, res) => {
           category || null,
           tagArr,
           published !== false,
+          goLiveAt.toISOString(),
           meta_description || null,
           meta_keywords || null
         ]
@@ -127,6 +133,7 @@ module.exports = async (req, res) => {
         category,
         tags,
         published,
+        published_at,
         meta_description,
         meta_keywords
       } = body;
@@ -184,6 +191,14 @@ module.exports = async (req, res) => {
       if (published !== undefined) {
         updates.push(`published = $${paramCount++}`);
         values.push(published);
+      }
+      if (published_at !== undefined) {
+        const goLiveAt = published_at ? new Date(published_at) : new Date();
+        if (Number.isNaN(goLiveAt.getTime())) {
+          return res.status(400).json({ error: 'Invalid published_at datetime' });
+        }
+        updates.push(`published_at = $${paramCount++}`);
+        values.push(goLiveAt.toISOString());
       }
       if (meta_description !== undefined) {
         updates.push(`meta_description = $${paramCount++}`);
