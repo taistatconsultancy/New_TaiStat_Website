@@ -50,46 +50,82 @@ body, html {
   box-sizing: border-box;
 }
 
-/* Unique Hero Section */
+/* Unique Hero Section — full photo visible + readable text */
 #unique-hero-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-image: url('/assets/img/background-new-image.png');
   background-size: cover;
-  background-position: center;
+  background-position: center 30%;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  padding: 7.5rem 1.25rem 3.5rem;
+  overflow: hidden;
+}
+
+/* Soft top-to-bottom wash: keeps faces visible, boosts text contrast at bottom */
+#unique-hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 18, 28, 0.28) 0%,
+      rgba(6, 18, 28, 0.18) 42%,
+      rgba(6, 18, 28, 0.72) 100%
+    );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .unique-hero-content {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  color: white;
-  padding: 0 2rem;
-  max-width: 800px;
+  color: #fff;
+  width: min(920px, 100%);
+  padding: 1.5rem 1.35rem 1.65rem;
+  border-radius: 18px;
+  background: rgba(6, 14, 22, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
 }
 
 .unique-tagline {
-  font-size: 1.5rem;
-  color: #43ff3d; /* Green color for tagline */
-  margin-bottom: 1rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #43ff3d;
+  margin: 0 0 0.85rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .unique-main-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 1.8;
+  font-size: clamp(1rem, 2.1vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: #f4f7fb;
+  margin: 0;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
 }
 
 @media (max-width: 768px) {
-  .unique-tagline {
-    font-size: 1.2rem;
+  #unique-hero-section {
+    align-items: flex-end;
+    background-position: center 25%;
+    padding: 6.5rem 1rem 2rem;
+    min-height: 92vh;
   }
-  .unique-main-title {
-    font-size: 1rem;
-    line-height: 1.5;
+  .unique-hero-content {
+    padding: 1.15rem 1rem 1.25rem;
+    border-radius: 14px;
   }
 }
 
@@ -176,12 +212,9 @@ body, html {
 <section id="unique-hero-section" class="hero-section">
   <div class="unique-hero-content">
     <h2 class="unique-tagline">AI for Agriculture &amp; Enterprise</h2>
-
-    <br><br>
-
-    <h1 class="unique-main-title" style="color: azure;">
+    <p class="unique-main-title">
       TaiStat is an AI and data consultancy rooted in Nairobi and built for real-world impact especially in agriculture. We combine software engineering, machine learning, AI enablement, and business intelligence to ship systems that automate work, sharpen decisions, and scale securely across farms, climate programmes, and growing businesses.
-    </h1>
+    </p>
   </div>
 </section>
 
