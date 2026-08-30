@@ -1,23 +1,27 @@
 /**
  * Case study layout (portfolio project + blog article)
- * TaiStat — root-relative /assets/... required on nested routes
+ * Brand tokens aligned to homepage / main.css (Roboto, Nunito, navy + lime)
+ * Root-relative /assets/... required on nested routes
  */
 :root {
-  --primary: #2dd4bf;
-  --primary-glow: rgba(45, 212, 191, 0.25);
+  --primary: #43ff3d;
+  --primary-glow: rgba(67, 255, 61, 0.25);
+  --accent-navy: #0932a1;
+  --heading-navy: #012970;
   --bg-hero: #060d14;
   --bg-light: #f7f9fc;
   --bg-white: #ffffff;
   --text-white: #ffffff;
   --text-muted: #64748b;
-  --text-body: #1e293b;
-  --text-heading: #0f172a;
+  --text-body: #444444;
+  --text-heading: #012970;
   --border: #e2e8f0;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
   --radius: 18px;
-  --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'Outfit', sans-serif;
+  --font-display: "Nunito", sans-serif;
+  --font-body: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-nav: "Poppins", sans-serif;
 }
 
 *,
@@ -40,12 +44,16 @@ body.case-study-page {
   overflow-x: hidden;
 }
 
-.case-study-page img {
+.case-study-page #ad-app img,
+.case-study-page #pd-app img,
+.case-study-page .project-image-wrap img {
   display: block;
   max-width: 100%;
 }
 
-.case-study-page a {
+.case-study-page #ad-app a,
+.case-study-page #pd-app a,
+.case-study-page .site-footer a {
   text-decoration: none;
   color: inherit;
 }
@@ -57,10 +65,9 @@ body.case-study-page {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--primary), #67e8f9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--primary);
+  background: none;
+  -webkit-text-fill-color: var(--primary);
 }
 
 .btn {
@@ -68,9 +75,9 @@ body.case-study-page {
   align-items: center;
   gap: 8px;
   padding: 13px 28px;
-  border-radius: 10px;
-  font-family: var(--font-body);
-  font-weight: 600;
+  border-radius: 4px;
+  font-family: var(--font-nav);
+  font-weight: 500;
   font-size: 0.9rem;
   cursor: pointer;
   border: 2px solid transparent;
@@ -79,16 +86,17 @@ body.case-study-page {
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: var(--bg-hero);
-  border-color: var(--primary);
+  background: var(--accent-navy);
+  color: #ffffff;
+  border-color: var(--accent-navy);
 }
 
 .btn-primary:hover {
-  background: #1ab5a3;
+  background: #4154f1;
+  border-color: #4154f1;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px var(--primary-glow);
-  color: var(--bg-hero);
+  box-shadow: 0 6px 20px rgba(9, 50, 161, 0.25);
+  color: #ffffff;
 }
 
 .btn-outline {
@@ -98,8 +106,8 @@ body.case-study-page {
 }
 
 .btn-outline:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: var(--accent-navy);
+  color: var(--accent-navy);
 }
 
 .tag {
@@ -108,163 +116,12 @@ body.case-study-page {
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background: rgba(45, 212, 191, 0.1);
-  color: var(--primary);
-  border: 1px solid rgba(45, 212, 191, 0.2);
+  background: rgba(67, 255, 61, 0.12);
+  color: #0d7a2f;
+  border: 1px solid rgba(67, 255, 61, 0.35);
 }
 
-/* ── NAVBAR ── */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 var(--border);
-  padding: 14px 0;
-}
-
-.navbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.nav-logo img {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.nav-logo-text {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--text-heading);
-}
-
-.nav-logo-text span {
-  color: var(--primary);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  transition: color 0.25s;
-  position: relative;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--primary);
-}
-
-.nav-links a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--primary);
-  border-radius: 2px;
-}
-
-.nav-cta {
-  display: flex;
-  align-items: center;
-}
-
-.nav-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 18px;
-  border-radius: 9px;
-  background: var(--primary);
-  color: var(--bg-hero);
-  font-size: 0.82rem;
-  font-weight: 700;
-  transition: all 0.25s;
-}
-
-.nav-cta-btn:hover {
-  background: #1ab5a3;
-  transform: translateY(-1px);
-  color: var(--bg-hero);
-}
-
-.nav-hamburger {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-heading);
-  font-size: 1.5rem;
-}
-
-.nav-mobile {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--bg-white);
-  border-top: 1px solid var(--border);
-  padding: 16px 28px 24px;
-  box-shadow: var(--shadow-md);
-}
-
-.nav-mobile.open {
-  display: block;
-}
-
-.nav-mobile a {
-  display: block;
-  padding: 13px 0;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  transition: color 0.2s;
-}
-
-.nav-mobile a:hover {
-  color: var(--primary);
-}
-
-.nav-mobile .nav-cta-btn {
-  width: 100%;
-  justify-content: center;
-  margin-top: 16px;
-}
-
-@media (max-width: 900px) {
-  .nav-links,
-  .nav-cta {
-    display: none;
-  }
-
-  .nav-hamburger {
-    display: block;
-  }
-}
+/* Shared site header comes from main.css (.header / .navmenu / .btn-getstarted) */
 
 /* ── PAGE HERO ── */
 .page-hero {
@@ -279,8 +136,8 @@ body.case-study-page {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(45, 212, 191, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(45, 212, 191, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(67, 255, 61, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(67, 255, 61, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -288,7 +145,7 @@ body.case-study-page {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(45, 212, 191, 0.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(67, 255, 61, 0.07) 0%, transparent 70%);
 }
 
 .page-hero-inner {
@@ -539,8 +396,8 @@ body.case-study-page {
   align-items: center;
   gap: 8px;
   padding: 9px 16px;
-  background: rgba(45, 212, 191, 0.07);
-  border: 1px solid rgba(45, 212, 191, 0.2);
+  background: rgba(67, 255, 61, 0.07);
+  border: 1px solid rgba(67, 255, 61, 0.2);
   border-radius: 999px;
   font-size: 0.8rem;
 }
@@ -597,7 +454,7 @@ body.case-study-page {
   border-left: 4px solid var(--primary);
   padding: 8px 16px;
   margin: 16px 0;
-  background: rgba(45, 212, 191, 0.06);
+  background: rgba(67, 255, 61, 0.06);
   border-radius: 0 8px 8px 0;
 }
 
@@ -738,7 +595,7 @@ body.case-study-page {
 .footer-social .social-link:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(45, 212, 191, 0.08);
+  background: rgba(67, 255, 61, 0.08);
   transform: translateY(-2px);
 }
 
