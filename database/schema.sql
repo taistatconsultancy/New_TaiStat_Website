@@ -84,3 +84,19 @@ ALTER TABLE projects ADD COLUMN IF NOT EXISTS tech_tags TEXT[];
 
 -- Ensure published_at exists for scheduling
 ALTER TABLE blogs ADD COLUMN IF NOT EXISTS published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+-- Contact form submissions (validated server-side)
+CREATE TABLE IF NOT EXISTS contact_submissions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200),
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(500),
+    message TEXT,
+    ip_hash VARCHAR(64),
+    user_agent TEXT,
+    status VARCHAR(50) DEFAULT 'accepted',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_contact_ip_created ON contact_submissions(ip_hash, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_contact_email_created ON contact_submissions(email, created_at DESC);

@@ -204,22 +204,31 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="zoom-out" data-aos-delay="200">
+            <form id="contact-form" class="php-email-form" data-aos="zoom-out" data-aos-delay="200" novalidate>
               <div class="row gy-4">
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required maxlength="200" autocomplete="name" />
                 </div>
                 <div class="col-md-6">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required />
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required maxlength="254" autocomplete="email" />
                 </div>
                 <div class="col-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required />
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required maxlength="500" />
                 </div>
                 <div class="col-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required maxlength="5000"></textarea>
+                </div>
+                <!-- Honeypot — hidden from humans, bots fill it -->
+                <div class="col-12" aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden;">
+                  <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                </div>
+                <div class="col-12">
+                  <div class="loading" style="display:none;">Sending…</div>
+                  <div class="error-message" style="display:none;color:#c62828;margin-bottom:0.75rem;"></div>
+                  <div class="sent-message" style="display:none;color:#2e7d32;margin-bottom:0.75rem;">Your message was sent. Thank you!</div>
                 </div>
                 <div class="col-12 text-center">
-                  <button type="submit">Send Message</button>
+                  <button type="submit" id="contact-submit-btn">Send Message</button>
                 </div>
               </div>
             </form>
@@ -351,32 +360,63 @@
   </footer>
   <!-- End Footer --><!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a><script>
-    document.querySelector('.php-email-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var form = this;
-      var formData = new FormData(form);
-      var name = formData.get("name");
-      var email = formData.get("email");
-      var subject = formData.get("subject");
-      var message = formData.get("message");
-      var googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLScM3V1JfhP7NK2hvU5E8GssgeQWamCndDe7YNNj8ZUbeBhMqA/formResponse";
-      var queryString = "?entry.318758003=" + encodeURIComponent(name) +
-        "&entry.897678316=" + encodeURIComponent(email) +
-        "&entry.2110515807=" + encodeURIComponent(subject) +
-        "&entry.1680519114=" + encodeURIComponent(message);
-      fetch(googleFormURL + queryString, {
-        method: 'POST',
-        mode: 'no-cors'
-      })
-        .then(function () {
-          form.reset();
-          alert("Success!");
+      class="bi bi-arrow-up-short"></i></a>
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+
+      var loading = form.querySelector('.loading');
+      var errBox = form.querySelector('.error-message');
+      var okBox = form.querySelector('.sent-message');
+      var btn = document.getElementById('contact-submit-btn');
+
+      function show(el, on) {
+        if (el) el.style.display = on ? 'block' : 'none';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        show(loading, true);
+        show(errBox, false);
+        show(okBox, false);
+        if (btn) btn.disabled = true;
+
+        var payload = {
+          name: form.elements.name.value.trim(),
+          email: form.elements.email.value.trim(),
+          subject: form.elements.subject.value.trim(),
+          message: form.elements.message.value.trim(),
+          website: form.elements.website ? form.elements.website.value : ''
+        };
+
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         })
-        .catch(function (error) {
-          console.error('Submission error:', error);
-        });
-    });
+          .then(function (res) {
+            return res.json().then(function (data) {
+              if (!res.ok) throw new Error(data.error || 'Could not send message.');
+              return data;
+            });
+          })
+          .then(function () {
+            form.reset();
+            show(okBox, true);
+          })
+          .catch(function (err) {
+            if (errBox) {
+              errBox.textContent = err.message || 'Something went wrong. Please try again.';
+              show(errBox, true);
+            }
+          })
+          .finally(function () {
+            show(loading, false);
+            if (btn) btn.disabled = false;
+          });
+      });
+    })();
   </script>
 
   <!-- Vendor JS Files -->
